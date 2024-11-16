@@ -10,11 +10,8 @@ interface FamilyMember {
   avatar: string;
 }
 
-interface NavbarProps {
-  children: React.ReactNode;
-}
 
-const Navbar: FC<NavbarProps> = ({ children }) => {
+const Navbar: FC = () => {
   const [isLoggedIn, setIsLoggedIn] = useState<boolean>(true);
   const [selectedFamilyMember, setSelectedFamilyMember] = useState<string>('');
   const [selectedLesson, setSelectedLesson] = useState<string>('');
