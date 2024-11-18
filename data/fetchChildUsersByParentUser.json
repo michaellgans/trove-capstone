@@ -1,0 +1,26 @@
+{
+  "parent_id": "0000",
+  "child_users": [
+    {
+      "id": "0000",
+      "name": "Chris",
+      "avatar_img": "/image/image.png",
+      "checking_balance": "1000",
+      "savings_balance": "2500"
+    },
+    {
+      "id": "0001",
+      "name": "Michael",
+      "avatar_img": "/image/image.png",
+      "checking_balance": "50",
+      "savings_balance": "5000"
+    },
+    {
+      "id": "0002",
+      "name": "Mei",
+      "avatar_img": "/image/image.png",
+      "checking_balance": "2000",
+      "savings_balance": "N/A"
+    }
+  ]
+}
