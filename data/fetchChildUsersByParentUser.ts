@@ -1,4 +1,4 @@
-[
+export const Child = [
   {
     "parent_id": "0000",
     "child_users": [
