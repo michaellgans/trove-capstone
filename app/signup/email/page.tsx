@@ -6,6 +6,7 @@ import EmailSignupCard from '@/components/Signup-Signin/EmailSignupCard';
 import ChildAccountSetup from '@/components/Signup-Signin/ChildAccountSetup';
 import ProgressIndicator from '@/components/Signup-Signin/ProgressIndicator';
 import { ChildDataType } from '@/types/types';
+import StripeConnectionCard from '@/components/Signup-Signin/StripeConnectionCard';
 
 const EmailLoginPage: React.FC = () => {
   const [step, setStep] = useState(1);
@@ -34,7 +35,7 @@ const EmailLoginPage: React.FC = () => {
   return (
     <div className="container mx-auto">
        {/* Progress Indicator */}
-       <ProgressIndicator currentStep={step} totalSteps={2} />
+       <ProgressIndicator currentStep={step} totalSteps={3} />
 
       {/* Conditional Rendering based on step */}
       {step === 1 && (
@@ -47,10 +48,16 @@ const EmailLoginPage: React.FC = () => {
       {step === 2 && (
       <ChildAccountSetup
         prevStep={prevStep}
+        nextStep={nextStep}
         childData={childData}
         setChildData={setChildData}
       />
     )}
+      {step === 3 && (
+      <StripeConnectionCard
+        prevStep={prevStep}
+      />
+      )}
     </div>
   );
 };

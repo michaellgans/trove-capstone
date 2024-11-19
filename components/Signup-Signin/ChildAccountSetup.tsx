@@ -7,12 +7,14 @@ import '../../app/globals.css';
 
 interface ChildAccountSetupProps {
   prevStep: () => void;
+  nextStep: () => void;
   childData: ChildDataType;
   setChildData: React.Dispatch<React.SetStateAction<ChildDataType>>;
 }
 
 const ChildAccountSetup: React.FC<ChildAccountSetupProps> = ({
   prevStep,
+  nextStep,
   childData,
   setChildData,
 }) => {
@@ -103,9 +105,9 @@ const ChildAccountSetup: React.FC<ChildAccountSetupProps> = ({
     setError(newError);
 
     if (isValid) {
-      // Proceed to the next step or finalize the signup
+      // Proceed to the next step
       console.log('Child account setup completed');
-      // You can redirect or perform further actions here
+      nextStep();
     }
   };
 
@@ -304,7 +306,7 @@ const ChildAccountSetup: React.FC<ChildAccountSetupProps> = ({
           type="submit"
           className="w-full py-3 rounded-lg bg-brightRed text-white font-semibold hover:brightness-110 transition ease-in-out duration-300"
         >
-          Get Started
+          Next
         </button>
         </div>
       </form>

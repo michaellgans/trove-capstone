@@ -149,6 +149,7 @@ const EmailSignupCard: React.FC<SignUpCardProps> = ({
             <input
               type="text"
               id="firstName"
+              placeholder='Kash'
               value={parentData.firstName}
               onChange={handleInputChange}
               onFocus={() => handleFocus('firstName')}
@@ -174,6 +175,7 @@ const EmailSignupCard: React.FC<SignUpCardProps> = ({
             <input
               type="text"
               id="lastName"
+              placeholder='Troveson'
               value={parentData.lastName}
               onChange={handleInputChange}
               onFocus={() => handleFocus('lastName')}
@@ -200,6 +202,7 @@ const EmailSignupCard: React.FC<SignUpCardProps> = ({
               type="email"
               id="email"
               value={parentData.email}
+              placeholder="kash@gmail.com"
               onChange={handleInputChange}
               onFocus={() => handleFocus('email')}
               onBlur={() => handleBlur('email')}
@@ -264,7 +267,7 @@ const EmailSignupCard: React.FC<SignUpCardProps> = ({
         {/* Number of Children Input */}
         <div className="mb-4 relative">
           <label htmlFor="numChildren" className="block text-gray-700 font-semibold mb-2">
-            Number of Children
+            How many children will be using Trove?
           </label>
           <div className="relative">
             {error.numChildren && focusedFields.numChildren && (
@@ -276,6 +279,7 @@ const EmailSignupCard: React.FC<SignUpCardProps> = ({
               type="number"
               id="numChildren"
               value={parentData.numChildren}
+              placeholder='1'
               onChange={handleInputChange}
               onFocus={() => handleFocus('numChildren')}
               onBlur={() => handleBlur('numChildren')}
