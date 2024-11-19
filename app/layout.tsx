@@ -23,7 +23,7 @@ export default function RootLayout({
       >
         <Navbar />
           {/* Main Content */}
-        <main className="flex-grow">
+        <main className="flex-grow pb-10">
           {children}
         </main>
         <Footer />
