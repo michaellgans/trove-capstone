@@ -1,5 +1,5 @@
 export const Transaction = {
-  "Tranactions": [
+  "Transactions": [
     {
       "timestamp": "2024-11-15T10:00:00Z",
       "type": "deposit",

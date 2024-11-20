@@ -1,9 +1,9 @@
 export const Child = [
   {
-    "parent_id": "0000",
     "child_users": [
       {
         "id": "c-0000",
+        "parent_id": "0000",
         "name": "Chris Stephens",
         "username": "Chris",
         "avatar_img": "/image/image.png",
@@ -16,6 +16,7 @@ export const Child = [
       },
       {
         "id": "c-0001",
+        "parent_id": "0000",
         "name": "Michael Gans",
         "username": "Dio",
         "avatar_img": "/image/image.png",
@@ -28,6 +29,7 @@ export const Child = [
       },
       {
         "id": "c-0002",
+        "parent_id": "0000",
         "name": "Mei Sibley",
         "username": "Mei",
         "avatar_img": "/image/image.png",
@@ -41,10 +43,10 @@ export const Child = [
     ]
   },
   {
-    "parent_id": "0001",
     "child_users": [
       {
         "id": "c-0003",
+        "parent_id": "0001",
         "name": "Johnny Smith",
         "username": "Rico",
         "avatar_img": "/image/image.png",
@@ -57,6 +59,7 @@ export const Child = [
       },
       {
         "id": "c-0004",
+        "parent_id": "0001",
         "name": "Matt Smith",
         "username": "Doc",
         "avatar_img": "/image/image.png",
@@ -70,10 +73,10 @@ export const Child = [
     ]
   },
   {
-    "parent_id": "0002",
     "child_users": [
       {
         "id": "c-0005",
+        "parent_id": "0002",
         "name": "Bart Simpson",
         "username": "Bartman",
         "avatar_img": "/image/image.png",
@@ -86,6 +89,7 @@ export const Child = [
       },
       {
         "id": "c-0006",
+        "parent_id": "0002",
         "name": "Lisa Simpson",
         "username": "Lisa",
         "avatar_img": "/image/image.png",
@@ -99,10 +103,10 @@ export const Child = [
     ]
   },
   {
-    "parent_id": "0003",
     "child_users": [
       {
         "id": "c-0007",
+        "parent_id": "0003",
         "name": "Richie Cunningham",
         "username": "Rich",
         "avatar_img": "/image/image.png",
@@ -115,6 +119,7 @@ export const Child = [
       },
       {
         "id": "c-0008",
+        "parent_id": "0003",
         "name": "Joanie Cunningham",
         "username": "Joan",
         "avatar_img": "/image/image.png",
@@ -128,10 +133,10 @@ export const Child = [
     ]
   },
   {
-    "parent_id": "0004",
     "child_users": [
       {
         "id": "c-0009",
+        "parent_id": "0004",
         "name": "Ricky",
         "username": "Little Ricky",
         "avatar_img": "/image/image.png",
