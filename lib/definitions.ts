@@ -18,14 +18,15 @@ export type Child = {
   username: string;
   avatar_img: string;
   checking_balance: number[];
-  savings_balance: number[];
+  savings_balance?: number[];
   pin: number;
-  savings_goal: number;
-  loan_total: number;
-  current_loan_total: number;
+  savings_goal?: number;
+  loan_total?: number;
+  current_loan_total?: number;
 };
 
 export type Transactions = {
+  id: string;
   timestamp: string;
   type: string;
   sent_to: string;

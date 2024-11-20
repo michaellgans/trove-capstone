@@ -17,6 +17,7 @@ export function rollback() {
   client.sql`ROLLBACK`;
 }
 
+// Insert Parents
 export async function seedParentTable() {
   await client.sql`CREATE EXTENSION IF NOT EXISTS "uuid-ossp"`;
 
@@ -37,7 +38,15 @@ export async function seedParentTable() {
       try {
         return client.sql`
           INSERT INTO parents (parent_id, name, email, password, avatar_img, strip_account_id, balance)
-          VALUES (${parent.parent_id}, ${parent.name}, ${parent.email}, ${parent.password}, ${parent.avatar_img}, ${parent.strip_account_id}, ${parent.balance})
+          VALUES (
+            ${parent.parent_id}, 
+            ${parent.name}, 
+            ${parent.email}, 
+            ${parent.password}, 
+            ${parent.avatar_img}, 
+            ${parent.strip_account_id.length > 0 ? `{${parent.strip_account_id.join(",")}}` : null},
+            ${parent.balance.length > 0 ? `{${parent.balance.join(",")}}` : null}
+          ) 
           ON CONFLICT (parent_id) DO NOTHING;
         `;
       } catch (error) {
@@ -50,6 +59,7 @@ export async function seedParentTable() {
   return insertedParents;
 }
 
+// Insert Children
 export async function seedChildTable() {
   await client.sql`CREATE EXTENSION IF NOT EXISTS "uuid-ossp"`;
 
@@ -74,9 +84,21 @@ export async function seedChildTable() {
     children.map((child) => {
       try {
         return client.sql`
-          INSERT INTO children (id, parent_id, name, username, avatar_img, checking_balance, savings_balance, pin, savings_goal, loan_total, current_loan_total)
-          VALUES (${child.id}, ${child.parent_id}, ${child.name}, ${child.username}, ${child.avatar_img}, ${child.checking_balance}, ${child.savings_balance}, ${child.pin}, ${child.savings_goal}, ${child.loan_total}, ${child.current_loan_total})
-          ON CONFLICT (id) DO NOTHING;
+          INSERT INTO children (
+            id, parent_id, name, username, avatar_img, checking_balance, savings_balance, pin, savings_goal, loan_total, current_loan_total
+          ) VALUES (
+            ${child.id}, 
+            ${child.parent_id}, 
+            ${child.name}, 
+            ${child.username}, 
+            ${child.avatar_img}, 
+            ${child.checking_balance.length > 0 ? `{${child.checking_balance.join(",")}}` : null},
+            ${child.savings_balance && child.savings_balance.length > 0 ? `{${child.savings_balance.join(",")}}` : null},
+            ${child.pin}, 
+            ${child.savings_goal}, 
+            ${child.loan_total}, 
+            ${child.current_loan_total}
+          ) ON CONFLICT (id) DO NOTHING;
         `;
       } catch (error) {
         console.log("Error inserting child:", child.id);
@@ -88,7 +110,7 @@ export async function seedChildTable() {
   return insertedChildren;
 }
 
-
+// Insert transactions
 export async function seedTransactionTable() {
   await client.sql`CREATE EXTENSION IF NOT EXISTS "uuid-ossp"`;
 
@@ -111,7 +133,17 @@ export async function seedTransactionTable() {
       try {
         return client.sql`
           INSERT INTO transactions (id, timestamp, type, sent_to, sent_from, description, interest, withholdings, amount)
-          VALUES (${transaction.id}, ${transaction.timestamp}, ${transaction.type}, ${transaction.sent_to}, ${transaction.sent_from}, ${transaction.description}, ${transaction.interest}, ${transaction.withholdings}, ${transaction.amount})
+          VALUES (
+            ${transaction.id}, 
+            ${transaction.timestamp}, 
+            ${transaction.type}, 
+            ${transaction.sent_to}, 
+            ${transaction.sent_from}, 
+            ${transaction.description}, 
+            ${transaction.interest}, 
+            ${transaction.withholdings}, 
+            ${transaction.amount}
+          )
           ON CONFLICT (id) DO NOTHING;
         `;
       } catch (error) {
@@ -123,5 +155,3 @@ export async function seedTransactionTable() {
 
   return insertedTransactions;
 }
-
-
