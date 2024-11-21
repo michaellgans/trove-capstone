@@ -7,16 +7,27 @@ const SendMoneyToChildCard: React.FC = () => {
   const [account, setAccount] = useState('Trove Checking Account 5555');
   const [amount, setAmount] = useState('');
   const [selectedChild, setSelectedChild] = useState('Chris');
-  const [isFamilyDropdownOpen, setIsFamilyDropdownOpen] = useState(false);
+  const [selectedAccount, setSelectedAccount] = useState('Trove Checking Account 5555');
+  const [isFamilyDropdownOpen, setIsFamilyDropdownOpen] = useState(false)
+  const [isAccountDropdownOpen, setIsAccountDropdownOpen] = useState(false);
   const [error, setError] = useState('');
   const [focused, setFocused] = useState(false);
   const familyDropdownRef = useRef<HTMLDivElement>(null);
+  const accountDropdownRef = useRef<HTMLDivElement>(null)
   
   // Sample family members
   const familyMembers = [
-    { id: 1, name: 'Chris', avatar: '/images/avatar_chris.png' },
-    { id: 2, name: 'Alex', avatar: '/images/avatar_alex.png' },
-    { id: 3, name: 'Jordan', avatar: '/images/avatar_jordan.png' },
+    { id: 1, name: 'All', avatar: '/images/all.svg' },
+    { id: 2, name: 'Chris', avatar: '/images/avatar.svg' },
+    { id: 3, name: 'Mei', avatar: '/images/avatar.svg' },
+    { id: 4, name: 'Svitlana', avatar: '/images/avatar.svg' },
+    { id: 4, name: 'Lee', avatar: '/images/avatar.svg' },
+  ];
+
+  const checkingAccounts = [
+    { id: 1, name: 'Trove Checking Account 5555', avatar: '/images/money.svg' },
+    { id: 2, name: 'Trove Checking Account 6666', avatar: '/images/money.svg' },
+    { id: 3, name: 'Trove Checking Account 7777', avatar: '/images/money.svg' },
   ];
 
   // Handle input change
@@ -46,40 +57,72 @@ const SendMoneyToChildCard: React.FC = () => {
   };
 
   return (
-    <div className="flex flex-col items-center bg-white p-10 lg:p-14 rounded-lg border border-gray-100 shadow-lg max-w-md lg:max-w-2xl mx-auto mt-10">
+    <div className="flex flex-col items-center bg-white p-10 lg:p-14 rounded-lg border border-gray-100 shadow-lg max-w-md mx-auto mt-10">
       {/* Logo Title */}
       <LogoTitle />
 
       {/* Form */}
       <form onSubmit={handleSubmit} className="w-full" noValidate>
         {/* Account Input */}
-        <div className="mb-4 relative">
+        <div className="mb-4 relative" ref={accountDropdownRef}>
           <label htmlFor="account" className="block text-gray-700 font-semibold mb-2">
             Send From
           </label>
-          <div className="relative flex items-center">
-            <input
-              type="text"
-              id="account"
-              value={account}
-              readOnly
-              className="w-full pl-4 pr-4 py-3 rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-brightBlue focus:ring-opacity-50"
-            />
-            <div className="absolute right-3">
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                fill="none"
-                viewBox="0 0 24 24"
-                strokeWidth="2"
-                stroke="currentColor"
-                className="w-5 h-5 text-gray-500"
-              >
-                <path strokeLinecap="round" strokeLinejoin="round" d="M5 12h14M12 5l7 7-7 7" />
-              </svg>
+          <button
+            type="button"
+            className="w-full px-4 py-3 rounded-lg border border-gray-300 flex items-center justify-between focus:outline-none focus:ring-2 focus:ring-brightBlue focus:ring-opacity-50"
+            onClick={() => setIsAccountDropdownOpen((prev) => !prev)}
+          >
+            <span>{account}</span>
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              fill="none"
+              viewBox="0 0 24 24"
+              strokeWidth="2.5"
+              stroke="currentColor"
+              className="w-5 h-5"
+            >
+              <path strokeLinecap="round" strokeLinejoin="round" d="M19.5 8.25l-7.5 7.5-7.5-7.5" />
+            </svg>
+          </button>
+          {isAccountDropdownOpen && (
+            <div className="absolute mt-0.5 w-full bg-white border rounded-lg shadow-lg z-10">
+              {checkingAccounts.map((account) => (
+                <button
+                  key={account.id}
+                  onClick={() => {
+                    setSelectedAccount(account.name);
+                    setIsAccountDropdownOpen(false);
+                  }}
+                  className="flex items-center w-full px-4 py-2 hover:bg-gray-100 text-left"
+                >
+                  <Image
+                    src={account.avatar}
+                    alt="account"
+                    className="h-6 w-6 rounded-full mr-2 border-1 border-black"
+                    width={40}
+                    height={40}
+                  />
+                  <span>{account.name}</span>
+                  {selectedAccount === account.name && (
+                    <span className="ml-auto text-green-500">
+                      <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        fill="none"
+                        viewBox="0 0 24 24"
+                        strokeWidth="2.5"
+                        stroke="currentColor"
+                        className="w-5 h-5"
+                      >
+                        <path strokeLinecap="round" strokeLinejoin="round" d="M4.5 12.75l6 6 9-13.5" />
+                      </svg>
+                    </span>
+                  )}
+                </button>
+              ))}
             </div>
-          </div>
+          )}
         </div>
-
         {/* Amount Input */}
         <div className="mb-4 relative">
           <label htmlFor="amount" className="block text-gray-700 font-semibold mb-2">
@@ -100,7 +143,10 @@ const SendMoneyToChildCard: React.FC = () => {
               placeholder="0.00"
             />
             <div className="absolute right-3 flex items-center">
-              <select id="currency" className="bg-transparent focus:outline-none" disabled>
+              <select
+                id="currency"
+                className="bg-transparent focus:outline-none"
+              >
                 <option value="USD">USD</option>
               </select>
             </div>
@@ -115,7 +161,7 @@ const SendMoneyToChildCard: React.FC = () => {
           </label>
           <button
             type="button"
-            className="w-full pl-4 pr-10 py-3 rounded-lg border border-gray-300 flex items-center justify-between focus:outline-none focus:ring-2 focus:ring-brightBlue focus:ring-opacity-50"
+            className="w-full px-4 py-3 rounded-lg border border-gray-300 flex items-center justify-between focus:outline-none focus:ring-2 focus:ring-brightBlue focus:ring-opacity-50"
             onClick={() => setIsFamilyDropdownOpen((prev) => !prev)}
           >
             <span>{selectedChild}</span>
@@ -131,7 +177,7 @@ const SendMoneyToChildCard: React.FC = () => {
             </svg>
           </button>
           {isFamilyDropdownOpen && (
-            <div className="absolute mt-2 w-full bg-white border rounded-lg shadow-lg">
+            <div className="absolute mt-0.5 w-full bg-white border rounded-lg shadow-lg">
               {familyMembers.map((member) => (
                 <button
                   key={member.id}
