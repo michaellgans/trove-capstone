@@ -86,10 +86,10 @@ const StripeConnectionCard: React.FC<StripeConnectionCardProps> = ({ prevStep })
       <path d="M12 5l7 7-7 7" />
     </svg>
   </div>
-        <Image src='/images/Stripe-Emblem.png' alt="Stripe Logo" width={60} height={60} />
+        <Image src='/images/Stripe.jpeg' className='rounded-full' alt="Stripe Logo" width={60} height={60} />
       </div>
       <button
-        className="bg-[#5167FC] w-full lg:w-[80%] py-3 rounded-lg text-white flex items-center justify-center space-x-2 hover:brightness-110 transition ease-in-out duration-300"
+        className="bg-[#635BFF] w-full lg:w-[80%] py-3 rounded-lg text-white flex items-center justify-center space-x-2 hover:brightness-110 transition ease-in-out duration-300"
       >
       <span>Sign in to Stripe</span>
       <svg
@@ -112,14 +112,14 @@ const StripeConnectionCard: React.FC<StripeConnectionCardProps> = ({ prevStep })
 <div className="flex items-center text-gray-700 justify-center mt-3">
   <p className="flex items-center">
     Don't have an account?{' '}
-    <span className="cursor-pointer font-semibold text-[#5167FC] flex items-center ml-1 hover:brightness-110 transition ease-in-out duration-300">
+    <span className="cursor-pointer font-semibold text-[#635BFF] flex items-center ml-1 hover:brightness-110 transition ease-in-out duration-300">
       <span>Sign up</span>
       <svg
         xmlns="http://www.w3.org/2000/svg"
         fill="none"
         viewBox="0 0 24 24"
         strokeWidth="2.5"
-        stroke="#5167FC"
+        stroke="#635BFF"
         className="w-5 h-5 ml-1"
       >
         <path
@@ -180,7 +180,7 @@ const StripeConnectionCard: React.FC<StripeConnectionCardProps> = ({ prevStep })
         <div className="flex justify-between gap-4 mt-7">
           {/* Back Button */}
           <button
-          onClick={() => router.push('/')}
+          onClick={prevStep}
             type="button"
             className="w-full py-3 rounded-lg bg-transparent border-[1px] border-gray-200 text-gray-600 font-semibold hover:bg-gray-200 transition ease-in-out duration-300"
           >

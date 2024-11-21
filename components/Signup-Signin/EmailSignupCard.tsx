@@ -10,7 +10,6 @@ interface SignUpCardProps {
     lastName: string;
     email: string;
     password: string;
-    numChildren: string;
   };
   setParentData: React.Dispatch<
     React.SetStateAction<{
@@ -18,7 +17,6 @@ interface SignUpCardProps {
       lastName: string;
       email: string;
       password: string;
-      numChildren: string;
     }>
   >;
 }
@@ -39,7 +37,6 @@ const EmailSignupCard: React.FC<SignUpCardProps> = ({
     lastName: false,
     email: false,
     password: false,
-    numChildren: false,
   });
 
   // State for errors
@@ -49,7 +46,6 @@ const EmailSignupCard: React.FC<SignUpCardProps> = ({
     email: '',
     password: '',
     confirmPassword: '',
-    numChildren: '',
   });
 
   // Handle input changes
@@ -76,7 +72,6 @@ const EmailSignupCard: React.FC<SignUpCardProps> = ({
       email: '',
       password: '',
       confirmPassword: '',
-      numChildren: '',
     };
 
     // First Name validation
@@ -108,13 +103,6 @@ const EmailSignupCard: React.FC<SignUpCardProps> = ({
     // Confirm Password validation
     if (confirmPassword !== parentData.password) {
       newError.confirmPassword = 'Passwords do not match';
-      isValid = false;
-    }
-
-    // Number of Children validation
-    const num = parseInt(parentData.numChildren);
-    if (isNaN(num) || num < 1 || num > 10) {
-      newError.numChildren = 'Please enter a number between 1 and 10';
       isValid = false;
     }
 
@@ -263,36 +251,6 @@ const EmailSignupCard: React.FC<SignUpCardProps> = ({
             />
           </div>
         </div>
-        </div>
-        {/* Number of Children Input */}
-        <div className="mb-4 relative">
-          <label htmlFor="numChildren" className="block text-gray-700 font-semibold mb-2">
-            How many children will be using Trove?
-          </label>
-          <div className="relative">
-            {error.numChildren && focusedFields.numChildren && (
-              <div className="absolute left-0 bottom-full mb-1 bg-red-400 text-white text-xs rounded py-1 px-2">
-                {error.numChildren}
-              </div>
-            )}
-            <input
-              type="number"
-              id="numChildren"
-              value={parentData.numChildren}
-              placeholder='1'
-              onChange={handleInputChange}
-              onFocus={() => handleFocus('numChildren')}
-              onBlur={() => handleBlur('numChildren')}
-              className={`w-full px-4 py-3 rounded-lg border ${
-                error.numChildren ? 'border-red-500 focus:ring-red-500' : 'border-gray-300 focus:ring-brightBlue'
-              } focus:outline-none focus:ring-2 focus:ring-opacity-50`}
-              min="1"
-              max="10"
-            />
-          </div>
-          <p className="text-gray-500 text-sm mt-1">
-            How many children will be using Trove?
-          </p>
         </div>
         
         <div className='flex justify-between gap-4 mt-7'>

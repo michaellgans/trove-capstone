@@ -12,7 +12,7 @@ const EmailLoginPage: React.FC = () => {
   const [step, setStep] = useState(1);
 
   const nextStep = () => setStep((prev) => prev + 1);
-  const prevStep = () => setStep((prev) => prev - 1);
+  const prevStep = () => setStep((prev) => Math.max(prev - 1, 1));
 
   // State for form data
   const [parentData, setParentData] = useState({
@@ -20,18 +20,19 @@ const EmailLoginPage: React.FC = () => {
     lastName: '',
     email: '',
     password: '',
-    numChildren: '',
   });
 
-  const [childData, setChildData] = useState<ChildDataType>({
-    childFirstName: '',
-    childLastName: '',
-    username: '',
-    pin: '',
-    confirmPin: '',
-    startingBalance: '10.00', // Default starting balance
-    currency: 'USD', // Default currency
-  });
+  const [childData, setChildData] = useState<ChildDataType[]>([
+    {
+      childFirstName: '',
+      childLastName: '',
+      username: '',
+      pin: '',
+      confirmPin: '',
+      startingBalance: '10.00',
+      currency: 'USD',
+    },
+  ]);
   return (
     <div className="container mx-auto">
        {/* Progress Indicator */}

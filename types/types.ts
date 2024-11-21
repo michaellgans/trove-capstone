@@ -4,7 +4,6 @@ export type ParentDataType = {
   lastName: string;
   email: string;
   password: string;
-  numChildren: string;
 };
 
 // Child Data Type
