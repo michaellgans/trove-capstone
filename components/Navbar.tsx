@@ -12,7 +12,7 @@ interface FamilyMember {
 
 
 const Navbar: FC = () => {
-  const [isLoggedIn, setIsLoggedIn] = useState<boolean>(true);
+  const [isLoggedIn, setIsLoggedIn] = useState<boolean>(false);
   const [selectedFamilyMember, setSelectedFamilyMember] = useState<string>('');
   const [selectedLesson, setSelectedLesson] = useState<string>('');
   const [isFamilyDropdownOpen, setIsFamilyDropdownOpen] = useState<boolean>(false);
@@ -72,7 +72,7 @@ const Navbar: FC = () => {
                   height={40}
                   priority
                 />
-                <span className="text-4xl flex font-basker font-regular text-gray-800">
+                <span className="text-3xl flex font-basker font-regular text-gray-800 [font-variant:small-caps]">
                   Trove
                 </span>
               </div>
