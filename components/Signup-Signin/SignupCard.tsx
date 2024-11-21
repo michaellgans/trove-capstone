@@ -1,6 +1,6 @@
 'use client';
 import React from 'react';
-import Image from 'next/image';
+import LogoTitle from '../LogoTitle';
 import { FcGoogle } from 'react-icons/fc';
 import { FaEnvelope } from 'react-icons/fa';
 import Link from 'next/link';
@@ -8,23 +8,7 @@ import Link from 'next/link';
 const SignUpCard: React.FC = () => {
   return (
     <div className="flex flex-col items-center bg-white p-10 rounded-lg border border-1 border-gray-100 shadow-lg max-w-md mx-auto mt-10">
-      {/* Logo and Title */}
-      <div className="flex flex-col items-center mb-8">
-        <div className='flex w-full'>
-          <Image 
-            src='/images/Trove_Logo.png'
-            alt="Trove Logo" 
-            width={60}
-            height={60}
-            priority
-            className='w-1/3'
-          />
-          <div className="text-6xl flex justify-center items-center w-2/3 font-basker font-regular text-gray-800 mt-4">
-            Trove
-          </div>
-        </div>
-        <p className="text-3xl font-basker text-gray-800 mt-2">Let's learn together.</p>
-      </div>
+      <LogoTitle />
 
       {/* Sign Up Buttons */}
       <div className="w-full flex flex-col space-y-4">

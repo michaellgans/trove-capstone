@@ -4,10 +4,10 @@ import { FaGithub, FaInstagram } from 'react-icons/fa';
 
 const Footer: React.FC = () => {
   return (
-    <footer className="bg-white text-gray-600 font-semibold py-6 border-t-2 border-t-gray-200">
-      <div className="container mx-auto flex justify-center items-center space-x-10">
+    <footer className="bg-white text-gray-600 font-semibold py-6 border-t-[1px] border-t-gray-200">
+      <div className="container mx-auto flex flex-col md:flex-row justify-center space-y-3 md:space-y-0 md:space-x-10">
         {/* About the Authors Link */}
-        <div className='flex space-x-3'>
+        <div className='flex space-x-3 self-center items-center'>
         <Link href="/about-authors" passHref>
           <span className="cursor-pointer hover:text-gray-800 transition duration-300 hover:scale-110">
             About the Authors
@@ -25,14 +25,14 @@ const Footer: React.FC = () => {
         </div>
 
         {/* Copyright Information */}
-        <div className='flex space-x-3'>
-          <span className="text-sm md:text-base">
+        <div className='flex space-x-3 order-last md:order-none self-center items-center'>
+          <span className="text-sm md:text-base self-center">
             &copy; 2025 Trove LLC | All Rights Reserved
           </span>
         </div>
 
         {/* About the Artist Link */}
-        <div className='flex space-x-3'>
+        <div className='flex space-x-3 self-center items-center'>
           <Link href="/about-artist" passHref>
             <span className="cursor-pointer hover:text-gray-800 transition duration-300">
               About the Artist
