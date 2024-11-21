@@ -11,7 +11,7 @@ export async function GET() {
     await seed.seedTransactionTable();
     await seed.commit();
 
-    return Response.json({ message: "Database seeded successfully" });
+    return Response.json({ message: "Database seeded" });
   } catch (error) {
     await seed.rollback();
     return Response.json({ error }, { status: 500 });
