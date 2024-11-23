@@ -3,133 +3,43 @@ import { Child } from "@/lib/definitions";
 
 export const children: Child[] = [
   {
-    "id": "9c60ffd3-64ad-4e60-ae03-5b70950240d0",
-    "parent_id": "4f3c012c-8c36-4d3c-8a26-ff81c1fc7990",
+    "child_id": "9c60ffd3-64ad-4e60-ae03-5b70950240d0",
     "name": "Chris Stephens",
     "username": "Chris",
+    "password": "123456",
     "avatar_img": "/image/image.png",
-    "checking_balance": [1000],
-    "savings_balance": [2500],
-    "pin": 1234,
-    "savings_goal": 10000,
-    "loan_total": 1000,
-    "current_loan_total": 500
+    "parent_id": "4f3c012c-8c36-4d3c-8a26-ff81c1fc7990"
   },
   {
-    "id": "9c60ffd3-64ad-4e60-ae03-5b70950240d1",
-    "parent_id": "4f3c012c-8c36-4d3c-8a26-ff81c1fc7990",
+    "child_id": "9c60ffd3-64ad-4e60-ae03-5b70950240d1",
     "name": "Michael Gans",
     "username": "Dio",
+    "password": "654321",
     "avatar_img": "/image/image.png",
-    "checking_balance": [50],
-    "savings_balance": [5000],
-    "pin": 4321,
-    "savings_goal": 20000,
-    "loan_total": 1500,
-    "current_loan_total": 700
+    "parent_id": "4f3c012c-8c36-4d3c-8a26-ff81c1fc7990"
   },
   {
-    "id": "9c60ffd3-64ad-4e60-ae03-5b70950240d2",
-    "parent_id": "4f3c012c-8c36-4d3c-8a26-ff81c1fc7990",
+    "child_id": "9c60ffd3-64ad-4e60-ae03-5b70950240d2",
     "name": "Mei Sibley",
     "username": "Mei",
+    "password": "123789",
     "avatar_img": "/image/image.png",
-    "checking_balance": [2000],
-    "savings_balance": [],
-    "pin": 2468,
-    "savings_goal": 5000,
-    "loan_total": 1200,
-    "current_loan_total": 200
+    "parent_id": "4f3c012c-8c36-4d3c-8a26-ff81c1fc7990"
   },
   {
-    "id": "9c60ffd3-64ad-4e60-ae03-5b70950240d3",
-    "parent_id": "4f3c012c-8c36-4d3c-8a26-ff81c1fc7991",
+    "child_id": "9c60ffd3-64ad-4e60-ae03-5b70950240d3",
     "name": "Johnny Smith",
     "username": "Rico",
+    "password": "246801",
     "avatar_img": "/image/image.png",
-    "checking_balance": [1500],
-    "savings_balance": [1000],
-    "pin": 4202,
-    "savings_goal": 30000,
-    "loan_total": 0,
-    "current_loan_total": 0
+    "parent_id": "4f3c012c-8c36-4d3c-8a26-ff81c1fc7991"
   },
   {
-    "id": "9c60ffd3-64ad-4e60-ae03-5b70950240d4",
-    "parent_id": "4f3c012c-8c36-4d3c-8a26-ff81c1fc7991",
+    "child_id": "9c60ffd3-64ad-4e60-ae03-5b70950240d4",
     "name": "Matt Smith",
     "username": "Doc",
+    "password": "987654",
     "avatar_img": "/image/image.png",
-    "checking_balance": [1100],
-    "savings_balance": [1000],
-    "pin": 2024,
-    "savings_goal": 30000,
-    "loan_total": 500,
-    "current_loan_total": 500
-  },
-  {
-    "id": "9c60ffd3-64ad-4e60-ae03-5b70950240d5",
-    "parent_id": "4f3c012c-8c36-4d3c-8a26-ff81c1fc7992",
-    "name": "Bart Simpson",
-    "username": "Bartman",
-    "avatar_img": "/image/image.png",
-    "checking_balance": [500],
-    "savings_balance": [500],
-    "pin": 1111,
-    "savings_goal": 2000,
-    "loan_total": 700,
-    "current_loan_total": 400
-  },
-  {
-    "id": "9c60ffd3-64ad-4e60-ae03-5b70950240d6",
-    "parent_id": "4f3c012c-8c36-4d3c-8a26-ff81c1fc7992",
-    "name": "Lisa Simpson",
-    "username": "Lisa",
-    "avatar_img": "/image/image.png",
-    "checking_balance": [1000],
-    "savings_balance": [2500],
-    "pin": 3146,
-    "savings_goal": 50000,
-    "loan_total": 0,
-    "current_loan_total": 0
-  },
-  {
-    "id": "9c60ffd3-64ad-4e60-ae03-5b70950240d7",
-    "parent_id": "4f3c012c-8c36-4d3c-8a26-ff81c1fc7993",
-    "name": "Richie Cunningham",
-    "username": "Rich",
-    "avatar_img": "/image/image.png",
-    "checking_balance": [5500],
-    "savings_balance": [6000],
-    "pin": 7654,
-    "savings_goal": 10000,
-    "loan_total": 0,
-    "current_loan_total": 0
-  },
-  {
-    "id": "9c60ffd3-64ad-4e60-ae03-5b70950240d8",
-    "parent_id": "4f3c012c-8c36-4d3c-8a26-ff81c1fc7993",
-    "name": "Joanie Cunningham",
-    "username": "Joan",
-    "avatar_img": "/image/image.png",
-    "checking_balance": [200],
-    "savings_balance": [],
-    "pin": 9874,
-    "savings_goal": 100000,
-    "loan_total": 3000,
-    "current_loan_total": 2900
-  },
-  {
-    "id": "9c60ffd3-64ad-4e60-ae03-5b70950240d9",
-    "parent_id": "4f3c012c-8c36-4d3c-8a26-ff81c1fc7994",
-    "name": "Ricky",
-    "username": "Little Ricky",
-    "avatar_img": "/image/image.png",
-    "checking_balance": [700],
-    "savings_balance": [1000],
-    "pin": 1212,
-    "savings_goal": 1000,
-    "loan_total": 0,
-    "current_loan_total": 0
+    "parent_id": "4f3c012c-8c36-4d3c-8a26-ff81c1fc7991"
   }
 ];

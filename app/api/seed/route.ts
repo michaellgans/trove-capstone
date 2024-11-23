@@ -8,7 +8,12 @@ export async function GET() {
     await seed.begin();
     await seed.seedParentTable();
     await seed.seedChildTable();
-    await seed.seedTransactionTable();
+    await seed.seedParentAccountTable();
+    await seed.seedChildAccountTable();
+    await seed.seedLoanTable();
+    await seed.seedTransactionsTable();
+    await seed.seedLessonsCompletedTable();
+    await seed.seedSettingsTable();
     await seed.commit();
 
     return Response.json({ message: "Database seeded" });
