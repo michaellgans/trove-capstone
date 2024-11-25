@@ -14,7 +14,7 @@ export const transactions: Transactions[] = [
     "withholdings": null,
     "to_name": "Johnny",
     "from_name": "Mom",
-    "to_account_id": "9c60ffd3-64ad-4e60-ae03-5b70950240d2",
+    "to_account_id": "81b632a5-3585-4063-b253-034f940e56b3",
     "from_account_id": "da307308-4477-4a71-b515-1012a451dd31",
     "p_account_id": "da307308-4477-4a71-b515-1012a451dd31"
   },
@@ -29,7 +29,7 @@ export const transactions: Transactions[] = [
     "to_name": "store",
     "from_name": "Johnny",
     "to_account_id": null,
-    "from_account_id": "9c60ffd3-64ad-4e60-ae03-5b70950240d2",
+    "from_account_id": "81b632a5-3585-4063-b253-034f940e56b3",
     "p_account_id": "da307308-4477-4a71-b515-1012a451dd31"
   },
   {
@@ -43,7 +43,7 @@ export const transactions: Transactions[] = [
     "to_name": "store",
     "from_name": "Matt",
     "to_account_id": null,
-    "from_account_id": "9c60ffd3-64ad-4e60-ae03-5b70950240d4",
+    "from_account_id": "81b632a5-3585-4063-b253-034f940e56b4",
     "p_account_id": "da307308-4477-4a71-b515-1012a451dd31"
   },
   {
@@ -56,7 +56,7 @@ export const transactions: Transactions[] = [
     "withholdings": null,
     "to_name": "Michael",
     "from_name": "Svitlana",
-    "to_account_id": "9c60ffd3-64ad-4e60-ae03-5b70950240d1",
+    "to_account_id": "81b632a5-3585-4063-b253-034f940e56b1",
     "from_account_id": "da307308-4477-4a71-b515-1012a451dd30",
     "p_account_id": "da307308-4477-4a71-b515-1012a451dd30"
   },
@@ -70,7 +70,7 @@ export const transactions: Transactions[] = [
     "withholdings": null,
     "to_name": "Chris",
     "from_name": "Svitlana",
-    "to_account_id": "9c60ffd3-64ad-4e60-ae03-5b70950240d0",
+    "to_account_id": "81b632a5-3585-4063-b253-034f940e56b0",
     "from_account_id": "da307308-4477-4a71-b515-1012a451dd30",
     "p_account_id": "da307308-4477-4a71-b515-1012a451dd30"
   },
@@ -84,36 +84,36 @@ export const transactions: Transactions[] = [
     "withholdings": null,
     "to_name": "Mei",
     "from_name": "Svitlana",
-    "to_account_id": "9c60ffd3-64ad-4e60-ae03-5b70950240d2",
+    "to_account_id": "81b632a5-3585-4063-b253-034f940e56b2",
     "from_account_id": "da307308-4477-4a71-b515-1012a451dd30",
     "p_account_id": "da307308-4477-4a71-b515-1012a451dd30"
   },
   {
-    "transaction_id": "cf43fe8f-4ff9-4c34-b954-edfac5b5a005",
+    "transaction_id": "cf43fe8f-4ff9-4c34-b954-edfac5b5a006",
     "timestamp": "2024-11-15T13:21:57Z",
-    "type": "deposit",
+    "type": "loan",
     "description": "Loan to Chris from Svitlana",
     "to_external_id": null,
     "amount": 1500,
     "withholdings": null,
     "to_name": "Chris",
     "from_name": "Svitlana",
-    "to_account_id": "9c60ffd3-64ad-4e60-ae03-5b70950240d0",
+    "to_account_id": "81b632a5-3585-4063-b253-034f940e56b0",
     "from_account_id": "da307308-4477-4a71-b515-1012a451dd30",
     "p_account_id": "da307308-4477-4a71-b515-1012a451dd30"
   },
   {
-    "transaction_id": "cf43fe8f-4ff9-4c34-b954-edfac5b5a005",
+    "transaction_id": "cf43fe8f-4ff9-4c34-b954-edfac5b5a007",
     "timestamp": "2024-11-15T13:21:57Z",
-    "type": "deposit",
+    "type": "loan",
     "description": "Loan to Michael from Mei",
     "to_external_id": null,
     "amount": 1000,
     "withholdings": null,
     "to_name": "Michael",
     "from_name": "Mei",
-    "to_account_id": "9c60ffd3-64ad-4e60-ae03-5b70950240d1",
-    "from_account_id": "9c60ffd3-64ad-4e60-ae03-5b70950240d2",
+    "to_account_id": "81b632a5-3585-4063-b253-034f940e56b1",
+    "from_account_id": "81b632a5-3585-4063-b253-034f940e56b2",
     "p_account_id": "da307308-4477-4a71-b515-1012a451dd30"
   }
 ];
