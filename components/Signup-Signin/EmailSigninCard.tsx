@@ -2,12 +2,14 @@
 import React, { useState } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
+import LogoTitle from '../LogoTitle';
 
 const EmailSignInCard: React.FC = () => {
   const [email, setEmail] = useState('');
   const [emailFocused, setEmailFocused] = useState(false);
   const [password, setPassword] = useState('');
   const [passwordFocused, setPasswordFocused] = useState(false);
+  const [rememberMe, setRememberMe] = useState(false);
   const [error, setError] = useState({ email: '', password: '' });
 
   const handleSubmit = (e: React.FormEvent) => {
@@ -37,24 +39,7 @@ const EmailSignInCard: React.FC = () => {
 
   return (
     <div className="flex flex-col items-center bg-white p-10 rounded-lg border border-gray-100 shadow-lg max-w-md mx-auto mt-10">
-      {/* Logo and Title */}
-      <div className="flex flex-col items-center mb-8">
-        <div className="flex w-full">
-          <Image
-            src="/images/Trove_Logo.png"
-            alt="Trove Logo"
-            width={60}
-            height={60}
-            priority
-            className="w-1/3"
-          />
-          <div className="text-6xl flex justify-center items-center w-2/3 font-basker text-gray-800 mt-4">
-            Trove
-          </div>
-        </div>
-        <p className="text-3xl font-basker text-gray-800 mt-2">Let's learn together.</p>
-      </div>
-
+      <LogoTitle />
       {/* Sign In Form */}
       <form onSubmit={handleSubmit} className="w-full" noValidate>
         {/* Email Input */}
@@ -108,9 +93,22 @@ const EmailSignInCard: React.FC = () => {
           </div>
         </div>
 
-        <div className="flex justify-end mb-6">
+        <div className="flex justify-between mb-6">
+          {/* Remember Me Checkbox */}
+          <div className="flex items-center">
+            <input
+              type="checkbox"
+              id="rememberMe"
+              checked={rememberMe}
+              onChange={(e) => setRememberMe(e.target.checked)}
+              className="h-4 w-4 border-gray-50 rounded hover:cursor-pointer hover:scale-105 transition duration-300 ease-in-out"
+            />
+            <label htmlFor="rememberMe" className="ml-2 text-gray-500">
+              Remember me
+            </label>
+          </div>
           <Link href="/forgot-password" passHref>
-            <span className="hover:text-brightRed cursor-pointer text-gray-400">Forgot password?</span>
+            <span className="hover:text-brightRed cursor-pointer text-gray-500">Forgot password?</span>
           </Link>
         </div>
 
@@ -122,7 +120,7 @@ const EmailSignInCard: React.FC = () => {
         </button>
         {/* Sign Up Link */}
       <div className="mt-6 text-center">
-        <span className="text-gray-700">Don't have an account? </span>
+        <span className="text-gray-500">Don't have an account? </span>
         <Link href="/signup/email" passHref>
           <span className="text-brightRed opacity-75 font-semibold hover:opacity-100 hover:brightness-105 cursor-pointer">Sign up now</span>
         </Link>

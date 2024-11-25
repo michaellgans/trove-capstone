@@ -12,7 +12,7 @@ interface FamilyMember {
 
 
 const Navbar: FC = () => {
-  const [isLoggedIn, setIsLoggedIn] = useState<boolean>(true);
+  const [isLoggedIn, setIsLoggedIn] = useState<boolean>(false);
   const [selectedFamilyMember, setSelectedFamilyMember] = useState<string>('');
   const [selectedLesson, setSelectedLesson] = useState<string>('');
   const [isFamilyDropdownOpen, setIsFamilyDropdownOpen] = useState<boolean>(false);
@@ -72,7 +72,7 @@ const Navbar: FC = () => {
                   height={40}
                   priority
                 />
-                <span className="text-4xl flex font-basker font-regular text-gray-800">
+                <span className="text-3xl flex font-basker font-regular text-gray-800 [font-variant:small-caps]">
                   Trove
                 </span>
               </div>
@@ -97,7 +97,9 @@ const Navbar: FC = () => {
                   </svg>
                 </button>
                 {isFamilyDropdownOpen && (
-                  <div className="absolute mt-2 -ml-2 w-48 bg-white border rounded-lg shadow-lg">
+                  // <div className="absolute mt-2 -ml-2 w-48 bg-white border rounded-lg shadow-lg">
+                  <div className="absolute mt-2 -ml-2 w-96 bg-white border rounded-lg shadow-lg p-4 z-50">
+                    <header className="font-bold text-lg mb-2">Select Family Member</header>
                     {familyMembers.map((member) => (
                       <button
                         key={member.id}
@@ -124,6 +126,28 @@ const Navbar: FC = () => {
                         )}
                       </button>
                     ))}
+                    {/* <Link href="/transaction-history" passHref>
+                      <span
+                        className="flex items-center justify-end w-full px-4 py-2 text-left text-gray-800 hover:bg-gray-100 cursor-pointer"
+                        onClick={() => setIsFamilyDropdownOpen(false)}
+                      >
+                        <span>View History</span>
+                        <svg
+                          xmlns="http://www.w3.org/2000/svg"
+                          fill="none"
+                          viewBox="0 0 24 24"
+                          strokeWidth="1.5"
+                          stroke="currentColor"
+                          className="w-5 h-5 ml-2"
+                        >
+                        <path
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
+                          d="M19.5 14.25v-2.625a3.375 3.375 0 0 0-3.375-3.375h-1.5A1.125 1.125 0 0 1 13.5 7.125v-1.5a3.375 3.375 0 0 0-3.375-3.375H8.25m3.75 9v7.5m2.25-6.466a9.016 9.016 0 0 0-3.461-.203c-.536.072-.974.478-1.021 1.017a4.559 4.559 0 0 0-.018.402c0 .464.336.844.775.994l2.95 1.012c.44.15.775.53.775.994 0 .136-.006.27-.018.402-.047.539-.485.945-1.021 1.017a9.077 9.077 0 0 1-3.461-.203M10.5 2.25H5.625c-.621 0-1.125.504-1.125 1.125v17.25c0 .621.504 1.125 1.125 1.125h12.75c.621 0 1.125-.504 1.125-1.125V11.25a9 9 0 0 0-9-9Z"
+                          />
+                        </svg>
+                      </span>
+                    </Link> */}
                   </div>
                 )}
               </div>
