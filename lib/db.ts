@@ -36,6 +36,7 @@ export interface ParentAccountTable {
   p_account_id: Generated<string>;
   stripe_acct_id: string;
   balance: number;
+  withholding_balance: number;
   parent_id: string;
 }
 

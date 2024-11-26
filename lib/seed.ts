@@ -110,6 +110,7 @@ export async function seedParentAccountTable() {
       p_account_id UUID DEFAULT uuid_generate_v4() PRIMARY KEY,
       stripe_acct_id UUID NOT NULL,
       balance NUMERIC NOT NULL,
+      withholding_balance NUMERIC NOT NULL,
       parent_id UUID NOT NULL,
       FOREIGN KEY (parent_id) REFERENCES parents(parent_id) ON DELETE CASCADE
     );
@@ -120,11 +121,12 @@ export async function seedParentAccountTable() {
       try {
         return client.sql`
           INSERT INTO parent_accounts (
-            p_account_id, stripe_acct_id, balance, parent_id
+            p_account_id, stripe_acct_id, balance, withholding_balance, parent_id
           ) VALUES (
             ${account.p_account_id}, 
             ${account.stripe_acct_id}, 
             ${account.balance}, 
+            ${account.withholding_balance}, 
             ${account.parent_id}
           ) ON CONFLICT (p_account_id) DO NOTHING;
         `;

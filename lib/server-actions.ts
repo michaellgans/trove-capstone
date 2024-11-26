@@ -162,3 +162,19 @@ export async function getLoansByChildId(child_id: string): Promise<any[]> {
     throw new Error('Unable to fetch loans');
   }
 }
+
+export async function getWithholdingBalanceByParentAccount(parent_id: string): Promise<number | null> {
+  try {
+    const parentWithholdings = await db
+      .selectFrom('parent_accounts')
+      .select(['parent_accounts.withholding_balance'])
+      .where('parent_accounts.parent_id', '=', parent_id)
+      .execute();
+
+    return parentWithholdings.length > 0 ? parentWithholdings[0].withholding_balance : null;
+  } catch (error) {
+    console.error(`Error fetching withholding balance for parent_id: ${parent_id}`);
+    console.error(error);
+    throw new Error('Unable to fetch withholding balance');
+  }  
+}

@@ -22,6 +22,7 @@ export type Parent_Account = {
   p_account_id: string;
   stripe_acct_id: string;
   balance: number;
+  withholding_balance: number;
   parent_id: string;
 };
 
