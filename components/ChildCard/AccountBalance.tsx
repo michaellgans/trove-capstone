@@ -28,7 +28,7 @@ const AccountBalance: React.FC<AccountBalanceProps> = ({
           className="w-full pl-8 pr-28 py-3 rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-brightBlue focus:ring-opacity-50"
         />
         {/* Currency Dropdown */}
-        <div className="absolute right-3 flex items-center">
+        <div className="absolute right-1 flex items-center">
           <button
             type="button"
             className="flex items-center px-3 py-2 rounded-lg bg-white focus:outline-none"
