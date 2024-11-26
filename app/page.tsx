@@ -1,5 +1,5 @@
 import ChildProfileCard
- from "@/components/Child/ChildProfileCard";
+ from "@/components/ChildCard/ChildProfileCard";
 export default function Home() {
   return (
     <>

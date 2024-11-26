@@ -350,7 +350,7 @@ const ChildAccountSetup: React.FC<ChildAccountSetupProps> = ({
                   step="0.01"
                   placeholder="10.00"
                 />
-                            {/* Currency Dropdown */}
+              {/* Currency Dropdown */}
             <div className="absolute right-1 flex items-center">
               <button
                 type="button"
