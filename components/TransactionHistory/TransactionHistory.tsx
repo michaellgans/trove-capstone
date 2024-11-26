@@ -107,13 +107,7 @@ const TransactionHistory: React.FC = () => {
     return (
     <div className="flex justify-center m-0">
         <div
-            className="p-6 shadow-md w-full"
-            style={{
-                background: `radial-gradient(circle 500px at 0% -37.34%, rgba(254, 51, 2, 0.40) 8.13%, rgba(255, 255, 255, 0.00) 100%),
-                radial-gradient(circle 500px at 63.85% -15.03%, rgba(254, 192, 1, 0.40) 14.76%, rgba(255, 255, 255, 0.00) 100%),
-                radial-gradient(circle 500px at 29.06% 107.84%, rgba(75, 112, 31, 0.40) 15.25%, rgba(255, 255, 255, 0.00) 100%),
-                radial-gradient(circle 500px at 109.03% 121.74%, rgba(2, 85, 238, 0.40) 15.34%, rgba(255, 255, 255, 0.00) 100%), #F3F3F1`,
-            }}
+            className="p-6 w-full"
         >
           <header className="flex flex-col items-center text-center font-inter text-4xl text-text">
             Transaction History
@@ -123,7 +117,7 @@ const TransactionHistory: React.FC = () => {
               <div className="flex-1 bg-brightBlue"></div>
             </div>
           </header>
-            <div className="flex justify-center rounded-xl overflow-hidden border-[1px] border-slate-400 m-4">
+            <div className="flex justify-center rounded-xl overflow-hidden border-[1px] border-slate-200 m-4">
                 <table className="w-full border border-collapse table-auto">
                     <thead className="bg-slate-100">
                         <tr className="text-left">
@@ -155,20 +149,20 @@ const TransactionHistory: React.FC = () => {
                             ))}
                         </tr>
                     </thead>
-                    <tbody className="bg-slate-50">
+                    <tbody className="bg-slate-50 text-gray-700">
                       {transactions.map((transaction, index) => (
                         <tr key={index}>
                             <td className="border border-x-transparent p-2">{transaction.timestamp}</td>
                             <td className="border border-r-transparent p-2">
                                 <span
-                                    className={`flex items-start space-x-1 text-sm ${getTransactionTypeStyle(transaction.type)}`}
+                                    className={`inline-flex items-center space-x-1 text-sm pe-3.5 ${getTransactionTypeStyle(transaction.type)}`}
                                     >
                                         <svg
                                             xmlns="http://www.w3.org/2000/svg"
                                             width="16"
                                             height="16"
                                             fill="currentColor"
-                                            className="bi bi-dot"
+                                            className="bi bi-dot mb-1"
                                             viewBox="0 0 12 12"
                                         >
                                         <path
