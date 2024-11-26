@@ -7,7 +7,7 @@ type TitleSectionProps = {
 const TitleSection: React.FC<TitleSectionProps> = ({ childName }) => {
   return (
     <div className="w-full flex flex-col items-start">
-      <h1 className="text-[#090A05] text-center font-['Darker Grotesque'] text-4xl font-medium">
+      <h1 className="text-[#090A05] text-center font-['Darker Grotesque'] text-3xl md:text-4xl font-medium">
         {childName}
       </h1>
       {/* Underline */}
