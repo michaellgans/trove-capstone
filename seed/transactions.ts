@@ -1,114 +1,119 @@
 import { Transactions } from "@/lib/definitions";
 
+// store equals this uuid = 0f3b2880-b99d-4029-a4df-21c6efb5f80b
+// charity equals this uuid = 7e210182-d7fc-479f-bc0e-5986b902a82c
+
 export const transactions: Transactions[] = [
   {
+    "transaction_id": "cf43fe8f-4ff9-4c34-b954-edfac5b5a000",
     "timestamp": "2024-11-15T10:00:00Z",
     "type": "deposit",
-    "sent_to": "c-0003",
-    "sent_from": "0001",
     "description": "Weekly Allowance",
-    "interest": "0%",
-    "withholdings": "N/A",
-    "amount": 1000
+    "to_external_id": null,
+    "amount": 1000,
+    "withholdings": null,
+    "to_name": "Johnny",
+    "from_name": "Mom",
+    "to_account_id": "81b632a5-3585-4063-b253-034f940e56b3",
+    "from_account_id": "da307308-4477-4a71-b515-1012a451dd31",
+    "p_account_id": "da307308-4477-4a71-b515-1012a451dd31"
   },
   {
+    "transaction_id": "cf43fe8f-4ff9-4c34-b954-edfac5b5a001",
     "timestamp": "2024-11-15T12:00:00Z",
     "type": "payment",
-    "sent_to": "store",
-    "sent_from": "c-0003",
-    "description": "John purchased a snack",
-    "interest": "0%",
-    "withholdings": "N/A",
-    "amount": 500
+    "description": "Johnny purchased a snack",
+    "to_external_id": "0f3b2880-b99d-4029-a4df-21c6efb5f80b",
+    "amount": 500,
+    "withholdings": null,
+    "to_name": "store",
+    "from_name": "Johnny",
+    "to_account_id": null,
+    "from_account_id": "81b632a5-3585-4063-b253-034f940e56b3",
+    "p_account_id": "da307308-4477-4a71-b515-1012a451dd31"
   },
   {
+    "transaction_id": "cf43fe8f-4ff9-4c34-b954-edfac5b5a002",
     "timestamp": "2024-11-15T13:00:00Z",
     "type": "payment",
-    "sent_to": "store",
-    "sent_from": "c-0004",
     "description": "Matt bought a book",
-    "interest": "0%",
-    "withholdings": "N/A",
-    "amount": 1000
+    "to_external_id": "0f3b2880-b99d-4029-a4df-21c6efb5f80b",
+    "amount": 1000,
+    "withholdings": null,
+    "to_name": "store",
+    "from_name": "Matt",
+    "to_account_id": null,
+    "from_account_id": "81b632a5-3585-4063-b253-034f940e56b4",
+    "p_account_id": "da307308-4477-4a71-b515-1012a451dd31"
   },
   {
-    "timestamp": "2024-11-15T14:00:00Z",
+    "transaction_id": "cf43fe8f-4ff9-4c34-b954-edfac5b5a003",
+    "timestamp": "2024-11-15T13:21:57Z",
     "type": "deposit",
-    "sent_to": "c-0005",
-    "sent_from": "0002",
     "description": "Weekly Allowance",
-    "interest": "0%",
-    "withholdings": "N/A",
-    "amount": 2000
+    "to_external_id": null,
+    "amount": 1000,
+    "withholdings": null,
+    "to_name": "Michael",
+    "from_name": "Svitlana",
+    "to_account_id": "81b632a5-3585-4063-b253-034f940e56b1",
+    "from_account_id": "da307308-4477-4a71-b515-1012a451dd30",
+    "p_account_id": "da307308-4477-4a71-b515-1012a451dd30"
   },
   {
-    "timestamp": "2024-11-15T15:00:00Z",
-    "type": "payment",
-    "sent_to": "store",
-    "sent_from": "c-0005",
-    "description": "Bart bought a comic",
-    "interest": "0%",
-    "withholdings": "N/A",
-    "amount": 300
-  },
-  {
-    "timestamp": "2024-11-15T16:00:00Z",
-    "type": "payment",
-    "sent_to": "charity",
-    "sent_from": "c-0006",
-    "description": "Lisa made a donation",
-    "interest": "0%",
-    "withholdings": "N/A",
-    "amount": 700
-  },
-  {
-    "timestamp": "2024-11-15T14:00:00Z",
+    "transaction_id": "cf43fe8f-4ff9-4c34-b954-edfac5b5a004",
+    "timestamp": "2024-11-15T13:21:057Z",
     "type": "deposit",
-    "sent_to": "c-0007",
-    "sent_from": "0003",
     "description": "Weekly Allowance",
-    "interest": "0%",
-    "withholdings": "N/A",
-    "amount": 2000
+    "to_external_id": null,
+    "amount": 1000,
+    "withholdings": null,
+    "to_name": "Chris",
+    "from_name": "Svitlana",
+    "to_account_id": "81b632a5-3585-4063-b253-034f940e56b0",
+    "from_account_id": "da307308-4477-4a71-b515-1012a451dd30",
+    "p_account_id": "da307308-4477-4a71-b515-1012a451dd30"
   },
   {
-    "timestamp": "2024-11-15T16:00:00Z",
-    "type": "payment",
-    "sent_to": "store",
-    "sent_from": "c-0007",
-    "description": "Richie purchased gas",
-    "interest": "0%",
-    "withholdings": "N/A",
-    "amount": 250
-  },
-  {
-    "timestamp": "2024-11-15T16:00:00Z",
-    "type": "payment",
-    "sent_to": "store",
-    "sent_from": "c-0008",
-    "description": "Joanie bought makeup",
-    "interest": "0%",
-    "withholdings": "N/A",
-    "amount": 700
-  },
-  {
-    "timestamp": "2024-11-15T14:00:00Z",
+    "transaction_id": "cf43fe8f-4ff9-4c34-b954-edfac5b5a005",
+    "timestamp": "2024-11-15T13:21:57Z",
     "type": "deposit",
-    "sent_to": "c-0009",
-    "sent_from": "0004",
     "description": "Weekly Allowance",
-    "interest": "0%",
-    "withholdings": "N/A",
-    "amount": 500
+    "to_external_id": null,
+    "amount": 1000,
+    "withholdings": null,
+    "to_name": "Mei",
+    "from_name": "Svitlana",
+    "to_account_id": "81b632a5-3585-4063-b253-034f940e56b2",
+    "from_account_id": "da307308-4477-4a71-b515-1012a451dd30",
+    "p_account_id": "da307308-4477-4a71-b515-1012a451dd30"
   },
   {
-    "timestamp": "2024-11-15T16:00:00Z",
-    "type": "payment",
-    "sent_to": "store",
-    "sent_from": "c-0009",
-    "description": "Ricky bought candy",
-    "interest": "0%",
-    "withholdings": "N/A",
-    "amount": 200
+    "transaction_id": "cf43fe8f-4ff9-4c34-b954-edfac5b5a006",
+    "timestamp": "2024-11-15T13:21:57Z",
+    "type": "loan",
+    "description": "Loan to Chris from Svitlana",
+    "to_external_id": null,
+    "amount": 1500,
+    "withholdings": null,
+    "to_name": "Chris",
+    "from_name": "Svitlana",
+    "to_account_id": "81b632a5-3585-4063-b253-034f940e56b0",
+    "from_account_id": "da307308-4477-4a71-b515-1012a451dd30",
+    "p_account_id": "da307308-4477-4a71-b515-1012a451dd30"
+  },
+  {
+    "transaction_id": "cf43fe8f-4ff9-4c34-b954-edfac5b5a007",
+    "timestamp": "2024-11-15T13:21:57Z",
+    "type": "loan",
+    "description": "Loan to Michael from Mei",
+    "to_external_id": null,
+    "amount": 1000,
+    "withholdings": null,
+    "to_name": "Michael",
+    "from_name": "Mei",
+    "to_account_id": "81b632a5-3585-4063-b253-034f940e56b1",
+    "from_account_id": "81b632a5-3585-4063-b253-034f940e56b2",
+    "p_account_id": "da307308-4477-4a71-b515-1012a451dd30"
   }
 ];
