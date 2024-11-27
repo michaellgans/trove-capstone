@@ -1,194 +1,180 @@
-'use server'
-
 import { db } from "./db";
-import { sql } from "@vercel/postgres";
+import { Child, Child_Account, Parent_Account, Transactions } from "./definitions";
 
-/**
- * Data Retrieval Functions
- */
+export async function getChildrenByParent(parent_id: string): Promise<Child[]> {
+  try {
+    const children = await db
+      .selectFrom("children")
+      .selectAll()
+      .where("parent_id", "=", parent_id)
+      .execute();
 
-export async function fetchChildUsersByParentID(parent_id: string) {
-  /**
-   * parent_id: string(UUID)
-   * 
-   * returns: Array of Child Objects
-   *  [
-   *    {
-   *      "id": "c-0000",
-   *      "parent_id": "0000",
-   *      "name": "Chris Stephens",
-   *      "username": "Chris",
-   *      "avatar_img": "/image/image.png",
-   *      "checking_balance": [1000],
-   *      "savings_balance": [2500],
-   *      "pin": 1234,
-   *      "savings_goal": 10000,
-   *      "loan_total": 1000,
-   *      "current_loan_total": 500
-   *    }
-   *  ]
-   */
+    return children;
+  } catch (error) {
+    console.error(`Error fetching children for parent_id: ${parent_id}`);
+    console.error(error);
+    throw new Error("Unable to fetch children");
+  }
 }
 
-export async function fetchAllTransactionHistory(parent_id: string) {
-  /**
-   * parent_id: string(UUID)
-   * 
-   * returns: Array of Transaction Objects
-   *  [
-   *    {
-   *      "timestamp": "2024-11-15T10:00:00Z",
-   *      "type": "deposit",
-   *      "sent_to": "c-0003",
-   *      "sent_from": "0001",
-   *      "description": "Weekly Allowance",
-   *      "interest": "0%",
-   *      "withholdings": "N/A",
-   *      "amount": 1000
-   *    }
-   *  ]
-   */
+export async function getParentAccountByParentId(parent_id: string): Promise<Parent_Account[]> {
+  try {
+    const parentAccount = await db
+      .selectFrom('parent_accounts')
+      .selectAll()
+      .where('parent_id', '=', parent_id)
+      .execute();
+
+    return parentAccount;
+  } catch (error) {
+    console.error(`Error fetching parent account for parent_id: ${parent_id}`);
+    console.error(error);
+    throw new Error('Unable to fetch parent account');
+  }
 }
 
-export async function fetchChildTransactionHistory(child_id: string) {
-  /**
-   * child_id: string(UUID)
-   * 
-   * returns: Array of Transaction Objects
-   *  [
-   *    {
-   *      "timestamp": "2024-11-15T10:00:00Z",
-   *      "type": "deposit",
-   *      "sent_to": "c-0003",
-   *      "sent_from": "c-0002",
-   *      "description": "Loan Payment",
-   *      "interest": "0%",
-   *      "withholdings": "N/A",
-   *      "amount": 1500
-   *    }
-   *  ]
-   */
+export async function getChildAccountByChildId(child_id: string): Promise<Child_Account[]> {
+  try {
+    const childAccount = await db
+      .selectFrom('child_accounts')
+      .selectAll()
+      .where('child_id', '=', child_id)
+      .execute();
+
+    return childAccount;
+  } catch (error) {
+    console.error(`Error fetching child account for child_id: ${child_id}`);
+    console.error(error);
+    throw new Error('Unable to fetch child account');
+  }
 }
 
-export async function fetchUserSettings(user_id: string) {
-  /**
-   * user_id: string(UUID) Either Child or Parent User
-   * 
-   * returns: Settings Object
-   *  {
-   *    "allow_loan_as_bills": "true",
-   *    "allow_loans": "true",
-   *    "allow_interest": "true",
-   *    "max_loan": "N/A",
-   *    "max_interest": "N/A",
-   *    "allow_multi_checking": "true",
-   *    "allow_savings": "true",
-   *    "allow_transfer_tax": "true",
-   *    "max_taxes": "N/A"
-   *  }
-   */
+export async function getChildAccountByParentAccountId(p_account_id: string): Promise<Child_Account[]> {
+  try {
+    const childAccountByParentAccount = await db
+      .selectFrom('child_accounts')
+      .selectAll()
+      .where('p_account_id', '=', p_account_id)
+      .execute();
+
+    return childAccountByParentAccount;
+  } catch (error) {
+    console.error(`Error fetching child accounts for p_account_id: ${p_account_id}`);
+    console.error(error);
+    throw new Error('Unable to fetch child accounts');
+  }
 }
 
-export async function fetchLoanInfo(user_id: string) {
-  /**
-   * user_id: string(UUID) Either Child or Parent User
-   * 
-   * returns: Loan Object
-   *  {
-   *    "lender_id": "0000",
-   *    "borrower_id": "c-0000",
-   *    "interest_rate": "0.1",
-   *    "due_date": "2024-12-01T10:00:00Z",
-   *    "initial_balance": "1000",
-   *    "current_balance": "500",
-   *    "last_payment_date": "2024-11-25T10:00:00Z"
-   *  }
-   */
+export async function getAllTransactionsByParentAccountId(p_account_id: string): Promise<Transactions[]> {
+  try {
+    const transactionsByParentAccount = await db
+      .selectFrom('transactions')
+      .selectAll()
+      .where('p_account_id', '=', p_account_id)
+      .execute();
+
+    return transactionsByParentAccount;
+  } catch (error) {
+    console.error(`Error fetching transactions for p_account_id: ${p_account_id}`);
+    console.error(error);
+    throw new Error('Unable to fetch account transactions');
+  }
 }
 
-/**
- * Data Insertion Functions
- */
+export async function getTransactionsByChildId(child_id: string): Promise<any[]> {
+  try {
+    // Fetch the child account's c_account_id
+    const childAccount = await db
+      .selectFrom('child_accounts')
+      .select(['c_account_id'])
+      .where('child_id', '=', child_id)
+      .execute();
 
-interface Child {
-  firstname: string;
-  lastname: string;
-  username: string;
-  pinNumber: number;
-  startingBalance: number;
+    if (!childAccount.length) {
+      console.warn(`No child account found for child_id: ${child_id}`);
+      return [];
+    }
+
+    const c_account_id = childAccount[0].c_account_id;
+
+    // Fetch transactions where to_account_id matches c_account_id
+    const transactionsToAccount = await db
+      .selectFrom('transactions')
+      .selectAll()
+      .where('to_account_id', '=', c_account_id)
+      .execute();
+
+    // Fetch transactions where from_account_id matches c_account_id
+    const transactionsFromAccount = await db
+      .selectFrom('transactions')
+      .selectAll()
+      .where('from_account_id', '=', c_account_id)
+      .execute();
+
+    // Combine both results
+    const allTransactionsByChild = [...transactionsToAccount, ...transactionsFromAccount];
+
+    return allTransactionsByChild;
+  } catch (error) {
+    console.error(`Error fetching transactions for child_id: ${child_id}`);
+    console.error(error);
+    throw new Error('Unable to fetch transactions');
+  }
 }
 
-interface RegisterUser {
-  firstname: string;
-  lastname: string;
-  email: string;
-  password: string;
-  numChildren: number;
-  children: [Child];
+export async function getLoansByChildId(child_id: string): Promise<any[]> {
+  try {
+    // Fetch the child account's c_account_id
+    const childAccount = await db
+      .selectFrom('child_accounts')
+      .select(['c_account_id'])
+      .where('child_id', '=', child_id)
+      .execute();
+
+    if (!childAccount.length) {
+      console.warn(`No child account found for child_id: ${child_id}`);
+      return [];
+    }
+
+    const c_account_id = childAccount[0].c_account_id;
+
+    // Fetch loans where borrower_id matches c_account_id
+    const loansToAccount = await db
+      .selectFrom('loans')
+      .selectAll()
+      .where('borrower_id', '=', c_account_id)
+      .execute();
+
+    // Fetch loans where lender_id matches c_account_id
+    const loansFromAccount = await db
+      .selectFrom('loans')
+      .selectAll()
+      .where('lender_id', '=', c_account_id)
+      .execute();
+
+    // Combine both results
+    const allloansByChild = [...loansToAccount, ...loansFromAccount];
+
+    return allloansByChild;
+  } catch (error) {
+    console.error(`Error fetching loans for child_id: ${child_id}`);
+    console.error(error);
+    throw new Error('Unable to fetch loans');
+  }
 }
 
-export async function registerParentUser({firstname, lastname, email , password, numChildren, children}: RegisterUser) {
-  /**
-   * Collects data from registration form, builds a user object, builds child objects, then inserts into database
-   */
-}
+export async function getWithholdingBalanceByParentAccount(parent_id: string): Promise<number | null> {
+  try {
+    const parentWithholdings = await db
+      .selectFrom('parent_accounts')
+      .select(['parent_accounts.withholding_balance'])
+      .where('parent_accounts.parent_id', '=', parent_id)
+      .execute();
 
-export async function addChildUser(parent_id: string, {firstname, lastname, username, pinNumber, startingBalance}: Child) {
-  /**
-   * Collects data from add child form, builds a child object, then inserts into database
-   */
-}
-
-interface Transaction {
-  sent_to: string; // UUID
-  sent_from: string; // UUID
-  amount: number; // cents
-  withholdings: number;
-  loan_id: string; // UUID
-}
-
-export async function newTransaction({sent_to, sent_from, amount, withholdings, loan_id}: Transaction) {
-  /**
-   * Collects data from transaction form, builds transaction object, updates account balances/loan balances, inserts into database
-   */
-}
-
-interface Loan {
-  lender_id: string; // UUID
-  borrower_id: string; // UUID
-  interest_rate: number;
-  initial_balance: number;
-  due_date: string;
-}
-
-export async function newLoan({lender_id, borrower_id, interest_rate, initial_balance, due_date}: Loan) {
-  /**
-   * Collects data from loan form, builds loan object, updates account/loan balances, inserts into database
-   */
-}
-
-/**
- * Data Update Functions
- */
-
-export async function updateParentSettings(parent_id: string) {
-  /**
-   * Collect data from settings form, fetch settings object by parent id, update settings object in database
-   */
-}
-
-/**
- * Data Deletion Functions
- */
-
-export async function deleteParentUser(parent_id: string) {
-  /**
-   * Deletes parent user and all associated children users
-   */
-}
-
-export async function deleteLoan(loan_id: string) {
-  /**
-   * Deletes loan from database, used on loan completion or parent removing loan
-   */
+    return parentWithholdings.length > 0 ? parentWithholdings[0].withholding_balance : null;
+  } catch (error) {
+    console.error(`Error fetching withholding balance for parent_id: ${parent_id}`);
+    console.error(error);
+    throw new Error('Unable to fetch withholding balance');
+  }  
 }

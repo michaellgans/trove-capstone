@@ -1,14 +1,16 @@
-import Image from "next/image";
-import TransactionHistory from '@/components/TransactionHistory/page';
+import ChildProfileCard from "@/components/ChildCard/ChildProfileCard";
 
 export default function Home() {
   return (
-    <div className="bg-white">
-      <section>
-        <div className="w-full min-h-screen overflow-x-hidden m-0 p-0">
-          <TransactionHistory />
-        </div>
-      </section>
-    </div>
+    <>
+    <ChildProfileCard
+      childName='Samantha'
+      profileImageUrl='/images/samantha.png'
+      checkingBalance={100}
+      savingsBalance={50}
+      savingsGoalPercentage={40}
+      loanRepaymentPercentage={60}
+     />
+    </>
   );
 }
