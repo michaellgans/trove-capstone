@@ -92,3 +92,18 @@ export type Settings = {
   setting_id: string;
   parent_id: string;
 };
+
+export type SignUpPayload = {
+  email: string;
+  password?: string;
+  name: string;
+  startingBalance: number;
+  children: [ChildSignUpPayload]
+}
+
+export type ChildSignUpPayload = {
+  name: string;
+  username: string;
+  password: string;
+  startingBalance: number;
+}

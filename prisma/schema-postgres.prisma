@@ -54,19 +54,3 @@ model lessons_completed {
     obligations        Boolean
     parent             parent_user @relation(fields: [parent_id], references: [id], onDelete: Cascade)
 }
-
-model parent_session {
-    id                 String @id @default(cuid())
-    parent_id          String
-    session_token      String @unique
-    expires            DateTime
-    parent_user        parent_user @relation(fields: [parent_id], references: [id], onDelete: Cascade)
-}
-
-model child_session {
-    id                 String @id @default(cuid())
-    child_id           String
-    session_token      String @unique
-    expires            DateTime
-    child_user         child_user @relation(fields: [child_id], references: [id], onDelete: Cascade)
-}

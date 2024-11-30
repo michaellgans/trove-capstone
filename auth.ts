@@ -3,6 +3,7 @@ import GoogleProvider from "next-auth/providers/google";
 import Credentials from "next-auth/providers/credentials";
 import { PrismaAdapter } from "@next-auth/prisma-adapter";
 import { prisma } from "@/prisma";
+import bcrypt from "bcryptjs";
 
 export const authOptions: NextAuthOptions = {
   adapter: PrismaAdapter(prisma),
@@ -22,8 +23,12 @@ export const authOptions: NextAuthOptions = {
           where: { email: credentials?.email },
         });
 
-        if (user && user.password === credentials?.password) {
-          return user;
+        if (user && user.password) {
+          const isPasswordValid = await bcrypt.compare(credentials?.password!, user.password);
+
+          if (isPasswordValid) {
+            return user;
+          }
         }
 
         return null;
@@ -41,4 +46,3 @@ export const authOptions: NextAuthOptions = {
     },
   },
 };
-
