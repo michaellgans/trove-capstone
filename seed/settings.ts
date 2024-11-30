@@ -1,4 +1,4 @@
-import { Settings } from "@/lib/definitions";
+import { Settings } from "@/types/types";
 
 export const settings: Settings[] = [
   {

@@ -1,4 +1,4 @@
-import { Parent } from "@/lib/definitions";
+import { Parent } from "@/types/types";
 
 export const parents: Parent[] = [
   {

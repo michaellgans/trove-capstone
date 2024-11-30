@@ -1,4 +1,4 @@
-import { Transactions } from "@/lib/definitions";
+import { Transactions } from "@/types/types";
 
 // store equals this uuid = 0f3b2880-b99d-4029-a4df-21c6efb5f80b
 // charity equals this uuid = 7e210182-d7fc-479f-bc0e-5986b902a82c

@@ -1,5 +1,5 @@
 import { db } from "./db";
-import { Child, Child_Account, Parent_Account, Transactions } from "./definitions";
+import { Child, Child_Account, Parent_Account, Transactions } from "@/types/types";
 
 export async function getChildrenByParent(parent_id: string): Promise<Child[]> {
   try {
