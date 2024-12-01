@@ -1,6 +1,6 @@
 'use server'
 import { db } from "./db";
-import { Child, Child_Account, Parent, Parent_Account, SignUpPayload,Transactions } from "@/types/types";
+import { Child, Child_Account, LoanDataPayload, Parent, Parent_Account, SignUpPayload, Transactions } from "@/types/types";
 import { prisma } from "@/prisma";
 import bcrypt from "bcryptjs";
 
@@ -335,6 +335,12 @@ export async function newChildToChildTransfer(from_child_id: string, to_child_id
       },
     });
 
+    const parent_account = await prisma.parent_account.findUnique({
+      where: {
+        parent_id: from_child_user.parent_id,
+      },
+    });
+
     await prisma.transaction.create({
       data: {
         type: "Transfer",
@@ -346,7 +352,7 @@ export async function newChildToChildTransfer(from_child_id: string, to_child_id
         amount: amount,
         withholdings: 0,
         description: description,
-        p_account_id: from_child_user.parent_id
+        p_account_id: parent_account.id
       },
     });
 
@@ -390,6 +396,12 @@ export async function newCheckingToSavingsTransfer(child_id: string, amount: num
       },
     });
 
+    const parent_account = await prisma.parent_account.findUnique({
+      where: {
+        parent_id: child_user.parent_id,
+      },
+    });
+
     await prisma.transaction.create({
       data: {
         type: "Transfer",
@@ -401,7 +413,7 @@ export async function newCheckingToSavingsTransfer(child_id: string, amount: num
         amount: amount,
         withholdings: 0,
         description: "Savings Transfer",
-        p_account_id: child_user.parent_id
+        p_account_id: parent_account.id
       },
     });
 
@@ -448,7 +460,7 @@ export async function transferWithholdings(parent_id: string, amount: number) {
         amount: amount,
         withholdings: 0,
         description: "Savings Transfer",
-        p_account_id: parent_user.id
+        p_account_id: parent_account.id
       },
     });
 
@@ -489,24 +501,331 @@ export async function updateWithholdingsBalance(parent_account_id: string, withh
   }
 }
 
-export async function newLoan() {
+export async function newParentToChildLoan(lender_id: string, borrower_id: string, loan: LoanDataPayload) {
+  try {
+    const lender = await prisma.parent_user.findUnique({
+      where: {
+        id: lender_id,
+      },
+    });
+    const lender_account = await prisma.parent_account.findUnique({
+      where: {
+        parent_id: lender_id,
+      },
+    });
 
+    const borrower = await prisma.child_user.findUnique({
+      where: {
+        id: borrower_id,
+      },
+    });
+    const borrower_account = await prisma.child_account.findUnique({
+      where: {
+        child_id: borrower_id,
+      },
+    });
+
+    await prisma.transaction.create({
+      data: {
+        type: "Loan",
+        from_account_id: lender_account.id,
+        from_name: lender.name,
+        to_account_id: borrower_account.id,
+        to_name: borrower.name,
+        to_external_id: null,
+        amount: loan.loan_amount,
+        withholdings: 0,
+        description: loan.description,
+        p_account_id: lender_account.id
+      },
+    });
+
+    await prisma.parent_account.update({
+      where: {
+        id: lender_account.id,
+      },
+      data: {
+        balance: {
+          decrement: loan.loan_amount,
+        },
+      },
+    });
+
+    await prisma.child_account.update({
+      where: {
+        id: borrower_account.id,
+      },
+      data: {
+        checking_balance: {
+          increment: loan.loan_amount,
+        },
+      },
+    });
+
+    const today = new Date();
+    const due_date = today.setDate(today.getDate() + loan.days_due);
+
+    await prisma.loan.create({
+      data: {
+        lender_id: lender.id,
+        borrower_id: borrower.id,
+        interest_rate: loan.interest_rate,
+        current_balance: loan.loan_amount + (loan.loan_amount * (loan.interest_rate / 100)),
+        due_date: due_date,
+        p_account_id: lender_account.id,
+      },
+    });
+  } catch (error) {
+    console.error(error);
+    throw new Error("Failed to create parent to child loan");
+  }
 }
 
-export async function newLoanPayment() {
+export async function newChildToChildLoan(lender_id: string, borrower_id: string, loan: LoanDataPayload) {
+  try {
+    const lender = await prisma.child_user.findUnique({
+      where: {
+        id: lender_id,
+      },
+    });
+    const lender_account = await prisma.child_account.findUnique({
+      where: {
+        child_id: lender_id,
+      },
+    });
 
+    const borrower = await prisma.child_user.findUnique({
+      where: {
+        id: borrower_id,
+      },
+    });
+    const borrower_account = await prisma.child_account.findUnique({
+      where: {
+        child_id: borrower_id,
+      },
+    });
+
+    await prisma.transaction.create({
+      data: {
+        type: "Loan",
+        from_account_id: lender_account.id,
+        from_name: lender.name,
+        to_account_id: borrower_account.id,
+        to_name: borrower.name,
+        to_external_id: null,
+        amount: loan.loan_amount,
+        withholdings: 0,
+        description: loan.description,
+        p_account_id: lender_account.parent_id
+      },
+    });
+
+    await prisma.child_account.update({
+      where: {
+        id: lender_account.id,
+      },
+      data: {
+        checking_balance: {
+          decrement: loan.loan_amount,
+        },
+      },
+    });
+
+    await prisma.child_account.update({
+      where: {
+        id: borrower_account.id,
+      },
+      data: {
+        checking_balance: {
+          increment: loan.loan_amount,
+        },
+      },
+    });
+
+    const today = new Date();
+    const due_date = today.setDate(today.getDate() + loan.days_due);
+
+    await prisma.loan.create({
+      data: {
+        lender_id: lender.id,
+        borrower_id: borrower.id,
+        interest_rate: loan.interest_rate,
+        current_balance: loan.loan_amount + (loan.loan_amount * (loan.interest_rate / 100)),
+        due_date: due_date,
+        p_account_id: lender_account.parent_id,
+      },
+    });
+  } catch (error) {
+    console.error(error);
+    throw new Error("Failed to create child to child loan");
+  }
 }
 
-export async function updateLoan() {
+export async function newChildToParentLoanPayment(lender_id: string, borrower_id: string, amount: number, description?: string) {
+  try {
+    const lender = await prisma.parent_user.findUnique({
+      where: {
+        id: lender_id,
+      },
+    });
+    const lender_account = await prisma.parent_account.findUnique({
+      where: {
+        parent_id: lender_id,
+      },
+    });
 
+    const borrower = await prisma.child_user.findUnique({
+      where: {
+        id: borrower_id,
+      },
+    });
+    const borrower_account = await prisma.child_account.findUnique({
+      where: {
+        child_id: borrower_id,
+      },
+    });
+
+    await prisma.transaction.create({
+      data: {
+        type: "Loan",
+        from_account_id: borrower_account.id,
+        from_name: borrower.name,
+        to_account_id: lender_account.id,
+        to_name: lender.name,
+        to_external_id: null,
+        amount: amount,
+        withholdings: 0,
+        description: description,
+        p_account_id: lender_account.id
+      },
+    });
+
+    await prisma.child_account.update({
+      where: {
+        id: borrower_account.id,
+      },
+      data: {
+        checking_balance: {
+          decrement: amount,
+        },
+      },
+    });
+
+    await prisma.parent_account.update({
+      where: {
+        id: lender_account.id,
+      },
+      data: {
+        balance: {
+          increment: amount,
+        },
+      },
+    });
+
+    await prisma.loan.update({
+      where: {
+        borrower_id: borrower.id,
+      },
+      data: {
+        current_balance: {
+          decrement: amount,
+        },
+      },
+    });
+  } catch (error) {
+    console.error(error);
+    throw new Error("Failed to complete child to parent loan payment");
+  }
 }
 
-export async function deleteLoan() {
+export async function newChildToChildLoanPayment(lender_id: string, borrower_id: string, amount: number, description?: string) {
+  try {
+    const lender = await prisma.child_user.findUnique({
+      where: {
+        id: lender_id,
+      },
+    });
+    const lender_account = await prisma.child_account.findUnique({
+      where: {
+        child_id: lender_id,
+      },
+    });
 
+    const borrower = await prisma.child_user.findUnique({
+      where: {
+        id: borrower_id,
+      },
+    });
+    const borrower_account = await prisma.child_account.findUnique({
+      where: {
+        child_id: borrower_id,
+      },
+    });
+
+    await prisma.transaction.create({
+      data: {
+        type: "Loan",
+        from_account_id: borrower_account.id,
+        from_name: borrower.name,
+        to_account_id: lender_account.id,
+        to_name: lender.name,
+        to_external_id: null,
+        amount: amount,
+        withholdings: 0,
+        description: description,
+        p_account_id: lender_account.parent_id
+      },
+    });
+
+    await prisma.child_account.update({
+      where: {
+        id: borrower_account.id,
+      },
+      data: {
+        checking_balance: {
+          decrement: amount,
+        },
+      },
+    });
+
+    await prisma.child_account.update({
+      where: {
+        id: lender_account.id,
+      },
+      data: {
+        checking_balance: {
+          increment: amount,
+        },
+      },
+    });
+
+    await prisma.loan.update({
+      where: {
+        borrower_id: borrower.id,
+      },
+      data: {
+        current_balance: {
+          decrement: amount,
+        },
+      },
+    });
+  } catch (error) {
+    console.error(error);
+    throw new Error("Failed to complete child to child loan payment");
+  }
 }
 
-export async function deleteAccount() {
-
+export async function deleteAccount(parent_id: string) {
+  try {
+    prisma.parent_user.delete({
+      where: {
+        id: parent_id,
+      },
+    });
+  } catch (error) {
+    console.error(error);
+    throw new Error("Failed to delete account");
+  }
 }
 
 // Google and Credential Sign Up Actions

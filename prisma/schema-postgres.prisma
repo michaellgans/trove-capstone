@@ -79,4 +79,6 @@ model loan {
     loan_amount         Int
     current_balance     Int
     due_date            DateTime
+    p_account_id        String
+    parent              parent_account @relation(fields: [p_account_id], references: [id], onDelete: Cascade)
 }
