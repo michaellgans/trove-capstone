@@ -1,4 +1,4 @@
-import { Parent_Account } from "@/lib/definitions";
+import { Parent_Account } from "@/types/types";
 
 export const p_account: Parent_Account[] = [
   {

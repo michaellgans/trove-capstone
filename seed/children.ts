@@ -1,5 +1,5 @@
 // Child Data
-import { Child } from "@/lib/definitions";
+import { Child } from "@/types/types";
 
 export const children: Child[] = [
   {

@@ -1,5 +1,8 @@
+'use server'
 import { db } from "./db";
-import { Child, Child_Account, Parent_Account, Transactions } from "./definitions";
+import { Child, Child_Account, Parent_Account, SignUpPayload,Transactions } from "@/types/types";
+import { prisma } from "@/prisma";
+import bcrypt from "bcryptjs";
 
 export async function getChildrenByParent(parent_id: string): Promise<Child[]> {
   try {
@@ -177,4 +180,88 @@ export async function getWithholdingBalanceByParentAccount(parent_id: string): P
     console.error(error);
     throw new Error('Unable to fetch withholding balance');
   }  
+}
+
+// Google and Credential Sign Up Actions
+export async function handleSignupWithCredentials({email, password, name, startingBalance, children}: SignUpPayload) {
+  const hashedPassword = await bcrypt.hash(password!, 10);
+
+  const parentUser = await prisma.parent_user.create({
+    data: {
+      email,
+      password: hashedPassword,
+      name,
+    },
+  });
+
+  await prisma.parent_account.create({
+    data: {
+      parent_id: parentUser.id,
+      balance: startingBalance
+    },
+  });
+
+  for (const child of children) {
+    const hashedChildPassword = await bcrypt.hash(child.password, 10);
+
+    const childUser = await prisma.child_user.create({
+      data: {
+        parent_id: parentUser.id,
+        username: child.username,
+        name: child.name,
+        password: hashedChildPassword,
+      },
+    });
+
+    await prisma.child_account.create({
+      data: {
+        child_id: childUser.id,
+        parent_id: parentUser.id,
+        checking_balance: child.startingBalance,
+        savings_balance: 0,
+        savings_goal: 0,
+      },
+    });
+  }
+}
+
+export async function handleSignupWithGoogle({email, name, startingBalance, children}: SignUpPayload) {
+
+  const parentUser = await prisma.parent_user.create({
+    data: {
+      email,
+      password: "",
+      name,
+    },
+  });
+
+  await prisma.parent_account.create({
+    data: {
+      parent_id: parentUser.id,
+      balance: startingBalance
+    },
+  });
+
+  for (const child of children) {
+    const hashedChildPassword = await bcrypt.hash(child.password, 10);
+
+    const childUser = await prisma.child_user.create({
+      data: {
+        parent_id: parentUser.id,
+        username: child.username,
+        name: child.name,
+        password: hashedChildPassword,
+      },
+    });
+
+    await prisma.child_account.create({
+      data: {
+        child_id: childUser.id,
+        parent_id: parentUser.id,
+        checking_balance: child.startingBalance,
+        savings_balance: 0,
+        savings_goal: 0,
+      },
+    });
+  }
 }
