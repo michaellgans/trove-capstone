@@ -34,6 +34,14 @@ export function ThemedText({
 }
 
 const styles = StyleSheet.create({
+  // Trove Logo Text
+  title: {
+    fontSize: 60,
+  },
+  // Trove Slogan
+  subtitle: {
+    fontSize: 30,
+  },
   default: {
     fontSize: 16,
     lineHeight: 24,
@@ -42,15 +50,6 @@ const styles = StyleSheet.create({
     fontSize: 16,
     lineHeight: 24,
     fontWeight: '600',
-  },
-  title: {
-    fontSize: 32,
-    fontWeight: 'bold',
-    lineHeight: 32,
-  },
-  subtitle: {
-    fontSize: 20,
-    fontWeight: 'bold',
   },
   link: {
     lineHeight: 30,
