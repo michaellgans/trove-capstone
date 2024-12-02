@@ -13,8 +13,13 @@ SplashScreen.preventAutoHideAsync();
 
 export default function RootLayout() {
   const colorScheme = useColorScheme();
+
+  // Use downloaded fonts
   const [loaded] = useFonts({
     SpaceMono: require('../assets/fonts/SpaceMono-Regular.ttf'),
+    BaskervilleSC: require('../assets/fonts/BaskervvilleSC-Regular.ttf'),
+    Baskerville: require('../assets/fonts/LibreBaskerville-Regular.ttf'),
+    Inter: require('../assets/fonts/Inter-VariableFont_opsz,wght.ttf'),
   });
 
   useEffect(() => {
