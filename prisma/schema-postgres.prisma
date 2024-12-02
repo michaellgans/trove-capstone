@@ -8,49 +8,77 @@ datasource db {
 }
 
 model parent_user {
-    id                 String @id @default(cuid())
-    name               String
-    email              String @unique
-    password           String?
-    avatar_img         String?
+    id                  String @id @default(cuid())
+    name                String
+    email               String @unique
+    password            String?
+    avatar_img          String?
 }
 
 model child_user {
-    id                 String @id @default(cuid())
-    parent_id          String
-    name               String
-    username           String @unique
-    password           String
-    avatar_img         String?
-    parent             parent_user @relation(fields: [parent_id], references: [id], onDelete: Cascade)
+    id                  String @id @default(cuid())
+    parent_id           String
+    name                String
+    username            String @unique
+    password            String
+    avatar_img          String?
+    parent              parent_user @relation(fields: [parent_id], references: [id], onDelete: Cascade)
 }
 
 model parent_account {
-    id                 String @id @default(cuid())
-    parent_id          String
-    stripe_account_id  String?
-    balance            Int
-    parent             parent_user @relation(fields: [parent_id], references: [id], onDelete: Cascade)
+    id                  String @id @default(cuid())
+    parent_id           String
+    stripe_account_id   String?
+    balance             Int
+    withholding_balance Int
+    parent              parent_user @relation(fields: [parent_id], references: [id], onDelete: Cascade)
 }
 
 model child_account {
-    id                 String @id @default(cuid())
-    child_id           String
-    parent_id          String
-    checking_balance   Int
-    savings_balance    Int
-    savings_goal       Int
-    child              child_user @relation(fields: [child_id], references: [id], onDelete: Cascade)
-    parent             parent_user @relation(fields: [parent_id], references: [id], onDelete: Cascade)
+    id                  String @id @default(cuid())
+    child_id            String
+    parent_id           String
+    checking_balance    Int
+    savings_balance     Int
+    savings_goal        Int
+    child               child_user @relation(fields: [child_id], references: [id], onDelete: Cascade)
+    parent              parent_user @relation(fields: [parent_id], references: [id], onDelete: Cascade)
 }
 
 model lessons_completed {
-    id                 String @id @default(cuid())
-    parent_id          String
-    financial_literacy Boolean
-    savings            Boolean
-    taxes              Boolean
-    loans              Boolean
-    obligations        Boolean
-    parent             parent_user @relation(fields: [parent_id], references: [id], onDelete: Cascade)
+    id                  String @id @default(cuid())
+    parent_id           String
+    financial_literacy  Boolean
+    savings             Boolean
+    taxes               Boolean
+    loans               Boolean
+    obligations         Boolean
+    parent              parent_user @relation(fields: [parent_id], references: [id], onDelete: Cascade)
+}
+
+model transaction {
+    id                  String @id @default(cuid())
+    type                String
+    from_account_id     String
+    from_name           String
+    to_account_id       String
+    to_name             String
+    to_external_id      String?
+    amount              Int
+    withholdings        Int?
+    description         String?
+    p_account_id        String
+    parent              parent_account @relation(fields: [p_account_id], references: [id], onDelete: Cascade)
+}
+
+model loan {
+    id                  String @id @default(cuid())
+    lender_id           String
+    borrower_id         String
+    interest_rate       Int
+    loan_amount         Int
+    current_balance     Int
+    due_date            DateTime
+    p_account_id        String
+    parent              parent_account @relation(fields: [p_account_id], references: [id], onDelete: Cascade)
 }

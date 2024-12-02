@@ -107,3 +107,10 @@ export type ChildSignUpPayload = {
   password: string;
   startingBalance: number;
 }
+
+export type LoanDataPayload = {
+  interest_rate: number;
+  days_due: number;
+  loan_amount: number;
+  description: string;
+}
