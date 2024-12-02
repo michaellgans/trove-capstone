@@ -118,6 +118,7 @@ const TransactionHistory: React.FC = () => {
             </div>
           </header>
             <div className="flex justify-center rounded-xl overflow-hidden border-[1px] border-slate-200 m-4">
+                <div className="overflow-x-auto w-full">
                 <table className="w-full border border-collapse table-auto">
                     <thead className="bg-slate-100">
                         <tr className="text-left">
@@ -182,6 +183,7 @@ const TransactionHistory: React.FC = () => {
                        ))}
                     </tbody>
                 </table>
+                </div>
             </div>
         </div>
       </div>
