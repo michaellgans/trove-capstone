@@ -3,6 +3,7 @@ import React, { useState } from 'react';
 import LogoTitle from '../LogoTitle';
 import ProgressIndicator from './ProgressIndicator';
 import { ChildDataType } from '@/types/types';
+import { useRouter } from 'next/navigation';
 import '../../app/globals.css';
 
 interface ChildAccountSetupProps {
@@ -174,6 +175,7 @@ const ChildAccountSetup: React.FC<ChildAccountSetupProps> = ({
   const [selectedCurrency, setSelectedCurrency] = useState('USD');
   const [isCurrencyDropdownOpen, setIsCurrencyDropdownOpen] = useState(false);
   const currencies = ['USD', 'EUR', 'GBP'];
+  const router = useRouter();
 
   return (
     <div className="flex flex-col items-center bg-white p-10 rounded-lg border border-gray-100 shadow-lg max-w-md lg:max-w-2xl mx-auto mt-5">
@@ -434,6 +436,15 @@ const ChildAccountSetup: React.FC<ChildAccountSetupProps> = ({
             className="w-full py-3 rounded-lg bg-brightRed text-white font-semibold hover:brightness-110 transition ease-in-out duration-300"
           >
             Next
+          </button>
+        </div>
+        {/* Cancel Button */}
+        <div className='flex mt-3 w-full justify-center'>
+          <button
+            onClick={() => router.push('/')}
+            className="mt-4 text-base text-gray-500 hover:text-gray-600 transition ease-in-out duration-300"
+          >
+            Cancel
           </button>
         </div>
       </form>

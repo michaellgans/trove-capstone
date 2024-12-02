@@ -1,4 +1,4 @@
-import { Loans } from "@/lib/definitions";
+import { Loans } from "@/types/types";
 
 export const loans: Loans[] = [
   {

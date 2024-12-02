@@ -1,4 +1,4 @@
-import { Lessons_Completed } from "@/lib/definitions";
+import { Lessons_Completed } from "@/types/types";
 
 export const lessons: Lessons_Completed[] = [
   {
