@@ -193,6 +193,15 @@ const StripeConnectionCard: React.FC<StripeConnectionCardProps> = ({ prevStep })
             Get Started
           </button>
         </div>
+        {/* Cancel Button */}
+        <div className='flex mt-3 w-full justify-center'>
+          <button
+            onClick={() => router.push('/')}
+            className="mt-4 text-base text-gray-500 hover:text-gray-600 transition ease-in-out duration-300"
+          >
+            Cancel
+          </button>
+        </div>
       </form>
     </div>
   );
