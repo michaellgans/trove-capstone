@@ -1,49 +1,45 @@
-import { Child } from "@/lib/definitions";
+// Child Data
+import { Child } from "@/types/types";
 
 export const children: Child[] = [
   {
-    "parent_id": "0000",
-    "name": "Svitlana Pavlovska",
-    "email": "svitlana@aol.com",
-    "password": "12345",
+    "child_id": "9c60ffd3-64ad-4e60-ae03-5b70950240d0",
+    "name": "Chris Stephens",
+    "username": "Chris",
+    "password": "123456",
     "avatar_img": "/image/image.png",
-    "strip_account_id": ["acct_0000"],
-    "balance": [10000]
+    "parent_id": "4f3c012c-8c36-4d3c-8a26-ff81c1fc7990"
   },
   {
-    "parent_id": "0001",
-    "name": "Alice Smith",
-    "email": "alice@aol.com",
-    "password": "54321",
+    "child_id": "9c60ffd3-64ad-4e60-ae03-5b70950240d1",
+    "name": "Michael Gans",
+    "username": "Dio",
+    "password": "654321",
     "avatar_img": "/image/image.png",
-    "strip_account_id": ["acct_0001"],
-    "balance": [10000]
+    "parent_id": "4f3c012c-8c36-4d3c-8a26-ff81c1fc7990"
   },
   {
-    "parent_id": "0002",
-    "name": "Homer Simpson",
-    "email": "homer@hotmail.com",
-    "password": "11111",
+    "child_id": "9c60ffd3-64ad-4e60-ae03-5b70950240d2",
+    "name": "Mei Sibley",
+    "username": "Mei",
+    "password": "123789",
     "avatar_img": "/image/image.png",
-    "strip_account_id": ["acct_0002"],
-    "balance": [7500]
+    "parent_id": "4f3c012c-8c36-4d3c-8a26-ff81c1fc7990"
   },
   {
-    "parent_id": "0003",
-    "name": "Howard Cunningham",
-    "email": "cunningham@gmail.com",
-    "password": "01010",
+    "child_id": "9c60ffd3-64ad-4e60-ae03-5b70950240d3",
+    "name": "Johnny Smith",
+    "username": "Rico",
+    "password": "246801",
     "avatar_img": "/image/image.png",
-    "strip_account_id": ["acct_0003"],
-    "balance": [20000]
+    "parent_id": "4f3c012c-8c36-4d3c-8a26-ff81c1fc7991"
   },
   {
-    "parent_id": "0004",
-    "name": "Lucy Ricardo",
-    "email": "l_ricardo@gmail.com",
-    "password": "23232",
+    "child_id": "9c60ffd3-64ad-4e60-ae03-5b70950240d4",
+    "name": "Matt Smith",
+    "username": "Doc",
+    "password": "987654",
     "avatar_img": "/image/image.png",
-    "strip_account_id": ["acct_0004"],
-    "balance": [5000]
+    "parent_id": "4f3c012c-8c36-4d3c-8a26-ff81c1fc7991"
   }
 ];
