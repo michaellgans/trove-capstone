@@ -1,4 +1,3 @@
-// Login Page
 import { Image, StyleSheet, Platform } from 'react-native';
 
 import { HelloWave } from '@/components/HelloWave';
