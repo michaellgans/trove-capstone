@@ -1,5 +1,5 @@
 'use server'
-import { Child, Child_Account, Loans, LoanDataPayload, Parent, Parent_Account, SignUpPayload, Transactions } from "@/types/types";
+import { Child, Child_Account, GoogleSignUpPayload, Loans, LoanDataPayload, Parent, Parent_Account, SignUpPayload, Transactions } from "@/types/types";
 import { prisma } from "@/prisma";
 import bcrypt from "bcryptjs";
 
@@ -950,15 +950,17 @@ export async function handleSignupWithCredentials({email, password, name, starti
   }
 }
 
-export async function handleSignupWithGoogle({email, name, startingBalance, children}: SignUpPayload) {
+export async function handleSignupWithGoogle({parent_id, startingBalance, children}: GoogleSignUpPayload) {
   try {
-    const parentUser = await prisma.parent_user.create({
-      data: {
-        email,
-        password: "",
-        name,
+    const parentUser = await prisma.parent_user.findUnique({
+      where: {
+        id: parent_id,
       },
     });
+
+    if (!parentUser) {
+      throw new Error("Parent user not found");
+    }
 
     await prisma.parent_account.create({
       data: {

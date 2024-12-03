@@ -99,7 +99,13 @@ export type SignUpPayload = {
   password?: string;
   name: string;
   startingBalance: number;
-  children: [ChildSignUpPayload]
+  children: [ChildSignUpPayload];
+}
+
+export type GoogleSignUpPayload = {
+  parent_id: string;
+  startingBalance: number;
+  children: [ChildSignUpPayload];
 }
 
 export type ChildSignUpPayload = {
