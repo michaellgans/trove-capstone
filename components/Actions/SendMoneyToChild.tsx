@@ -14,23 +14,17 @@ const SendMoneyToChildCard: React.FC = () => {
   const [amount, setAmount] = useState('');
   const [selectedChild, setSelectedChild] = useState('Chris');
   const [description, setDescription] = useState('');
-  const [interestRate, setInterestRate] = useState('');
-  const [timeframe, setTimeframe] = useState('');
-  const [taxRate, setTaxRate] = useState('');
   const [transactionStatus, setTransactionStatus] = useState<'success' | 'error' | null>(null);
   const [errors, setErrors] = useState<{ [key: string]: string }>({});
   const [openDropdown, setOpenDropdown] = useState<string | null>(null);
   const [selectedCurrency, setSelectedCurrency] = useState('USD');
 
-  // List of available currencies
   const currencies = ['USD', 'EUR', 'GBP'];
-
   const currencySymbols: { [key: string]: string } = {
     USD: '$',
     EUR: '€',
     GBP: '£',
   };
-
 
   const transactionTypes = [
     { value: 'Transfer', label: 'Transfer' },
@@ -82,6 +76,10 @@ const SendMoneyToChildCard: React.FC = () => {
     image: member.avatar,
   }));
 
+  const [interestRate, setInterestRate] = useState(interestRates[0].value);
+  const [timeframe, setTimeframe] = useState(timeframes[0].value);
+  const [taxRate, setTaxRate] = useState(taxRates[0].value);
+
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setAmount(e.target.value);
     setErrors((prevErrors) => ({ ...prevErrors, amount: '' }));
@@ -117,17 +115,28 @@ const SendMoneyToChildCard: React.FC = () => {
     setAmount('');
     setSelectedChild('Chris');
     setDescription('');
-    setInterestRate('');
-    setTimeframe('');
-    setTaxRate('');
+    setInterestRate(interestRates[0].value); // Reset to first value
+    setTimeframe(timeframes[0].value); // Reset to first value
+    setTaxRate(taxRates[0].value); // Reset to first value
   };
 
   const handleDropdownToggle = (dropdownName: string) => {
     setOpenDropdown((prev) => (prev === dropdownName ? null : dropdownName));
   };
 
+  const handleTransactionTypeChange = (value: string) => {
+    setTransactionType(value);
+    if (value === 'Create Loan') {
+      setInterestRate(interestRates[0].value);
+      setTimeframe(timeframes[0].value);
+    } else if (value === 'Transfer With Withholdings') {
+      setTaxRate(taxRates[0].value);
+    }
+    setErrors((prevErrors) => ({ ...prevErrors, transactionType: '' }));
+  };
+
   return (
-    <div className="flex flex-col items-center bg-white p-10 lg:p-14 rounded-lg border border-gray-100 shadow-lg max-w-md mx-auto mt-10">
+    <div className="flex flex-col items-center bg-white p-10 lg:p-14 rounded-lg border border-gray-100 shadow-lg max-w-md md:max-w-lg lg:max-w-xl mx-auto mt-10">
       <LogoTitle />
       {transactionStatus ? (
         <FeedbackMessage
@@ -145,13 +154,7 @@ const SendMoneyToChildCard: React.FC = () => {
             )}
             <Dropdown
               selectedValue={transactionType}
-              onSelect={(value) => {
-                setTransactionType(value);
-                setInterestRate('');
-                setTimeframe('');
-                setTaxRate('');
-                setErrors((prevErrors) => ({ ...prevErrors, transactionType: '' }));
-              }}
+              onSelect={handleTransactionTypeChange}
               options={transactionTypes}
               isOpen={openDropdown === 'transactionType'}
               onToggle={() => handleDropdownToggle('transactionType')}
@@ -176,52 +179,43 @@ const SendMoneyToChildCard: React.FC = () => {
           </div>
 
           <div className="mb-4 relative">
-  <label htmlFor="amount" className="block text-gray-700 font-semibold mb-2">
-    Amount
-  </label>
-  {errors.amount && <div className="text-red-500 mb-2">{errors.amount}</div>}
-  <div className="relative flex items-center">
-    {/* Currency Symbol on the Left */}
-    <span className="absolute left-4 text-gray-500">
-      {currencySymbols[selectedCurrency]}
-    </span>
-
-    {/* Amount Input */}
-    <input
-      type="number"
-      id="amount"
-      value={amount}
-      onChange={handleInputChange}
-      className={`w-full pl-10 pr-28 py-3 rounded-lg border ${
-        errors.amount ? 'border-red-500 focus:ring-red-500' : 'border-gray-300 focus:ring-brightBlue'
-      } focus:outline-none focus:ring-2`}
-      placeholder="0.00"
-    />
-
-    {/* Currency Dropdown on the Right */}
-    <div className="absolute -right-1">
-  <Dropdown
-    selectedValue={selectedCurrency}
-    onSelect={(value) => {
-      setSelectedCurrency(value);
-      setErrors((prevErrors) => ({ ...prevErrors, currency: '' }));
-    }}
-    options={currencies.map((currency) => ({
-      value: currency,
-      label: currency,
-    }))}
-    placeholder="Select"
-    isOpen={openDropdown === 'currency'}
-    onToggle={() => handleDropdownToggle('currency')}
-    className="border-none" // Custom class to remove the border
-  />
-</div>
-
-  </div>
-</div>
-
-
-
+            <label htmlFor="amount" className="block text-gray-700 font-semibold mb-2">
+              Amount
+            </label>
+            {errors.amount && <div className="text-red-500 mb-2">{errors.amount}</div>}
+            <div className="relative flex items-center">
+              <span className="absolute left-4 text-gray-500">
+                {currencySymbols[selectedCurrency]}
+              </span>
+              <input
+                type="number"
+                id="amount"
+                value={amount}
+                onChange={handleInputChange}
+                className={`w-full pl-10 pr-28 py-3 rounded-lg border ${
+                  errors.amount ? 'border-red-500 focus:ring-red-500' : 'border-gray-300 focus:ring-brightBlue'
+                } focus:outline-none focus:ring-2`}
+                placeholder="0.00"
+              />
+              <div className="absolute -right-1">
+                <Dropdown
+                  selectedValue={selectedCurrency}
+                  onSelect={(value) => {
+                    setSelectedCurrency(value);
+                    setErrors((prevErrors) => ({ ...prevErrors, currency: '' }));
+                  }}
+                  options={currencies.map((currency) => ({
+                    value: currency,
+                    label: currency,
+                  }))}
+                  placeholder="Select"
+                  isOpen={openDropdown === 'currency'}
+                  onToggle={() => handleDropdownToggle('currency')}
+                  className="border-none focus:ring-0"
+                />
+              </div>
+            </div>
+          </div>
 
           <div className="mb-4">
             <label className="block text-gray-700 font-semibold mb-2">Send To</label>

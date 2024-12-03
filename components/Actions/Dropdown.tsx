@@ -34,10 +34,10 @@ const Dropdown: React.FC<DropdownProps> = ({
   };
 
   return (
-    <div className={`relative ${className || ''}`}>
+    <div className="relative">
       <button
         type="button"
-        className="w-full px-4 py-3 rounded-lg border border-gray-300 flex items-center justify-between focus:outline-none focus:ring-2 focus:ring-brightBlue"
+        className={`w-full px-4 py-3 rounded-lg border border-gray-300 flex items-center justify-between focus:outline-none focus:ring-2 focus:ring-brightBlue ${className || ''}`}
         onClick={onToggle}
       >
         <span>{selectedValue || placeholder}</span>
