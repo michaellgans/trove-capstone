@@ -1,18 +1,23 @@
 'use server'
-import { db } from "./db";
-import { Child, Child_Account, LoanDataPayload, Parent, Parent_Account, SignUpPayload, Transactions } from "@/types/types";
+import { Child, Child_Account, Loans, LoanDataPayload, Parent, Parent_Account, SignUpPayload, Transactions } from "@/types/types";
 import { prisma } from "@/prisma";
 import bcrypt from "bcryptjs";
 
 
 // GET Server Actions
+/**
+ * Fetches the parent user details by their ID.
+ * 
+ * @param parent_id - The ID of the parent user to fetch.
+ * @returns Array of Parent objects.
+ */
 export async function getParentById(parent_id: string): Promise<Parent[]> {
   try {
-    const parent = await db
-      .selectFrom("parents")
-      .selectAll()
-      .where("parent_id", "=", parent_id)
-      .execute();
+    const parent = await prisma.parent_user.findMany({
+      where: {
+        id: parent_id,
+      },
+    });
 
     return parent;
   } catch (error) {
@@ -22,13 +27,19 @@ export async function getParentById(parent_id: string): Promise<Parent[]> {
   }
 }
 
+/**
+ * Fetches the child user details by their parents ID.
+ * 
+ * @param parent_id - The ID of the parent user to fetch by.
+ * @returns Array of Child objects.
+ */
 export async function getChildrenByParent(parent_id: string): Promise<Child[]> {
   try {
-    const children = await db
-      .selectFrom("children")
-      .selectAll()
-      .where("parent_id", "=", parent_id)
-      .execute();
+    const children = await prisma.child_user.findMany({
+      where: {
+        parent_id: parent_id,
+      },
+    });
 
     return children;
   } catch (error) {
@@ -38,13 +49,19 @@ export async function getChildrenByParent(parent_id: string): Promise<Child[]> {
   }
 }
 
+/**
+ * Fetches the parent account details by their parent ID.
+ * 
+ * @param parent_id - The ID of the parent user to fetch.
+ * @returns Parent Account object.
+ */
 export async function getParentAccountByParentId(parent_id: string): Promise<Parent_Account[]> {
   try {
-    const parentAccount = await db
-      .selectFrom('parent_accounts')
-      .selectAll()
-      .where('parent_id', '=', parent_id)
-      .execute();
+    const parentAccount = await prisma.parent_account.findMany({
+      where: {
+        parent_id: parent_id,
+      },
+    });
 
     return parentAccount;
   } catch (error) {
@@ -54,13 +71,19 @@ export async function getParentAccountByParentId(parent_id: string): Promise<Par
   }
 }
 
+/**
+ * Fetches the child account details by their child ID.
+ * 
+ * @param child_id - The ID of the child user to fetch.
+ * @returns Child Account object.
+ */
 export async function getChildAccountByChildId(child_id: string): Promise<Child_Account[]> {
   try {
-    const childAccount = await db
-      .selectFrom('child_accounts')
-      .selectAll()
-      .where('child_id', '=', child_id)
-      .execute();
+    const childAccount = await prisma.child_account.findMany({
+      where: {
+        child_id: child_id,
+      },
+    });
 
     return childAccount;
   } catch (error) {
@@ -70,29 +93,41 @@ export async function getChildAccountByChildId(child_id: string): Promise<Child_
   }
 }
 
-export async function getChildAccountByParentAccountId(p_account_id: string): Promise<Child_Account[]> {
+/**
+ * Fetches the child account details by their parent ID.
+ * 
+ * @param parent_id - The ID of the parent user to fetch by.
+ * @returns Array of Child Account objects.
+ */
+export async function getChildAccountByParentId(parent_id: string): Promise<Child_Account[]> {
   try {
-    const childAccountByParentAccount = await db
-      .selectFrom('child_accounts')
-      .selectAll()
-      .where('p_account_id', '=', p_account_id)
-      .execute();
+    const childAccountByParentAccount = await prisma.child_account.findMany({
+      where: {
+        parent_id: parent_id,
+      },
+    });
 
     return childAccountByParentAccount;
   } catch (error) {
-    console.error(`Error fetching child accounts for p_account_id: ${p_account_id}`);
+    console.error(`Error fetching child accounts for parent_id: ${parent_id}`);
     console.error(error);
     throw new Error('Unable to fetch child accounts');
   }
 }
 
+/**
+ * Fetches the all transactions details by parent account ID.
+ * 
+ * @param p_account_id - The ID of the parent account to fetch by.
+ * @returns Array of transactions objects.
+ */
 export async function getAllTransactionsByParentAccountId(p_account_id: string): Promise<Transactions[]> {
   try {
-    const transactionsByParentAccount = await db
-      .selectFrom('transactions')
-      .selectAll()
-      .where('p_account_id', '=', p_account_id)
-      .execute();
+    const transactionsByParentAccount = await prisma.transaction.findMany({
+      where: {
+        p_account_id: p_account_id,
+      },
+    });
 
     return transactionsByParentAccount;
   } catch (error) {
@@ -102,35 +137,44 @@ export async function getAllTransactionsByParentAccountId(p_account_id: string):
   }
 }
 
-export async function getTransactionsByChildId(child_id: string): Promise<any[]> {
+/**
+ * Fetches the all transactions details by child ID.
+ * 
+ * @param child_id - The ID of the child to fetch by.
+ * @returns Array of transactions objects by child.
+ */
+export async function getTransactionsByChildId(child_id: string): Promise<Transactions[]> {
   try {
     // Fetch the child account's c_account_id
-    const childAccount = await db
-      .selectFrom('child_accounts')
-      .select(['c_account_id'])
-      .where('child_id', '=', child_id)
-      .execute();
+    const childAccount = await prisma.child_account.findUnique({
+      where: {
+        child_id: child_id,
+      },
+      select: {
+        id: true,
+      },
+    });
 
-    if (!childAccount.length) {
+    if (!childAccount) {
       console.warn(`No child account found for child_id: ${child_id}`);
       return [];
     }
 
-    const c_account_id = childAccount[0].c_account_id;
+    const c_account_id = childAccount.id;
 
     // Fetch transactions where to_account_id matches c_account_id
-    const transactionsToAccount = await db
-      .selectFrom('transactions')
-      .selectAll()
-      .where('to_account_id', '=', c_account_id)
-      .execute();
+    const transactionsToAccount = await prisma.transaction.findMany({
+      where: {
+        to_account_id: c_account_id,
+      },
+    });
 
     // Fetch transactions where from_account_id matches c_account_id
-    const transactionsFromAccount = await db
-      .selectFrom('transactions')
-      .selectAll()
-      .where('from_account_id', '=', c_account_id)
-      .execute();
+    const transactionsFromAccount = await prisma.transaction.findMany({
+      where: {
+        from_account_id: c_account_id,
+      },
+    });
 
     // Combine both results
     const allTransactionsByChild = [...transactionsToAccount, ...transactionsFromAccount];
@@ -143,40 +187,49 @@ export async function getTransactionsByChildId(child_id: string): Promise<any[]>
   }
 }
 
-export async function getLoansByChildId(child_id: string): Promise<any[]> {
+/**
+ * Fetches the all transactions details by child ID.
+ * 
+ * @param child_id - The ID of the child to fetch by.
+ * @returns Array of loan objects by child.
+ */
+export async function getLoansByChildId(child_id: string): Promise<Loans[]> {
   try {
     // Fetch the child account's c_account_id
-    const childAccount = await db
-      .selectFrom('child_accounts')
-      .select(['c_account_id'])
-      .where('child_id', '=', child_id)
-      .execute();
+    const childAccount = await prisma.child_account.findUnique({
+      where: {
+        child_id: child_id,
+      },
+      select: {
+        id: true,
+      },
+    });
 
-    if (!childAccount.length) {
+    if (!childAccount) {
       console.warn(`No child account found for child_id: ${child_id}`);
       return [];
     }
 
-    const c_account_id = childAccount[0].c_account_id;
+    const c_account_id = childAccount.id;
 
     // Fetch loans where borrower_id matches c_account_id
-    const loansToAccount = await db
-      .selectFrom('loans')
-      .selectAll()
-      .where('borrower_id', '=', c_account_id)
-      .execute();
+    const loansToAccount = await prisma.loan.findMany({
+      where: {
+        borrower_id: c_account_id,
+      },
+    });
 
     // Fetch loans where lender_id matches c_account_id
-    const loansFromAccount = await db
-      .selectFrom('loans')
-      .selectAll()
-      .where('lender_id', '=', c_account_id)
-      .execute();
+    const loansFromAccount = await prisma.loan.findMany({
+      where: {
+        lender_id: c_account_id,
+      },
+    });
 
     // Combine both results
-    const allloansByChild = [...loansToAccount, ...loansFromAccount];
+    const allLoansByChild = [...loansToAccount, ...loansFromAccount];
 
-    return allloansByChild;
+    return allLoansByChild;
   } catch (error) {
     console.error(`Error fetching loans for child_id: ${child_id}`);
     console.error(error);
@@ -184,17 +237,26 @@ export async function getLoansByChildId(child_id: string): Promise<any[]> {
   }
 }
 
-export async function getWithholdingBalanceByParentAccount(parent_id: string): Promise<number | null> {
+/**
+ * Fetches the withholding balance details by parent account ID.
+ * 
+ * @param p_account_id - The ID of the parent account to fetch by.
+ * @returns Whithhold balance of the parent account.
+ */
+export async function getWithholdingBalanceByParentAccount(p_account_id: string): Promise<number | null> {
   try {
-    const parentWithholdings = await db
-      .selectFrom('parent_accounts')
-      .select(['parent_accounts.withholding_balance'])
-      .where('parent_accounts.parent_id', '=', parent_id)
-      .execute();
+    const parentWithholdings = await prisma.parent_account.findUnique({
+      where: {
+        id: p_account_id,
+      },
+      select: {
+        withholding_balance: true,
+      },
+    });
 
-    return parentWithholdings.length > 0 ? parentWithholdings[0].withholding_balance : null;
+    return parentWithholdings ? parentWithholdings.withholding_balance : null;
   } catch (error) {
-    console.error(`Error fetching withholding balance for parent_id: ${parent_id}`);
+    console.error(`Error fetching withholding balance for p_account_id: ${p_account_id}`);
     console.error(error);
     throw new Error('Unable to fetch withholding balance');
   }  
