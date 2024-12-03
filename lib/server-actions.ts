@@ -263,8 +263,20 @@ export async function getWithholdingBalanceByParentAccount(p_account_id: string)
 }
 
 // POST Server Actions
+
+/**
+ * 
+ * @param parent_id - The ID of the parent user
+ * @param child_id - The ID of the child user
+ * @param amount - Amount for the transfer
+ * @param withholdings - Optional - Withholdings/Taxes Value - Expects 5, 10, or 15 then converts to percentage
+ * @param description - Transaction Description
+ * 
+ * @returns N/A - Inserts new transaction into database and updates Parent/Child account balances
+ */
 export async function newParentToChildTransfer(parent_id: string, child_id: string, amount: number, withholdings?: number, description?: string) {
   try {
+    // Pull parent and child user and account info
     const parent_user = await prisma.parent_user.findUnique({
       where: {
         id: parent_id,
@@ -287,10 +299,13 @@ export async function newParentToChildTransfer(parent_id: string, child_id: stri
       },
     });
 
+    // If withholdings are present
     if (withholdings) {
+      // Calculate withholdings value
       const withholdings_amount = amount * (withholdings / 100);
       const finalAmount = amount - withholdings_amount;
 
+      // Insert new transaction
       await prisma.transaction.create({
         data: {
           type: "Deposit / Taxes",
@@ -306,6 +321,7 @@ export async function newParentToChildTransfer(parent_id: string, child_id: stri
         },
       });
 
+      // Update parent and child account balances
       await prisma.parent_account.update({
         where: {
           id: parent_account.id,
@@ -328,8 +344,10 @@ export async function newParentToChildTransfer(parent_id: string, child_id: stri
         },
       });
 
+      // Update parent account withholdings balance
       await updateWithholdingsBalance(parent_account.id, withholdings_amount);
-    } else if (!withholdings) {
+    } else if (!withholdings) { // If no withholdings are present
+      // Insert new transaction
       await prisma.transaction.create({
         data: {
           type: "Deposit",
@@ -345,6 +363,7 @@ export async function newParentToChildTransfer(parent_id: string, child_id: stri
         },
       });
 
+      // Update parent and child accounts
       await prisma.parent_account.update({
         where: {
           id: parent_account.id,
@@ -373,8 +392,18 @@ export async function newParentToChildTransfer(parent_id: string, child_id: stri
   }
 }
 
+/**
+ * 
+ * @param from_child_id - Child id of the sender
+ * @param to_child_id - Child id of the receiver
+ * @param amount - Amount for the transfer
+ * @param description - Transaction Description
+ * 
+ * @returns N/A - Inserts new transaction into database and updates both Child accounts
+ */
 export async function newChildToChildTransfer(from_child_id: string, to_child_id: string, amount: number, description?: string) {
   try {
+    // Pull user and account info for sending child and receiving child
     const from_child_user = await prisma.child_user.findUnique({
       where: {
         id: from_child_id,
@@ -397,12 +426,14 @@ export async function newChildToChildTransfer(from_child_id: string, to_child_id
       },
     });
 
+    // Pull Parent account info
     const parent_account = await prisma.parent_account.findUnique({
       where: {
         parent_id: from_child_user.parent_id,
       },
     });
 
+    // Insert new transaction
     await prisma.transaction.create({
       data: {
         type: "Transfer",
@@ -418,6 +449,7 @@ export async function newChildToChildTransfer(from_child_id: string, to_child_id
       },
     });
 
+    // Update accounts of sending and receiving child
     await prisma.child_account.update({
       where: {
         id: from_child_account.id,
@@ -445,8 +477,16 @@ export async function newChildToChildTransfer(from_child_id: string, to_child_id
   }
 }
 
+/**
+ * 
+ * @param child_id - Id of child user
+ * @param amount - Amount to transfer
+ * 
+ * @returns N/A - Inserts new transaction and updates child checking/savings balance
+ */
 export async function newCheckingToSavingsTransfer(child_id: string, amount: number) {
   try {
+    // Retrieve child user and account info and parent user info
     const child_user = await prisma.child_user.findUnique({
       where: {
         id: child_id,
@@ -464,6 +504,7 @@ export async function newCheckingToSavingsTransfer(child_id: string, amount: num
       },
     });
 
+    // Insert new transaction
     await prisma.transaction.create({
       data: {
         type: "Transfer",
@@ -479,6 +520,7 @@ export async function newCheckingToSavingsTransfer(child_id: string, amount: num
       },
     });
 
+    // Decrease Child checking balance and increase savings balance
     await prisma.child_account.update({
       where: {
         child_id: child_id,
@@ -498,10 +540,79 @@ export async function newCheckingToSavingsTransfer(child_id: string, amount: num
   }
 }
 
-// Add a Savings to Checking Transfer
+/**
+ * 
+ * @param child_id - Id of child user
+ * @param amount - Amount to transfer
+ * 
+ * @returns N/A - Inserts new transaction and updates child checking/savings balance
+ */
+export async function newSavingsToCheckingTransfer(child_id: string, amount: number) {
+  try {
+    // Retrieve child user and account info and parent user info
+    const child_user = await prisma.child_user.findUnique({
+      where: {
+        id: child_id,
+      },
+    });
+    const child_account = await prisma.child_account.findUnique({
+      where: {
+        child_id: child_id,
+      },
+    });
 
+    const parent_account = await prisma.parent_account.findUnique({
+      where: {
+        parent_id: child_user.parent_id,
+      },
+    });
+
+    // Insert new transaction
+    await prisma.transaction.create({
+      data: {
+        type: "Transfer",
+        from_account_id: child_account.id,
+        from_name: child_user.name,
+        to_account_id: child_account.id,
+        to_name: child_user.name,
+        to_external_id: null,
+        amount: amount,
+        withholdings: 0,
+        description: "Savings Transfer",
+        p_account_id: parent_account.id
+      },
+    });
+
+    // Decrease Child savings balance and increase checking balance
+    await prisma.child_account.update({
+      where: {
+        child_id: child_id,
+      },
+      data: {
+        savings_balance: {
+          decrement: amount,
+        },
+        checking_balance: {
+          increment: amount,
+        },
+      },
+    });
+  } catch (error) {
+    console.error(error);
+    throw new Error("Failed to complete checking to savings transfer")
+  }
+}
+
+/**
+ * 
+ * @param parent_id - ID of parent
+ * @param amount - Amount to transfer
+ * 
+ * @returns N/A - Inserts new transaction and updates child checking/savings balance
+ */
 export async function transferWithholdings(parent_id: string, amount: number) {
   try {
+    // Retrieve parent user and account info
     const parent_user = await prisma.parent_user.findUnique({
       where: {
         id: parent_id,
@@ -513,6 +624,7 @@ export async function transferWithholdings(parent_id: string, amount: number) {
       },
     });
 
+    // Insert new transaction
     await prisma.transaction.create({
       data: {
         type: "Transfer",
@@ -523,11 +635,12 @@ export async function transferWithholdings(parent_id: string, amount: number) {
         to_external_id: null,
         amount: amount,
         withholdings: 0,
-        description: "Savings Transfer",
+        description: "Withholdings Transfer",
         p_account_id: parent_account.id
       },
     });
 
+    // Update parent account, decrease withholdings balance, increase balance
     await prisma.parent_account.update({
       where: {
         parent_id: parent_id,
@@ -547,8 +660,16 @@ export async function transferWithholdings(parent_id: string, amount: number) {
   }
 }
 
+/**
+ * 
+ * @param parent_account_id - Parent Account ID
+ * @param withholding_amount - Withholding amount
+ * 
+ * @returns N/A - Updates parent account withholding balance
+ */
 export async function updateWithholdingsBalance(parent_account_id: string, withholding_amount: number) {
   try {
+    // Update withholdings balance
     await prisma.parent_account.update({
       where: {
         id: parent_account_id,
@@ -565,8 +686,23 @@ export async function updateWithholdingsBalance(parent_account_id: string, withh
   }
 }
 
+/**
+ * 
+ * @param lender_id - Lender ID - Parent User
+ * @param borrower_id - Borrower ID - Child User
+ * @param loan - Loan Information:
+ *        {
+ *          interest_rate: number; (Whole Number Percentage Value)
+ *          days_due: number; (Number of Days Until Due Date)
+ *          loan_amount: number; (Initial Principal)
+ *          description: string;
+ *        }
+ * 
+ * @returns N/A - Inserts new transaction and loan, updates parent and child account balances
+ */
 export async function newParentToChildLoan(lender_id: string, borrower_id: string, loan: LoanDataPayload) {
   try {
+    // Retrieve parent data as lender and child data as borrower
     const lender = await prisma.parent_user.findUnique({
       where: {
         id: lender_id,
@@ -589,6 +725,7 @@ export async function newParentToChildLoan(lender_id: string, borrower_id: strin
       },
     });
 
+    // Insert new transaction
     await prisma.transaction.create({
       data: {
         type: "Loan",
@@ -604,6 +741,7 @@ export async function newParentToChildLoan(lender_id: string, borrower_id: strin
       },
     });
 
+    // Update parent and child account balances
     await prisma.parent_account.update({
       where: {
         id: lender_account.id,
@@ -626,9 +764,11 @@ export async function newParentToChildLoan(lender_id: string, borrower_id: strin
       },
     });
 
+    // Determine due date from days_due
     const today = new Date();
     const due_date = today.setDate(today.getDate() + loan.days_due);
 
+    // Insert new loan
     await prisma.loan.create({
       data: {
         lender_id: lender.id,
@@ -645,8 +785,23 @@ export async function newParentToChildLoan(lender_id: string, borrower_id: strin
   }
 }
 
+/**
+ * 
+ * @param lender_id - Lender ID - Child User
+ * @param borrower_id - Borrower ID - Child User
+ * @param loan - Loan Information:
+ *        {
+ *          interest_rate: number; (Whole Number Percentage Value)
+ *          days_due: number; (Number of Days Until Due Date)
+ *          loan_amount: number; (Initial Principal)
+ *          description: string;
+ *        }
+ * 
+ * @returns N/A - Inserts new transaction and loan, updates children account balances
+ */
 export async function newChildToChildLoan(lender_id: string, borrower_id: string, loan: LoanDataPayload) {
   try {
+    // Retrieve children user and account info as lender and borrower
     const lender = await prisma.child_user.findUnique({
       where: {
         id: lender_id,
@@ -669,6 +824,7 @@ export async function newChildToChildLoan(lender_id: string, borrower_id: string
       },
     });
 
+    // Insert new transaction
     await prisma.transaction.create({
       data: {
         type: "Loan",
@@ -684,6 +840,7 @@ export async function newChildToChildLoan(lender_id: string, borrower_id: string
       },
     });
 
+    // Update account balances of lender and borrower
     await prisma.child_account.update({
       where: {
         id: lender_account.id,
@@ -706,9 +863,11 @@ export async function newChildToChildLoan(lender_id: string, borrower_id: string
       },
     });
 
+    // Determine due date from days_due
     const today = new Date();
     const due_date = today.setDate(today.getDate() + loan.days_due);
 
+    // Insert new loan
     await prisma.loan.create({
       data: {
         lender_id: lender.id,
@@ -725,8 +884,18 @@ export async function newChildToChildLoan(lender_id: string, borrower_id: string
   }
 }
 
+/**
+ * 
+ * @param lender_id - Lender ID - Parent User
+ * @param borrower_id - Borrower ID - Child User
+ * @param amount - Amount to pay
+ * @param description - Description
+ * 
+ * @returns N/A - Creates new transaction, updates parent and child account balances, updates loan record
+ */
 export async function newChildToParentLoanPayment(lender_id: string, borrower_id: string, amount: number, description?: string) {
   try {
+    // Retrieve parent and child info as lender and borrower
     const lender = await prisma.parent_user.findUnique({
       where: {
         id: lender_id,
@@ -749,6 +918,7 @@ export async function newChildToParentLoanPayment(lender_id: string, borrower_id
       },
     });
 
+    // Insert new transaction
     await prisma.transaction.create({
       data: {
         type: "Loan",
@@ -764,6 +934,7 @@ export async function newChildToParentLoanPayment(lender_id: string, borrower_id
       },
     });
 
+    // Update parent and child account balances
     await prisma.child_account.update({
       where: {
         id: borrower_account.id,
@@ -786,7 +957,8 @@ export async function newChildToParentLoanPayment(lender_id: string, borrower_id
       },
     });
 
-    await prisma.loan.update({
+    // Update loan record
+    const updatedLoan = await prisma.loan.update({
       where: {
         borrower_id: borrower.id,
       },
@@ -796,14 +968,33 @@ export async function newChildToParentLoanPayment(lender_id: string, borrower_id
         },
       },
     });
+
+    // Delete loan record if current_balance is 0
+    if (updatedLoan.current_balance === 0) {
+      await prisma.loan.delete({
+        where: {
+          borrower_id: borrower.id,
+        },
+      });
+    }
   } catch (error) {
     console.error(error);
     throw new Error("Failed to complete child to parent loan payment");
   }
 }
 
+/**
+ * 
+ * @param lender_id - Lender ID - Child User
+ * @param borrower_id - Borrower ID - Child User
+ * @param amount - Amount to pay
+ * @param description - Description
+ * 
+ * @returns N/A - Creates new transaction, updates parent and child account balances, updates loan record
+ */
 export async function newChildToChildLoanPayment(lender_id: string, borrower_id: string, amount: number, description?: string) {
   try {
+    // Retrieve children info as lender and borrower
     const lender = await prisma.child_user.findUnique({
       where: {
         id: lender_id,
@@ -826,6 +1017,7 @@ export async function newChildToChildLoanPayment(lender_id: string, borrower_id:
       },
     });
 
+    // Insert new transaction
     await prisma.transaction.create({
       data: {
         type: "Loan",
@@ -841,6 +1033,7 @@ export async function newChildToChildLoanPayment(lender_id: string, borrower_id:
       },
     });
 
+    // Update lender and borrwer child accounts
     await prisma.child_account.update({
       where: {
         id: borrower_account.id,
@@ -863,7 +1056,8 @@ export async function newChildToChildLoanPayment(lender_id: string, borrower_id:
       },
     });
 
-    await prisma.loan.update({
+    // Update loan balance
+    const updatedLoan = await prisma.loan.update({
       where: {
         borrower_id: borrower.id,
       },
@@ -873,12 +1067,27 @@ export async function newChildToChildLoanPayment(lender_id: string, borrower_id:
         },
       },
     });
+
+    // Delete loan record if current_balance is 0
+    if (updatedLoan.current_balance === 0) {
+      await prisma.loan.delete({
+        where: {
+          borrower_id: borrower.id,
+        },
+      });
+    }
   } catch (error) {
     console.error(error);
     throw new Error("Failed to complete child to child loan payment");
   }
 }
 
+/**
+ * 
+ * @param parent_id - Parent ID of User/Account to Delete
+ * 
+ * @returns N/A - Deletes Parent User, Cascade set to delete all accounts, children, child accounts, transactions, loans, etc.
+ */
 export async function deleteAccount(parent_id: string) {
   try {
     prisma.parent_user.delete({
@@ -893,10 +1102,30 @@ export async function deleteAccount(parent_id: string) {
 }
 
 // Google and Credential Sign Up Actions
+
+/**
+ * 
+ * @param {
+ *    email: string;
+ *    password: string;
+ *    name: string; (Full Name)
+ *    startingBalance: number;
+ *    children: {
+ *        name: string; (Full Name)
+ *        username: string;
+ *        password: string;
+ *        startingBalance: number;
+ *    }[]
+ * }
+ * 
+ * @returns N/A - Creates new parent user with associated parent account and child users/child accounts
+ */
 export async function handleSignupWithCredentials({email, password, name, startingBalance, children}: SignUpPayload) {
   try {
+    // Hash password
     const hashedPassword = await bcrypt.hash(password!, 10);
 
+    // Create new parent user, parent account, and lessons record
     const parentUser = await prisma.parent_user.create({
       data: {
         email,
@@ -908,7 +1137,8 @@ export async function handleSignupWithCredentials({email, password, name, starti
     await prisma.parent_account.create({
       data: {
         parent_id: parentUser.id,
-        balance: startingBalance
+        balance: startingBalance,
+        withholdings_balance: 0,
       },
     });
 
@@ -923,6 +1153,7 @@ export async function handleSignupWithCredentials({email, password, name, starti
       },
     });
 
+    // Create child users and associated accounts
     for (const child of children) {
       const hashedChildPassword = await bcrypt.hash(child.password, 10);
 
@@ -950,8 +1181,24 @@ export async function handleSignupWithCredentials({email, password, name, starti
   }
 }
 
+/**
+ * 
+ * @param {
+ *    parent_id: string;
+ *    startingBalance: number;
+ *    children: {
+ *        name: string; (Full Name)
+ *        username: string;
+ *        password: string;
+ *        startingBalance: number;
+ *    }[]
+ * }
+ * 
+ * @returns N/A - Pulls new user from automatic Prisma/Google Provider process, creates new associated account, children, and child accounts
+ */
 export async function handleSignupWithGoogle({parent_id, startingBalance, children}: GoogleSignUpPayload) {
   try {
+    // Retrieve user created by Google OAuth/Prisma Adapter
     const parentUser = await prisma.parent_user.findUnique({
       where: {
         id: parent_id,
@@ -962,10 +1209,12 @@ export async function handleSignupWithGoogle({parent_id, startingBalance, childr
       throw new Error("Parent user not found");
     }
 
+    // Create parent account and lessons completed records
     await prisma.parent_account.create({
       data: {
         parent_id: parentUser.id,
-        balance: startingBalance
+        balance: startingBalance,
+        withholdings_balance: 0,
       },
     });
 
@@ -980,6 +1229,7 @@ export async function handleSignupWithGoogle({parent_id, startingBalance, childr
       },
     });
 
+    // Create child users and associated accounts
     for (const child of children) {
       const hashedChildPassword = await bcrypt.hash(child.password, 10);
 
