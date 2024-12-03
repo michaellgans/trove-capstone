@@ -58,6 +58,7 @@ model lessons_completed {
 
 model transaction {
     id                  String @id @default(cuid())
+    timestamp           DateTime @default(now())
     type                String
     from_account_id     String
     from_name           String

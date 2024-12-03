@@ -21,25 +21,25 @@ export type ChildDataType = {
 };
 
 export type Parent = {
-  parent_id: string;
+  id: string;
   name: string;
   email: string;
-  password: string;
-  avatar_img: string;
+  password?: string | null;
+  avatar_img?: string | null;
 };
 
 export type Child = {
-  child_id: string;
+  id: string;
   name: string;
   username: string;
   password: string;
-  avatar_img: string;
+  avatar_img?: string | null;
   parent_id: string;
 };
 
 export type Parent_Account = {
-  p_account_id: string;
-  stripe_acct_id: string;
+  id: string;
+  stripe_acct_id?: string | null;
   balance: number;
   withholding_balance: number;
   parent_id: string;
@@ -51,17 +51,17 @@ export type Child_Account = {
   savings_balance?: number;
   savings_goal?: number;
   child_id: string;
-  p_account_id: string;
+  parent_id: string;
 };
 
 export type Transactions = {
-  transaction_id: string;
+  id: string;
   timestamp: string;
   type: string;
-  description: string;
+  description?: string | null;
   to_external_id?: string | null;
   amount: number;
-  withholdings?: string | null;
+  withholdings?: number | null;
   to_name: string;
   from_name: string;
   to_account_id?: string | null;
@@ -70,16 +70,17 @@ export type Transactions = {
 };
 
 export type Loans = {
-  loan_id: string;
+  id: string;
   loan_amount: number;
   interest_rate: number;
   due_date: Date;
-  current_amount: number;
+  current_balance: number;
   lender_id: string;
   borrower_id: string;
 };
 
 export type Lessons_Completed = {
+  id: string;
   savings: boolean;
   taxes: boolean;
   obligations: boolean;
