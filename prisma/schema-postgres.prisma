@@ -61,7 +61,7 @@ model transaction {
     type                String
     from_account_id     String
     from_name           String
-    to_account_id       String
+    to_account_id       String?
     to_name             String
     to_external_id      String?
     amount              Int
@@ -81,4 +81,10 @@ model loan {
     due_date            DateTime
     p_account_id        String
     parent              parent_account @relation(fields: [p_account_id], references: [id], onDelete: Cascade)
+}
+
+model settings {
+    id                  String @id @default(cuid())
+    parent_id           String
+    parent              parent_account @relation(fields: [parent_id], references: [id], onDelete: Cascade)
 }
