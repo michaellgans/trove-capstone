@@ -47,31 +47,41 @@ export function ThemedText({
 }
 
 const styles = StyleSheet.create({
-  // Logo Text
+  // Login: title
   title: {
     fontSize: 60,
     fontFamily: 'BaskervilleSC',
   },
-  // Slogan Text
+  // Login: subtitle
   subtitle: {
     fontSize: 20,
     fontWeight: 'bold',
+    fontFamily: 'Baskerville',
   },
-  // Main Text
+  // Notification text
   default: {
     fontSize: 16,
     lineHeight: 20,
     fontFamily: 'Inter',
   },
+  // Login: input titles
+  defaultMedium: {
+    fontSize: 16,
+    lineHeight: 20,
+    fontWeight: 'medium',
+    fontFamily: 'Inter',
+  },
+  // Notification Subject:
   // Main Text semibold
   defaultBold: {
     fontSize: 16,
-    fontWeight: 'semibold',
     lineHeight: 20,
+    fontWeight: 'semibold',
     fontFamily: 'Inter',
   },
-  // Input Text
-  prompts: {
+  // Login: Input Placeholder
+  // Muted Text
+  mutedText: {
     fontSize: 16,
     lineHeight: 24,
     fontFamily: 'Inter',
@@ -83,27 +93,36 @@ const styles = StyleSheet.create({
     lineHeight: 24,
     color: '#FFFFFF',
   },
-  // Displays balance
+  // Home, Checking, Savings, Loans:
+  // Titles of Balance
+  // Savings Goals, Loan Progress
+  balanceTitle: {
+    fontSize: 20,
+    fontFamily: 'Inter',
+    color: Colors.light.mutedText
+  },
+  // Home, Checking, Savings, Loans:
+  // Balances
   balanceText: {
     fontSize: 30,
     fontWeight: 'semibold',
   },
-  // Learning Center
+  // Learning Center: Title
   sectionText: {
     fontSize: 48,
     fontWeight: 'bold',
   },
-  // Settings and Notifications
+  // Settings, Sent, Notifications: Title
   subSectionText: {
     fontSize: 24,
     fontWeight: 'semibold',
   },
-  // Dropdowns
+  // Settings: Dropdowns
   dropdownText: {
     fontSize: 18,
     fontWeight: 'medium',
   },
-  // Hints
+  // Settings: Hints
   hintText: {
     fontSize: 14,
     fontWeight: 'medium',
