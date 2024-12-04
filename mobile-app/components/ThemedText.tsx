@@ -9,7 +9,7 @@ import { Colors } from 'react-native/Libraries/NewAppScreen';
 export type ThemedTextProps = TextProps & {
   lightColor?: string;
   darkColor?: string;
-  type?: 'default' | 'title' | 'defaultSemiBold' | 'subtitle' | 'link';
+  type?: 'title' | 'subtitle' | 'default' | 'defaultMedium' | 'defaultBold' | 'mutedText' | 'buttonText' | 'balanceTitle' | 'balanceText' | 'sectionText' | 'subSectionText' | 'dropdownText' | 'hintText';
 };
 
 export function ThemedText({
