@@ -135,3 +135,82 @@ input[type='number'] {
 .border-none {
   border: none !important;
 }
+
+#gradial-fly {
+  background: 
+    linear-gradient(to right, rgba(255, 255, 255, 0) 0%, #ffffff 100%),
+    radial-gradient(
+      circle at 5% 74%,
+      rgba(246, 2, 2, 0.3) 0%,
+      rgba(254, 51, 2, 0) 25%
+    ),
+    radial-gradient(
+      circle at 5.85% 5.03%,
+      rgba(232, 240, 3, 0.4) 0%,
+      rgba(254, 192, 1, 0) 25%
+    ),
+    radial-gradient(
+      circle at 30.06% 120.84%,
+      rgba(136, 245, 3, 0.3) 0%,
+      rgba(75, 112, 31, 0) 20%
+    ),
+    radial-gradient(
+      circle at 30.03% 0.74%,
+      rgba(3, 55, 245, 0.3) 0%,
+      rgba(2, 85, 238, 0) 30%
+    ),
+   /* #F3F3F1;  Base background color */
+   #FFF;
+}
+
+#gradial-point {
+  background: 
+    linear-gradient(to left, rgba(255, 255, 255, 0) 0%, #ffffff 100%),
+    radial-gradient(
+      circle at 95% 74%,
+      rgba(246, 2, 2, 0.3) 0%,
+      rgba(254, 51, 2, 0) 25%
+    ),
+    radial-gradient(
+      circle at 95% 5.03%,
+      rgba(232, 240, 3, 0.4) 0%,
+      rgba(254, 192, 1, 0) 25%
+    ),
+    radial-gradient(
+      circle at 70% 120.84%,
+      rgba(136, 245, 3, 0.3) 0%,
+      rgba(75, 112, 31, 0) 20%
+    ),
+    radial-gradient(
+      circle at 70% 0.74%,
+      rgba(3, 55, 245, 0.3) 0%,
+      rgba(2, 85, 238, 0) 30%
+    ),
+   #FFF;
+}
+
+#gradial-walk {
+  background: 
+    linear-gradient(to left, rgba(255, 255, 255, 0) 0%, #ffffff 100%),
+    radial-gradient(
+      circle at 95% 74%,
+      rgba(246, 2, 2, 0.3) 0%,
+      rgba(254, 51, 2, 0) 25%
+    ),
+    radial-gradient(
+      circle at 95% 5.03%,
+      rgba(232, 240, 3, 0.4) 0%,
+      rgba(254, 192, 1, 0) 25%
+    ),
+    radial-gradient(
+      circle at 70% 120.84%,
+      rgba(136, 245, 3, 0.3) 0%,
+      rgba(75, 112, 31, 0) 20%
+    ),
+    radial-gradient(
+      circle at 70% 0.74%,
+      rgba(3, 55, 245, 0.3) 0%,
+      rgba(2, 85, 238, 0) 30%
+    ),
+   #FFF;
+}

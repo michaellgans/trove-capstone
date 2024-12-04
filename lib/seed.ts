@@ -294,7 +294,7 @@ export async function seedLessonsCompletedTable() {
       loans BOOLEAN NOT NULL DEFAULT false,
       parent_id UUID NOT NULL,
       CONSTRAINT fk_parent_id FOREIGN KEY (parent_id) REFERENCES parents(parent_id) ON DELETE CASCADE,
-      CONSTRAINT unique_parent_id UNIQUE (parent_id) -- Make parent_id unique
+      CONSTRAINT unique_parent_id UNIQUE (parent_id)
     );
   `;
 
