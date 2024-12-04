@@ -1,4 +1,4 @@
-// Handles loan payment
+// Handles transfer between checking/savings account
 import { NextApiRequest, NextApiResponse } from "next";
 import verifyToken from "@/lib/verifyToken";
 import { prisma } from "@/prisma";
@@ -11,6 +11,6 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
       return res.status(401).json({ error: "Unauthorized" });
     }
   } catch (error) {
-    return res.status(500).json({ error: "Failed to complete loan payment" });
+    return res.status(500).json({ error: "Failed to complete transfer" });
   }
 }
