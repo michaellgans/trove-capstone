@@ -1,7 +1,11 @@
+// Imports
 import { Text, type TextProps, StyleSheet } from 'react-native';
+import { useFonts } from 'expo-font';
 
 import { useThemeColor } from '@/hooks/useThemeColor';
+import { Colors } from 'react-native/Libraries/NewAppScreen';
 
+// Props
 export type ThemedTextProps = TextProps & {
   lightColor?: string;
   darkColor?: string;
@@ -15,17 +19,26 @@ export function ThemedText({
   type = 'default',
   ...rest
 }: ThemedTextProps) {
+  // Uses basic text color
   const color = useThemeColor({ light: lightColor, dark: darkColor }, 'text');
+
+  // Use downloaded fonts
+  const [loaded] = useFonts({
+    BaskervilleSC: require('../assets/fonts/BaskervvilleSC-Regular.ttf'),
+    Baskerville: require('../assets/fonts/LibreBaskerville-Regular.ttf'),
+    Inter: require('../assets/fonts/Inter-VariableFont_opsz,wght.ttf'),
+  });
 
   return (
     <Text
       style={[
         { color },
-        type === 'default' ? styles.default : undefined,
-        type === 'title' ? styles.title : undefined,
-        type === 'defaultSemiBold' ? styles.defaultSemiBold : undefined,
-        type === 'subtitle' ? styles.subtitle : undefined,
-        type === 'link' ? styles.link : undefined,
+        styles[type],
+        // type === 'default' ? styles.default : undefined,
+        // type === 'title' ? styles.title : undefined,
+        // type === 'defaultSemiBold' ? styles.defaultSemiBold : undefined,
+        // type === 'subtitle' ? styles.subtitle : undefined,
+        // type === 'link' ? styles.link : undefined,
         style,
       ]}
       {...rest}
@@ -34,27 +47,65 @@ export function ThemedText({
 }
 
 const styles = StyleSheet.create({
-  default: {
-    fontSize: 16,
-    lineHeight: 24,
-  },
-  defaultSemiBold: {
-    fontSize: 16,
-    lineHeight: 24,
-    fontWeight: '600',
-  },
+  // Logo Text
   title: {
-    fontSize: 32,
-    fontWeight: 'bold',
-    lineHeight: 32,
+    fontSize: 60,
+    fontFamily: 'BaskervilleSC',
   },
+  // Slogan Text
   subtitle: {
     fontSize: 20,
     fontWeight: 'bold',
   },
-  link: {
-    lineHeight: 30,
+  // Main Text
+  default: {
     fontSize: 16,
-    color: '#0a7ea4',
+    lineHeight: 20,
+    fontFamily: 'Inter',
   },
+  // Main Text semibold
+  defaultBold: {
+    fontSize: 16,
+    fontWeight: 'semibold',
+    lineHeight: 20,
+    fontFamily: 'Inter',
+  },
+  // Input Text
+  prompts: {
+    fontSize: 16,
+    lineHeight: 24,
+    fontFamily: 'Inter',
+    color: Colors.light.mutedText
+  },
+  // Buttons
+  buttonText: {
+    fontSize: 20,
+    lineHeight: 24,
+    color: '#FFFFFF',
+  },
+  // Displays balance
+  balanceText: {
+    fontSize: 30,
+    fontWeight: 'semibold',
+  },
+  // Learning Center
+  sectionText: {
+    fontSize: 48,
+    fontWeight: 'bold',
+  },
+  // Settings and Notifications
+  subSectionText: {
+    fontSize: 24,
+    fontWeight: 'semibold',
+  },
+  // Dropdowns
+  dropdownText: {
+    fontSize: 18,
+    fontWeight: 'medium',
+  },
+  // Hints
+  hintText: {
+    fontSize: 14,
+    fontWeight: 'medium',
+  }
 });
