@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import "./globals.css";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
+import ClientLayout from '@/app/client-layout';
 
 
 export const metadata: Metadata = {
@@ -21,12 +22,14 @@ export default function RootLayout({
       </head>
       <body id='gradial' className="min-h-screen flex flex-col"
       >
+        <ClientLayout>
         <Navbar />
           {/* Main Content */}
         <main className="flex-grow pb-10">
           {children}
         </main>
         <Footer />
+        </ClientLayout>
       </body>
     </html>
   );
