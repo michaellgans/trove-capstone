@@ -29,8 +29,8 @@ export default function RootLayout({
         <main className="flex-grow pb-10">
           {children}
         </main>
-        <Footer />
         </ClientLayout>
+        <Footer />
       </body>
     </html>
   );

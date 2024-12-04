@@ -3,6 +3,8 @@ import React, { useState, useEffect, useRef } from 'react';
 import Image from 'next/image';
 import "./globals.css";
 import { Slider } from "@/components/Slider/Slider";
+import Navbar from '@/components/Navbar';
+import Footer from '@/components/Footer';
 
 // import Kash_Flying from '@/public/images/Kash_Flying.png';
 // import Kash_Pointing from '@/public/images/Kash_Pointing_Cropped.png';
@@ -193,5 +195,11 @@ import { Slider } from "@/components/Slider/Slider";
 // }
 
 export default function LandingPage() {
-  return <Slider />;
+  return (
+    <>
+    
+    <Slider />
+    
+    </>
+  )
 }
