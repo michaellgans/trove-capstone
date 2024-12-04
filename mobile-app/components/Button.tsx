@@ -1,27 +1,50 @@
 // Button Component
 
 // Asset Imports
-import { LinearGradient } from expo-linear-gradient;
-import { Text, View, StyleSheet } from react-native;
+import { TouchableOpacity } from "react-native";
+import { Text, StyleSheet } from "react-native";
 
 // Script Imports
 
 // Types
 type ButtonProps = {
-    prop: type;
-    prop: type;
+    label: string;
+    color: string;
 };
 
 // Returns a Button Component
-export function Button({}: ButtonProps) {
+export function CustomButton({label, color}: ButtonProps) {
     // Define Hook
     return (
+      <TouchableOpacity
+        style={[styles.button, {backgroundColor: color}]}
+      >
+        <Text
+          style={[styles.buttonText]}  
+        >
+          {label}
+        </Text>
+      </TouchableOpacity>
     );
 }
 
 const styles = StyleSheet.create({
-  class: {
-    flex: 1,
+  button: {
+    justifyContent: "center",
+    alignItems: "center",
+    width: 260,
+    height: 62,
+    paddingVertical: 10, 
+    paddingHorizontal: 18,
+    margin: 10,
+    borderRadius: 100,
+  },
+  buttonText: {
+    fontSize: 20,
+    lineHeight: 24,
+    color: '#FFFFFF',
+    fontFamily: 'Inter',
+    fontWeight: 'semibold',
   },
 });
 
