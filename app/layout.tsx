@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-// import "./globals.css";
+import "./globals.css";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import ClientLayout from '@/app/client-layout';
@@ -21,7 +21,7 @@ export default function RootLayout({
         <link rel="icon" href="/images/favicon.ico" />
       </head>
       {/* <body id='gradial' className="min-h-screen flex flex-col" */}
-      <body
+      <body className="min-h-screen flex flex-col"
       >
         <ClientLayout>
         <Navbar />

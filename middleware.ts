@@ -1,11 +1,13 @@
-import { withAuth } from "next-auth/middleware";
+{/* Commenting out to do the backend work */}
 
-export default withAuth({
-  pages: {
-    signIn: "/login"
-  }
-})
+// import { withAuth } from "next-auth/middleware";
 
-export const config = {
-  matcher: ["/home/:path*", "/signup/google"],
-};
+// export default withAuth({
+//   pages: {
+//     signIn: "/login"
+//   }
+// })
+
+// export const config = {
+//   matcher: ["/home/:path*", "/signup/google"],
+// };
