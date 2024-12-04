@@ -13,6 +13,10 @@ model parent_user {
     email               String @unique
     password            String?
     avatar_img          String?
+    parent_account      parent_account?
+    lessons_completed   lessons_completed?
+    children            child_user[]
+    child_accounts      child_account[]
 }
 
 model child_user {
@@ -23,20 +27,24 @@ model child_user {
     password            String
     avatar_img          String?
     parent              parent_user @relation(fields: [parent_id], references: [id], onDelete: Cascade)
+    child_account       child_account?
 }
 
 model parent_account {
     id                  String @id @default(cuid())
-    parent_id           String
+    parent_id           String @unique
     stripe_account_id   String?
     balance             Int
     withholding_balance Int
     parent              parent_user @relation(fields: [parent_id], references: [id], onDelete: Cascade)
+    transactions        transaction[]
+    loans               loan[]
+    settings            settings?
 }
 
 model child_account {
     id                  String @id @default(cuid())
-    child_id            String
+    child_id            String @unique
     parent_id           String
     checking_balance    Int
     savings_balance     Int
@@ -47,7 +55,7 @@ model child_account {
 
 model lessons_completed {
     id                  String @id @default(cuid())
-    parent_id           String
+    parent_id           String @unique
     financial_literacy  Boolean
     savings             Boolean
     taxes               Boolean
@@ -86,6 +94,6 @@ model loan {
 
 model settings {
     id                  String @id @default(cuid())
-    parent_id           String
-    parent              parent_account @relation(fields: [parent_id], references: [id], onDelete: Cascade)
+    parent_id           String @unique
+    parent              parent_account? @relation(fields: [parent_id], references: [id], onDelete: Cascade)
 }
