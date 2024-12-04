@@ -1,3 +1,4 @@
+// Login Menu Component
 import { LinearGradient } from "expo-linear-gradient";
 import { Text, View, StyleSheet } from "react-native";
 
