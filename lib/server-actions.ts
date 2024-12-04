@@ -479,6 +479,84 @@ export async function newChildToChildTransfer(from_child_id: string, to_child_id
 
 /**
  * 
+ * @param child_id - The ID of the child user
+ * @param parent_id - The ID of the parent user
+ * @param amount - Amount for the transfer
+ * @param description - Transaction Description
+ * 
+ * @returns N/A - Inserts new transaction into database and updates Parent/Child account balances
+ */
+export async function newChildToParentTransfer(child_id: string, parent_id: string, amount: number, description?: string) {
+  try {
+    // Pull parent and child user and account info
+    const parent_user = await prisma.parent_user.findUnique({
+      where: {
+        id: parent_id,
+      },
+    });
+    const parent_account = await prisma.parent_account.findUnique({
+      where: {
+        parent_id: parent_id,
+      },
+    });
+
+    const child_user = await prisma.child_user.findUnique({
+      where: {
+        id: child_id,
+      },
+    });
+    const child_account = await prisma.child_account.findUnique({
+      where: {
+        child_id: child_id,
+      },
+    });
+
+    // Insert new transaction
+    await prisma.transaction.create({
+      data: {
+        type: "Transfer",
+        from_account_id: child_account.id,
+        from_name: child_user.name,
+        to_account_id: parent_account.id,
+        to_name: parent_user.name,
+        to_external_id: null,
+        amount: amount,
+        withholdings: 0,
+        description: description,
+        p_account_id: parent_account.id
+      },
+    });
+
+    // Update parent and child accounts
+    await prisma.child_account.update({
+      where: {
+        id: child_account.id,
+      },
+      data: {
+        checking_balance: {
+          decrement: amount,
+        },
+      },
+    });
+
+    await prisma.parent_account.update({
+      where: {
+        id: parent_account.id,
+      },
+      data: {
+        balance: {
+          increment: amount,
+        },
+      },
+    });
+  } catch (error) {
+    console.error(error);
+    throw new Error("Failed to complete child to parent transfer");
+  }
+}
+
+/**
+ * 
  * @param child_id - Id of child user
  * @param amount - Amount to transfer
  * 
