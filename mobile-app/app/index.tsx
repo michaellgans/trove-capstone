@@ -2,6 +2,7 @@ import { CustomButton } from "@/components/Button";
 import { LinearGradient } from "expo-linear-gradient";
 import { Text, View, StyleSheet, Image } from "react-native";
 import { useFonts } from "expo-font";
+import { Title } from "@/components/Title";
 
 export default function Index() {
   // Hooks
@@ -26,8 +27,7 @@ export default function Index() {
       </View>
       {/* Login Container */}
       <View style={styles.container}>
-        <Text style={styles.title}>Trove</Text>
-        <Text style={styles.slogan}>Let's learn together.</Text>
+        <Title></Title>
         <CustomButton label="Login" color="#0255EE"/>
       </View>
     </LinearGradient>
@@ -37,11 +37,13 @@ export default function Index() {
 const styles = StyleSheet.create({
   background: {
     flex: 1,
+    zIndex: 1
   },
   container: {
     flex: 1,
     justifyContent: "center",
     alignItems: "center",
+    zIndex: 3,
   },
   text: {
     color: "#000000",
@@ -54,21 +56,10 @@ const styles = StyleSheet.create({
     left: 0,
     right: 0,
     height: 298,
-    zIndex: 1,
+    zIndex: 2,
   },
   bannerImage: {
     width: '100%',
     height: '100%',
-  },
-  // Title and Logo
-  title: {
-    fontSize: 61,
-    fontFamily: 'BaskervilleSC',
-    color: '#090A05',
-  },
-  slogan: {
-    fontSize: 30,
-    fontFamily: 'BaskervilleSmall',
-    color: '#090A05',
   },
 });
