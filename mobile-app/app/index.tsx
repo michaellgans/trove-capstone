@@ -7,7 +7,8 @@ export default function Index() {
   // Hooks
   const [fontsLoaded] = useFonts({
     'Inter': require('../assets/fonts/Inter-VariableFont_opsz,wght.ttf'),
-    'Baskerville': require('../assets/fonts/BaskervvilleSC-Regular.ttf'),
+    'BaskervilleSC': require('../assets/fonts/BaskervvilleSC-Regular.ttf'),
+    'BaskervilleSmall': require('../assets/fonts/Baskervville-Regular.ttf')
   })
 
   return (
@@ -15,6 +16,7 @@ export default function Index() {
       colors={["#FFFFFF", "#FFFFFF", "#FFFFFF", "rgba(2, 85, 238, 0.30)"]}
       style={styles.background}
     >
+      {/* Banner */}
       <View
         style={styles.banner}>
         <Image
@@ -22,8 +24,10 @@ export default function Index() {
             style={styles.bannerImage}
         />
       </View>
+      {/* Login Container */}
       <View style={styles.container}>
-        <Text style={styles.text}>Gradient Background!</Text>
+        <Text style={styles.title}>Trove</Text>
+        <Text style={styles.slogan}>Let's learn together.</Text>
         <CustomButton label="Login" color="#0255EE"/>
       </View>
     </LinearGradient>
@@ -55,5 +59,16 @@ const styles = StyleSheet.create({
   bannerImage: {
     width: '100%',
     height: '100%',
+  },
+  // Title and Logo
+  title: {
+    fontSize: 61,
+    fontFamily: 'BaskervilleSC',
+    color: '#090A05',
+  },
+  slogan: {
+    fontSize: 30,
+    fontFamily: 'BaskervilleSmall',
+    color: '#090A05',
   },
 });
