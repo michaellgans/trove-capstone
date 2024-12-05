@@ -1,7 +1,8 @@
 'use client';
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import LogoTitle from '../LogoTitle';
 import { useRouter } from 'next/navigation';
+import { useSession } from 'next-auth/react';
 
 interface SignUpCardProps {
   nextStep: () => void;
@@ -26,6 +27,18 @@ const EmailSignupCard: React.FC<SignUpCardProps> = ({
   parentData,
   setParentData,
 }) => {
+  const { data: session } = useSession();
+  // Populate parentData with Google session info if available
+  useEffect(() => {
+    if (session?.user) {
+      setParentData((prev) => ({
+        ...prev,
+        firstName: session.user.name?.split(" ")[0] || "",
+        lastName: session.user.name?.split(" ")[1] || "",
+        email: session.user.email || "",
+      }));
+    }
+  }, [session, setParentData]);
   const router = useRouter();
   // State for confirmPassword (since it's not part of parentData)
   const [confirmPassword, setConfirmPassword] = useState('');
@@ -121,7 +134,7 @@ const EmailSignupCard: React.FC<SignUpCardProps> = ({
       <LogoTitle />
 
       {/* Sign Up Form */}
-      <form onSubmit={handleSubmit} className="w-full" noValidate>
+      <form onSubmit={(e) => handleSubmit(e)} className="w-full" noValidate>
         <div className='flex flex-col md:flex-row gap-0 md:gap-5 justify-between'>
         {/* First Name Input */}
         <div className="mb-4 relative w-full md:w-[50%]">
@@ -139,7 +152,9 @@ const EmailSignupCard: React.FC<SignUpCardProps> = ({
               id="firstName"
               placeholder='Kash'
               value={parentData.firstName}
-              onChange={handleInputChange}
+              onChange={(e) =>
+                setParentData({ ...parentData, firstName: e.target.value })
+              }
               onFocus={() => handleFocus('firstName')}
               onBlur={() => handleBlur('firstName')}
               className={`w-full px-4 py-3 rounded-lg border ${
@@ -165,7 +180,9 @@ const EmailSignupCard: React.FC<SignUpCardProps> = ({
               id="lastName"
               placeholder='Troveson'
               value={parentData.lastName}
-              onChange={handleInputChange}
+              onChange={(e) =>
+                setParentData({ ...parentData, lastName: e.target.value })
+              }
               onFocus={() => handleFocus('lastName')}
               onBlur={() => handleBlur('lastName')}
               className={`w-full px-4 py-3 rounded-lg border ${
@@ -191,7 +208,9 @@ const EmailSignupCard: React.FC<SignUpCardProps> = ({
               id="email"
               value={parentData.email}
               placeholder="kash@gmail.com"
-              onChange={handleInputChange}
+              onChange={(e) =>
+                setParentData({ ...parentData, email: e.target.value })
+              }
               onFocus={() => handleFocus('email')}
               onBlur={() => handleBlur('email')}
               className={`w-full px-4 py-3 rounded-lg border ${

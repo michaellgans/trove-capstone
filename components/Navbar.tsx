@@ -72,7 +72,7 @@ const Navbar: FC = () => {
                   height={40}
                   priority
                 />
-                <span className="text-3xl flex font-basker font-regular text-gray-800 [font-variant:small-caps]">
+                <span className="text-2xl md:text-3xl flex font-basker font-regular text-gray-800 [font-variant:small-caps]">
                   Trove
                 </span>
               </div>

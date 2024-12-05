@@ -1,11 +1,15 @@
 'use client';
 import React from 'react';
+import { signIn } from 'next-auth/react';
 import LogoTitle from '../LogoTitle';
 import { FcGoogle } from 'react-icons/fc';
 import { FaEnvelope } from 'react-icons/fa';
 import { useRouter } from 'next/navigation';
 import Link from 'next/link';
 
+const handleGoogleSignUp = async () => {
+  await signIn("google", { callbackUrl: "/signup/email" }); // Redirect to email sign-up with Google session
+};
 
 const SignUpCard: React.FC = () => {
   const router = useRouter();
@@ -16,6 +20,7 @@ const SignUpCard: React.FC = () => {
       {/* Sign Up Buttons */}
       <div className="w-full flex flex-col space-y-4">
         <button
+          onClick={handleGoogleSignUp}
           className="flex items-center justify-center w-[80%] px-4 py-3 rounded-full border border-gray-300 hover:bg-gray-100 transition ease-in-out duration-300 mx-auto"
         >
           <FcGoogle className="mr-3 w-6 h-6" />

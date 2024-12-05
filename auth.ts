@@ -1,3 +1,5 @@
+{/* Commented out to be able to do the frontend work */}
+
 import { NextAuthOptions } from "next-auth";
 import GoogleProvider from "next-auth/providers/google";
 import Credentials from "next-auth/providers/credentials";

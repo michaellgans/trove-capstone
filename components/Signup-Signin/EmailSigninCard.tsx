@@ -2,7 +2,9 @@
 import React, { useState } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
+import { useRouter } from 'next/navigation';
 import LogoTitle from '../LogoTitle';
+import { mockUsers } from "./mockdata";
 
 const EmailSignInCard: React.FC = () => {
   const [email, setEmail] = useState('');
@@ -11,31 +13,41 @@ const EmailSignInCard: React.FC = () => {
   const [passwordFocused, setPasswordFocused] = useState(false);
   const [rememberMe, setRememberMe] = useState(false);
   const [error, setError] = useState({ email: '', password: '' });
+  const router = useRouter();
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     let isValid = true;
-    const newError = { email: '', password: '' };
-
-    // Improved email validation using regex
+    const newError = { email: "", password: "" };
+  
+    // Validate email format
     const emailPattern = /^\S+@\S+\.\S+$/;
     if (!emailPattern.test(email)) {
-      newError.email = 'Enter a valid email address';
+      newError.email = "Enter a valid email address";
       isValid = false;
     }
-
+  
     if (password.length < 6) {
-      newError.password = 'Wrong Password';
+      newError.password = "Password must be at least 6 characters";
       isValid = false;
     }
-
+  
+    // Check mock user credentials
+    const user = mockUsers.find((user) => user.email === email && user.password === password);
+    if (!user) {
+      newError.email = "Invalid email or password";
+      newError.password = "Invalid email or password";
+      isValid = false;
+    }
+  
     setError(newError);
-
+  
     if (isValid) {
-      // Handle successful form submission
-      console.log('Form submitted successfully');
+      console.log("Mock sign-in successful");
+      router.push("/home"); // Redirect to the home page
     }
   };
+  
 
   return (
     <div className="flex flex-col items-center bg-white p-10 rounded-lg border border-gray-100 shadow-lg max-w-md mx-auto mt-10">
