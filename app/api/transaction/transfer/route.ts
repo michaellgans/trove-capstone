@@ -14,16 +14,19 @@ import { dollarsToCents } from "@/lib/utils";
  */
 export default async function handler(req: NextApiRequest, res: NextApiResponse) {
   try {
+    // Authenticate User
     const childUser = await verifyToken(req, res);
 
     if (!childUser) {
       return res.status(401).json({ error: "Unauthorized" });
     }
 
+    // Retrieve transfer data from request
     const receiving_id = req.body.receiving_id;
     const amount = req.body.amount;
     const description = req.body.description ? req.body.description : "";
 
+    // Determine if transfer recipient is parent or child user
     const receivingParent = await prisma.parent_user.findUnique({
       where: {
         id: receiving_id,
@@ -35,6 +38,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
       },
     });
 
+    // Initiate transfer
     if (receivingParent) {
       await newChildToParentTransfer(childUser.id, receiving_id, dollarsToCents(parseInt(amount)), description);
     } else if (receivingChild) {
