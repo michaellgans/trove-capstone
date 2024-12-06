@@ -1,12 +1,16 @@
 import React from 'react';
+import { useRouter } from 'next/navigation';
 
 type ActionButtonsProps = {};
 
 const ActionButtons: React.FC<ActionButtonsProps> = () => {
+  const router = useRouter();
   return (
     <div className="flex flex-col md:flex-row gap-3 md:gap-0 justify-center w-full mt-5 space-y-0 space-x-0 md:space-x-4">
       {/* Send Money Button */}
-      <button style={{background: 'linear-gradient(180deg, rgba(132, 132, 132, 0.00) 0%, #002484 100%), #0070FF'
+      <button
+        onClick={() => router.push('/send')}
+       style={{background: 'linear-gradient(180deg, rgba(132, 132, 132, 0.00) 0%, #002484 100%), #0070FF'
 
 }} className="flex items-center justify-center gap-2 uppercase font-semibold text-base lg:text-lg w-full lg:w-1/3 px-4 py-3 bg-brightBlue text-white rounded-lg hover:brightness-110 transition ease-in-out duration-300">
         {/* Money Icon */}
@@ -29,7 +33,9 @@ const ActionButtons: React.FC<ActionButtonsProps> = () => {
       </button>
 
       {/* View History Button */}
-      <button style={{background: 'linear-gradient(180deg, rgba(132, 132, 132, 0.00) 0%, #BF9C09 100%), #FEC001'}} className="flex uppercase font-semibold text-base lg:text-lg items-center justify-center gap-2 w-full lg:w-1/3 px-4 py-3 text-white bg-brightYellow rounded-lg hover:brightness-110 transition ease-in-out duration-300">
+      <button 
+      onClick={() => router.push('/home/#history')}
+      style={{background: 'linear-gradient(180deg, rgba(132, 132, 132, 0.00) 0%, #BF9C09 100%), #FEC001'}} className="flex uppercase font-semibold text-base lg:text-lg items-center justify-center gap-2 w-full lg:w-1/3 px-4 py-3 text-white bg-brightYellow rounded-lg hover:brightness-110 transition ease-in-out duration-300">
         {/* File with Dollar Icon */}
         <svg
           xmlns="http://www.w3.org/2000/svg"
@@ -50,7 +56,9 @@ const ActionButtons: React.FC<ActionButtonsProps> = () => {
       </button>
 
       {/* Change Settings Button */}
-      <button style={{background: 'linear-gradient(180deg, rgba(132, 132, 132, 0.00) 0%, #CA1401 100%), #FE3302'
+      <button
+      onClick={() => router.push('/settings')}
+      style={{background: 'linear-gradient(180deg, rgba(132, 132, 132, 0.00) 0%, #CA1401 100%), #FE3302'
 }} className="flex uppercase text-base lg:text-lg font-semibold items-center justify-center gap-2 w-full lg:w-1/3 px-4 py-3 bg-brightRed text-white rounded-lg hover:brightness-110 transition ease-in-out duration-300">
         {/* Settings Icon */}
         <svg

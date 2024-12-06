@@ -17,7 +17,7 @@ export default function RootLayout({
   return (
       <div id='gradial' className="min-h-screen flex flex-col" 
       >
-      <main className="flex-grow pb-10">
+      <main className="flex-grow">
       {children}
       </main>
       </div>
