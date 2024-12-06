@@ -1,5 +1,6 @@
 'use client';
 import React, { useState } from 'react';
+import Header from '../Header';
 
 type Transaction = {
     timestamp: string;
@@ -105,19 +106,12 @@ const TransactionHistory: React.FC = () => {
     };
 
     return (
-    <div className="flex justify-center m-0">
+    <div id='history' className="flex justify-center mt-5 m-0">
         <div
-            className="p-6 w-full"
+            className="px-5 md:px-10 w-full"
         >
-          <header className="flex flex-col items-center text-center font-inter text-4xl text-text">
-            Transaction History
-            <div className="w-96 h-1 mt-2 mb-6 rounded-full overflow-hidden mx-auto flex">
-              <div className="flex-1 bg-brightRed"></div>
-              <div className="flex-1 bg-brightYellow"></div>
-              <div className="flex-1 bg-brightBlue"></div>
-            </div>
-          </header>
-            <div className="flex justify-center rounded-xl overflow-hidden border-[1px] border-slate-200 m-4">
+          <Header title='Transaction History' />
+            <div className="flex mx-0 justify-center rounded-xl overflow-hidden border-[1px] border-slate-200 m-4">
                 <div className="overflow-x-auto w-full">
                 <table className="w-full border border-collapse table-auto">
                     <thead className="bg-slate-100">

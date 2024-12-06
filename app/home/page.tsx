@@ -1,9 +1,10 @@
 import ChildProfileCard from "@/components/ChildCard/ChildProfileCard";
+import Separator from "@/components/Separator";
 import TransactionHistory from "@/components/TransactionHistory/TransactionHistory";
 
 export default function Home() {
   return (
-    <div id='gradial'>
+    <>
       <ChildProfileCard
       childName='Samantha'
       profileImageUrl='/images/samantha.png'
@@ -13,6 +14,6 @@ export default function Home() {
       loanRepaymentPercentage={60}
      />
      <TransactionHistory />
-    </div>
+     </>
   )
 }

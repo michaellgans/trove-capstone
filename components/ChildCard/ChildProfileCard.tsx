@@ -5,6 +5,7 @@ import ProfileImage from './ProfileImage';
 import AccountBalance from './AccountBalance';
 import ProgressCircle from './ProgressCircle';
 import ActionButtons from './ActionButtons';
+import Header from '../Header';
 
 type Props = {
   childName: string;
@@ -30,7 +31,9 @@ const ChildProfileCard: React.FC<Props> = ({
   };
 
   return (
-    <div className="flex flex-col mx-5 lg:mx-auto mt-10 justify-center items-start gap-3 p-10 mx-w-md md:max-w-3xl lg:max-w-5xl bg-white border border-gray-200 rounded-lg shadow-lg">
+    <>
+    <Header title='Trove Family Tree' />
+    <div className="flex flex-col mx-5 md:mx-auto justify-center items-start gap-3 p-10 mx-w-md md:max-w-3xl lg:max-w-5xl bg-white border border-gray-200 rounded-lg shadow-lg">
       {/* Title */}
       <TitleSection childName={childName} />
 
@@ -86,6 +89,7 @@ const ChildProfileCard: React.FC<Props> = ({
       {/* Buttons */}
       <ActionButtons />
     </div>
+    </>
   );
 };
 
