@@ -1,10 +1,8 @@
-import type { Metadata } from "next";
-// import "./globals.css";
-import Navbar from "@/components/Navbar";
+import "./globals.css";
 import Footer from "@/components/Footer";
+import ClientLayout from "@/app/client-layout";
 
-
-export const metadata: Metadata = {
+export const metadata = {
   title: "Trove",
   description: "Financial literacy education application for children ages 10-16",
 };
@@ -19,14 +17,10 @@ export default function RootLayout({
       <head>
         <link rel="icon" href="/images/favicon.ico" />
       </head>
-      {/* <body id='gradial' className="min-h-screen flex flex-col" */}
-      <body
-      >
-        <Navbar />
-          {/* Main Content */}
-        <main className="flex-grow pb-10">
+      <body className="min-h-screen flex flex-col">
+        <ClientLayout>
           {children}
-        </main>
+        </ClientLayout>
         <Footer />
       </body>
     </html>

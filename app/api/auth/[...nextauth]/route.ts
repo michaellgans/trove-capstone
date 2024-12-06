@@ -1,3 +1,6 @@
+
+{/* Commented out to be able to do the frontend work */}
+
 import NextAuth from "next-auth";
 import { authOptions } from "@/auth";
 
