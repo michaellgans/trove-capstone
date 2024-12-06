@@ -91,6 +91,14 @@
   font-display: swap;
 }
 
+:root {
+  --navbar-height: 3rem; /* Adjust to match your navbar's height */
+}
+
+body {
+  padding-top: var(--navbar-height);
+}
+
 input[type='number']::-webkit-inner-spin-button,
 input[type='number']::-webkit-outer-spin-button {
   -webkit-appearance: none;
