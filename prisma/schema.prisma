@@ -1,0 +1,114 @@
+generator client {
+    provider = "prisma-client-js"
+}
+
+datasource db {
+    provider = "postgresql"
+    url = env("DATABASE_URL")
+}
+
+model parent_user {
+    id                  String @id @default(cuid())
+    name                String
+    email               String @unique
+    password            String?
+    avatar_img          String?
+    parent_account      parent_account?
+    lessons_completed   lessons_completed?
+    children            child_user[]
+    child_accounts      child_account[]
+    accounts            Account[]
+}
+
+model child_user {
+    id                  String @id @default(cuid())
+    parent_id           String
+    name                String
+    username            String @unique
+    password            String
+    avatar_img          String?
+    parent              parent_user @relation(fields: [parent_id], references: [id], onDelete: Cascade)
+    child_account       child_account?
+}
+
+model parent_account {
+    id                  String @id @default(cuid())
+    parent_id           String @unique
+    stripe_account_id   String?
+    balance             Int
+    withholding_balance Int
+    parent              parent_user @relation(fields: [parent_id], references: [id], onDelete: Cascade)
+    transactions        transaction[]
+    loans               loan[]
+    settings            settings?
+}
+
+model child_account {
+    id                  String @id @default(cuid())
+    child_id            String @unique
+    parent_id           String
+    checking_balance    Int
+    savings_balance     Int
+    savings_goal        Int
+    child               child_user @relation(fields: [child_id], references: [id], onDelete: Cascade)
+    parent              parent_user @relation(fields: [parent_id], references: [id], onDelete: Cascade)
+}
+
+model lessons_completed {
+    id                  String @id @default(cuid())
+    parent_id           String @unique
+    financial_literacy  Boolean
+    savings             Boolean
+    taxes               Boolean
+    loans               Boolean
+    obligations         Boolean
+    parent              parent_user @relation(fields: [parent_id], references: [id], onDelete: Cascade)
+}
+
+model transaction {
+    id                  String @id @default(cuid())
+    timestamp           DateTime @default(now())
+    type                String
+    from_account_id     String
+    from_name           String
+    to_account_id       String?
+    to_name             String
+    to_external_id      String?
+    amount              Int
+    withholdings        Int?
+    description         String?
+    p_account_id        String
+    parent              parent_account @relation(fields: [p_account_id], references: [id], onDelete: Cascade)
+}
+
+model loan {
+    id                  String @id @default(cuid())
+    lender_id           String
+    borrower_id         String
+    interest_rate       Int
+    loan_amount         Int
+    current_balance     Int
+    due_date            DateTime
+    p_account_id        String
+    parent              parent_account @relation(fields: [p_account_id], references: [id], onDelete: Cascade)
+}
+
+model settings {
+    id                  String @id @default(cuid())
+    parent_id           String @unique
+    parent              parent_account? @relation(fields: [parent_id], references: [id], onDelete: Cascade)
+}
+
+model Account {
+    id                  String @id @default(cuid())
+    userId              String
+    user                parent_user @relation(fields: [userId], references: [id], onDelete: Cascade)
+    provider            String
+    providerAccountId   String
+    refresh_token       String?
+    access_token        String?
+    expires_at          Int?
+    token_type          String?
+    scope               String?
+    id_token            String?
+}

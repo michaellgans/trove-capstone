@@ -6,6 +6,62 @@ import Credentials from "next-auth/providers/credentials";
 import { PrismaAdapter } from "@next-auth/prisma-adapter";
 import { prisma } from "@/prisma";
 import bcrypt from "bcryptjs";
+import { Adapter, AdapterAccount, AdapterUser } from "next-auth/adapters";
+
+export const CustomPrismaAdapter = (): Adapter => ({
+  async getUser(id) {
+    const user = await prisma.parent_user.findUnique({
+      where: { id },
+    });
+
+    if (!user) {
+      return null;
+    }
+
+    return {
+      id: user.id,
+      name: user.name,
+      email: user.email,
+      image: user.avatar_img || null,
+      emailVerified: null,
+    }
+  },
+  async getUserByEmail(email) {
+    const user = await prisma.parent_user.findUnique({
+      where: { email },
+    });
+
+    if (!user) {
+      return null;
+    }
+
+    return {
+      id: user.id,
+      name: user.name,
+      email: user.email,
+      image: user.avatar_img || null,
+      emailVerified: null
+    }
+  },
+  async createUser(user: AdapterUser) {
+    return prisma.parent_user.create({
+      data: {
+        name: user.name!,
+        email: user.email,
+        avatar_img: user.image || null,
+      },
+    });
+  },
+  async linkAccount(account: AdapterAccount) {
+    return prisma.account.create({
+      data: {
+        userId: account.userId,
+        provider: account.provider,
+        providerAccountId: account.providerAccountId,
+      },
+    });
+  },
+});
 
 export const authOptions: NextAuthOptions = {
   adapter: PrismaAdapter(prisma),

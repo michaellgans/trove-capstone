@@ -9,18 +9,4 @@ declare module "next-auth" {
       avatarImg?: string | null;
     };
   }
-
-  interface ParentUser {
-    id: string;
-    email: string;
-    name?: string;
-    avatarImg?: string;
-  }
-
-  interface ChildUser {
-    id: string;
-    username: string;
-    name?: string;
-    avatarImg?: string;
-  }
 }
