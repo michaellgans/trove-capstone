@@ -9,4 +9,10 @@ declare module "next-auth" {
       avatarImg?: string | null;
     };
   }
+
+  interface JWT {
+    id: string;
+    email: string;
+    name: string;
+  }
 }

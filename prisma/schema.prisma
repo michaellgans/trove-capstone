@@ -17,7 +17,7 @@ model parent_user {
     lessons_completed   lessons_completed?
     children            child_user[]
     child_accounts      child_account[]
-    accounts            Account[]
+    accounts            account[]
 }
 
 model child_user {
@@ -99,7 +99,7 @@ model settings {
     parent              parent_account? @relation(fields: [parent_id], references: [id], onDelete: Cascade)
 }
 
-model Account {
+model account {
     id                  String @id @default(cuid())
     userId              String
     user                parent_user @relation(fields: [userId], references: [id], onDelete: Cascade)
@@ -111,4 +111,6 @@ model Account {
     token_type          String?
     scope               String?
     id_token            String?
+
+    @@unique([provider, providerAccountId])
 }
