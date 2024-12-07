@@ -28,7 +28,7 @@ interface MobileDropdownItem {
 
 
 const Navbar: FC = () => {
-  const [isLoggedIn, setIsLoggedIn] = useState<boolean>(true);
+  const [isLoggedIn, setIsLoggedIn] = useState<boolean>(false);
   const [selectedFamilyMember, setSelectedFamilyMember] = useState<string | number>('');
   const [selectedLesson, setSelectedLesson] = useState<string | number>('');
   const [isFamilyDropdownOpen, setIsFamilyDropdownOpen] = useState<boolean>(false);
