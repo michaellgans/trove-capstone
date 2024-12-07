@@ -12,7 +12,7 @@ const DropdownButton: FC<DropdownButtonProps> = ({ label, onClick, showIcon = tr
   return (
     <button
       onClick={onClick}
-      className={`flex items-center font-semibold space-x-1 text-gray-800 hover:text-brightRed transition duration-300 ease-in-out ${className}`}
+      className={`flex items-center font-semibold space-x-1 text-gray-800 hover:text-brightGreen transition duration-300 ease-in-out ${className}`}
     >
       <span>{label}</span>
       {showIcon && (
