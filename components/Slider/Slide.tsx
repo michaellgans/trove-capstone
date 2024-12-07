@@ -15,9 +15,17 @@ interface SlideProps {
     flipImage?: boolean;
     phoneIcon?: boolean;
   };
+  totalSlides: number;
+  currentIndex: number;
+  onPaginationClick: (index: number) => void;
 }
 
-export const Slide: React.FC<SlideProps> = ({ slide }) => (
+export const Slide: React.FC<SlideProps> = ({ 
+  slide,
+  totalSlides,
+  currentIndex,
+  onPaginationClick,
+ }) => (
   <div
     id={slide.id}
     className={`relative flex-shrink-0 w-full h-auto md:h-[600px] py-10 md:py-0 flex px-10 xl:px-20 ${
@@ -59,6 +67,19 @@ export const Slide: React.FC<SlideProps> = ({ slide }) => (
         )}
         <span>{slide.buttonText}</span>
       </button>
+
+      {/* Pagination below the paragraph */}
+      <div className="flex justify-center ms-16 mt-14 space-x-3">
+        {Array.from({ length: totalSlides }).map((_, index) => (
+          <div
+            key={index}
+            onClick={() => onPaginationClick(index)}
+            className={`w-3 h-3 rounded-full cursor-pointer transition duration-300 ${
+              currentIndex === index ? "bg-brightBlue" : "bg-gray-300"
+            }`}
+          ></div>
+        ))}
+      </div>
     </div>
 
     {/* Image */}

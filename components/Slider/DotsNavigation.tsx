@@ -11,7 +11,7 @@ export const DotsNavigation: React.FC<DotsNavigationProps> = ({
   currentIndex,
   onClick,
 }) => (
-  <div className="relative -mt-6 w-full flex justify-center space-x-3">
+  <div className="relative -mt-6 w-full flex justify-center space-x-3 carousel-pagination">
     {Array.from({ length: totalSlides }).map((_, index) => (
       <div
         key={index}

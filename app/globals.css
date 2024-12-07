@@ -223,3 +223,49 @@ input[type='number'] {
     ),
    #FFF;
 }
+
+.carousel-wrapper {
+  position: relative;
+  overflow: hidden;
+}
+
+.wave-container {
+  position: absolute;
+  bottom: -1px; /* Adjust overlap */
+  width: 100%;
+  z-index: 1;
+}
+
+.wave-svg {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
+.carousel-pagination {
+  position: absolute;
+  bottom: 20px; /* Adjust to place dots at the bottom of the carousel */
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 20; /* Ensure dots appear above other elements */
+  display: flex;
+  justify-content: center;
+  gap: 10px; /* Space between dots */
+}
+
+.carousel-pagination .swiper-pagination-bullet {
+  width: 12px;
+  height: 12px;
+  background-color: rgba(0, 0, 0, 0.3); /* Default dot color */
+  border-radius: 50%;
+  transition: background-color 0.3s ease;
+}
+
+.carousel-pagination .swiper-pagination-bullet-active {
+  background-color: #007bff; /* Highlight active dot */
+}
+
+.swiper-container {
+  position: relative;
+  z-index: 10; /* Dots and carousel should stack above wave */
+}
