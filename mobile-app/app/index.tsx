@@ -1,8 +1,7 @@
-import { CustomButton } from "@/components/Button";
 import { LinearGradient } from "expo-linear-gradient";
-import { Text, View, StyleSheet, Image } from "react-native";
+import { View, StyleSheet, Image } from "react-native";
 import { useFonts } from "expo-font";
-import { Title } from "@/components/Title";
+import { LoginContainer } from "@/components/LoginContainer";
 
 export default function Index() {
   // Hooks
@@ -26,9 +25,9 @@ export default function Index() {
         />
       </View>
       {/* Login Container */}
-      <View style={styles.container}>
-        <Title></Title>
-        <CustomButton label="Login" color="#0255EE"/>
+      <View 
+        style={styles.container}>
+        <LoginContainer></LoginContainer>
       </View>
     </LinearGradient>
   );
@@ -37,18 +36,12 @@ export default function Index() {
 const styles = StyleSheet.create({
   background: {
     flex: 1,
-    zIndex: 1
   },
   container: {
     flex: 1,
-    justifyContent: "center",
-    alignItems: "center",
-    zIndex: 3,
-  },
-  text: {
-    color: "#000000",
-    fontSize: 24,
-    fontWeight: "bold",
+    justifyContent: 'center',
+    alignContent: 'center',
+    alignItems: 'center'
   },
   banner: {
     position: 'absolute',
@@ -56,7 +49,7 @@ const styles = StyleSheet.create({
     left: 0,
     right: 0,
     height: 298,
-    zIndex: 2,
+    zIndex: 1,
   },
   bannerImage: {
     width: '100%',

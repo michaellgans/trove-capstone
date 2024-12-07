@@ -12,7 +12,6 @@ export function Title() {
         <View style={styles.innerContainer}>
           <Image
               source={require('@/assets/images/Logo.png')}
-              style={styles.logoImage}
           />
           <Text style={styles.title}>Trove</Text>
         </View>
@@ -25,6 +24,10 @@ const styles = StyleSheet.create({
   container: {
     justifyContent: "center",
     alignItems: "center",
+    paddingVertical: 10,
+    // Testing
+    borderWidth: 2,
+    borderColor: "red"
   },
   innerContainer: {
     flexDirection: "row",
@@ -40,8 +43,5 @@ const styles = StyleSheet.create({
     fontSize: 30,
     fontFamily: 'BaskervilleSmall',
     color: '#090A05',
-  },
-  logoImage: {
-    
   },
 });
