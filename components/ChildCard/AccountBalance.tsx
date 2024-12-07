@@ -13,14 +13,23 @@ const AccountBalance: React.FC<AccountBalanceProps> = ({
   selectedCurrency,
   onCurrencyChange,
 }) => {
+  
   const [isCurrencyDropdownOpen, setIsCurrencyDropdownOpen] = useState(false);
-  const currencies = ['USD', 'EUR', 'GBP'];
+
+  // Currency symbols mapping
+  const currencySymbols: Record<string, string> = {
+    USD: '$',
+    EUR: '€',
+    GBP: '£',
+  };
+
+  const currencies = Object.keys(currencySymbols);
 
   return (
     <div className="mb-4 relative">
       <label className="block text-gray-700 font-semibold mb-2">{label}</label>
       <div className="relative flex items-center">
-        <span className="absolute left-3 text-gray-500">$</span>
+        <span className="absolute left-3 text-gray-500">{currencySymbols[selectedCurrency]}</span>
         <input
           type="number"
           value={balance}

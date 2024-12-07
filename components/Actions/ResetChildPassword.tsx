@@ -1,10 +1,11 @@
 'use client';
-import React, { useState } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import LogoTitle from '../LogoTitle';
 import { useRouter } from 'next/navigation';
 
 const ResetChildPassword: React.FC = () => {
   const [username, setUsername] = useState('');
+  const cardRef = useRef<HTMLDivElement>(null);
   const [newPassword, setNewPassword] = useState('');
   const [confirmNewPassword, setConfirmNewPassword] = useState('');
   const [currentPassword, setCurrentPassword] = useState('');
@@ -30,6 +31,20 @@ const ResetChildPassword: React.FC = () => {
   const handleBlur = (field: keyof typeof focusedFields) => {
     setFocusedFields({ ...focusedFields, [field]: false });
   };
+
+  // Close card when clicking outside of it
+  useEffect(() => {
+    const handleClickOutside = (event: MouseEvent) => {
+      if (cardRef.current && !cardRef.current.contains(event.target as Node)) {
+        router.push('/'); // Redirect or close the card
+      }
+    };
+
+    document.addEventListener('mousedown', handleClickOutside);
+    return () => {
+      document.removeEventListener('mousedown', handleClickOutside);
+    };
+  }, [router]);
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
@@ -71,7 +86,9 @@ const ResetChildPassword: React.FC = () => {
   };
 
   return (
-    <div className="flex flex-col items-center bg-white p-10 rounded-lg border border-gray-100 shadow-lg max-w-md md:max-w-lg lg:max-w-xl mx-auto mt-10">
+    <div
+    ref={cardRef}
+    className="flex flex-col items-center bg-white p-10 rounded-lg border border-gray-100 shadow-lg max-w-md md:max-w-lg lg:max-w-xl mx-auto mt-10">
       <LogoTitle />
 
       {/* Heading */}
@@ -174,17 +191,6 @@ const ResetChildPassword: React.FC = () => {
         >
           Reset Password
         </button>
-
-        {/* Cancel Button */}
-        <div className="mt-4 text-center">
-          <button
-            type="button"
-            onClick={() => router.push('/')}
-            className="text-sm text-gray-500 hover:text-gray-600 transition ease-in-out duration-300"
-          >
-            Cancel
-          </button>
-        </div>
       </form>
     </div>
   );

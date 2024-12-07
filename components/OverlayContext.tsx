@@ -2,29 +2,31 @@
 
 import React, { createContext, useContext, useState } from 'react';
 
-// Define the shape of your overlay context
 interface OverlayContextProps {
+  currentPage: string;
+  setCurrentPage: (page: string) => void;
   isOverlayActive: boolean;
-  setOverlayActive: (state: boolean) => void;
-  currentPage: 'landing' | 'home';
-  setCurrentPage: (page: 'landing' | 'home') => void;
+  setOverlayActive: (active: boolean) => void;
+  modalContent: React.ReactNode;
+  setModalContent: (content: React.ReactNode) => void;
 }
 
-// Create the context
 const OverlayContext = createContext<OverlayContextProps | undefined>(undefined);
 
-// Provide the context to the app
-export const OverlayProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
-  const [isOverlayActive, setIsOverlayActive] = useState(false);
-  const [currentPage, setCurrentPage] = useState<'landing' | 'home'>('landing');
+export const OverlayProvider = ({ children }: { children: React.ReactNode }) => {
+  const [currentPage, setCurrentPage] = useState('landing'); // "landing" or "home"
+  const [isOverlayActive, setOverlayActive] = useState(false);
+  const [modalContent, setModalContent] = useState<React.ReactNode>(null);
 
   return (
     <OverlayContext.Provider
       value={{
-        isOverlayActive,
-        setOverlayActive: setIsOverlayActive,
         currentPage,
         setCurrentPage,
+        isOverlayActive,
+        setOverlayActive,
+        modalContent,
+        setModalContent,
       }}
     >
       {children}
@@ -32,7 +34,6 @@ export const OverlayProvider: React.FC<{ children: React.ReactNode }> = ({ child
   );
 };
 
-// Custom hook to access overlay context
 export const useOverlay = () => {
   const context = useContext(OverlayContext);
   if (!context) {

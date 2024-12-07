@@ -1,5 +1,5 @@
 'use client';
-import React, { useState } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import LogoTitle from '../LogoTitle';
 import { useRouter } from 'next/navigation';
 
@@ -10,6 +10,21 @@ const ResetPasswordCard: React.FC = () => {
   const [confirmEmailFocused, setConfirmEmailFocused] = useState(false);
   const [error, setError] = useState({ email: '', confirmEmail: '' });
   const router = useRouter();
+  const cardRef = useRef<HTMLDivElement>(null);
+
+  // Close card when clicking outside of it
+  useEffect(() => {
+    const handleClickOutside = (event: MouseEvent) => {
+      if (cardRef.current && !cardRef.current.contains(event.target as Node)) {
+        router.push('/'); // Redirect or close the card
+      }
+    };
+
+    document.addEventListener('mousedown', handleClickOutside);
+    return () => {
+      document.removeEventListener('mousedown', handleClickOutside);
+    };
+  }, [router]);
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
@@ -37,7 +52,9 @@ const ResetPasswordCard: React.FC = () => {
   };
 
   return (
-    <div className="flex flex-col items-center bg-white p-10 rounded-lg border border-gray-100 shadow-lg max-w-md mx-auto mt-10">
+    <div
+    ref={cardRef}
+    className="flex flex-col items-center bg-white p-10 rounded-lg border border-gray-100 shadow-lg max-w-md mx-auto mt-10">
       <LogoTitle />
 
       <form onSubmit={handleSubmit} className="w-full" noValidate>
@@ -100,17 +117,6 @@ const ResetPasswordCard: React.FC = () => {
         >
           Send Reset Link
         </button>
-
-        {/* Cancel Button */}
-        <div className="mt-4 text-center">
-          <button
-            type="button"
-            onClick={() => router.push('/')}
-            className="text-sm text-gray-500 hover:text-gray-600 transition ease-in-out duration-300"
-          >
-            Cancel
-          </button>
-        </div>
       </form>
     </div>
   );
