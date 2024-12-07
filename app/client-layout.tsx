@@ -4,19 +4,6 @@ import React, { useEffect, useState } from 'react';
 import { SessionProvider, useSession } from 'next-auth/react';
 import Navbar from '@/components/Navbar/Navbar';
 
-const mockFamilyMembers = [
-  { id: 1, name: 'Mei', avatar: '/images/avatar.svg' },
-  { id: 2, name: 'Michael', avatar: '/images/avatar.svg' },
-  { id: 3, name: 'Chris', avatar: '/images/avatar.svg' },
-];
-
-const mockLessons = [
-  'All Lessons',
-  'Bills and Payments',
-  'Loans and Interest',
-  'Savings and Checking',
-  'Taxes and Withholding',
-];
 
 export default function ClientLayout({ children }: { children: React.ReactNode }) {
   return (

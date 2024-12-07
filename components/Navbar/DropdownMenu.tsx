@@ -1,4 +1,4 @@
-import React, { FC, useState } from 'react';
+import React, { FC, useState, useEffect, useRef } from 'react';
 import Image from 'next/image';
 
 interface DropdownItem {
@@ -36,8 +36,10 @@ const DropdownMenu: FC<DropdownMenuProps> = ({
     }
   };
 
+
   return (
-    <div className="absolute -ml-5 mt-3 w-72 text-gray-800 bg-white border border-gray-100 rounded-lg shadow-lg z-50 overflow-hidden">
+    <div
+    className="absolute -ml-5 mt-3 w-72 text-gray-800 bg-white border border-gray-100 rounded-lg shadow-lg z-50 overflow-hidden">
       {items.map((item) => (
         <div key={item.id}>
           <button

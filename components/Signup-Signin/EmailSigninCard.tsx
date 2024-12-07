@@ -1,6 +1,5 @@
 'use client';
-import React, { useState } from 'react';
-import Image from 'next/image';
+import React, { useState, useEffect, useRef } from 'react';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import LogoTitle from '../LogoTitle';
@@ -14,6 +13,21 @@ const EmailSignInCard: React.FC = () => {
   const [rememberMe, setRememberMe] = useState(false);
   const [error, setError] = useState({ email: '', password: '' });
   const router = useRouter();
+  const cardRef = useRef<HTMLDivElement>(null);
+
+  // Close card when clicking outside of it
+  useEffect(() => {
+    const handleClickOutside = (event: MouseEvent) => {
+      if (cardRef.current && !cardRef.current.contains(event.target as Node)) {
+        router.push('/'); // Redirect or close the card
+      }
+    };
+
+    document.addEventListener('mousedown', handleClickOutside);
+    return () => {
+      document.removeEventListener('mousedown', handleClickOutside);
+    };
+  }, [router]);
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
@@ -50,7 +64,9 @@ const EmailSignInCard: React.FC = () => {
   
 
   return (
-    <div className="flex flex-col items-center bg-white p-10 rounded-lg border border-gray-100 shadow-lg max-w-md mx-auto mt-10">
+    <div
+    ref={cardRef}
+    className="flex relative flex-col items-center bg-white p-10 rounded-lg border border-gray-100 shadow-lg max-w-md mx-auto mt-10">
       <LogoTitle />
       {/* Sign In Form */}
       <form onSubmit={handleSubmit} className="w-full" noValidate>

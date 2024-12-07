@@ -1,5 +1,5 @@
 'use client';
-import React from 'react';
+import React, { useEffect, useRef } from 'react';
 import LogoTitle from '../LogoTitle';
 import { FcGoogle } from 'react-icons/fc';
 import { FaEnvelope } from 'react-icons/fa';
@@ -9,8 +9,25 @@ import Link from 'next/link';
 
 const SignInCard: React.FC = () => {
   const router = useRouter();
+  const cardRef = useRef<HTMLDivElement>(null);
+
+   // Close card when clicking outside of it
+   useEffect(() => {
+    const handleClickOutside = (event: MouseEvent) => {
+      if (cardRef.current && !cardRef.current.contains(event.target as Node)) {
+        router.push('/'); // Redirect or close the card
+      }
+    };
+
+    document.addEventListener('mousedown', handleClickOutside);
+    return () => {
+      document.removeEventListener('mousedown', handleClickOutside);
+    };
+  }, [router]);
   return (
-    <div className="flex flex-col items-center bg-white p-10 rounded-lg border border-1 border-gray-100 shadow-lg max-w-md mx-auto mt-10">
+    <div
+    ref={cardRef}
+     className="flex relative flex-col items-center bg-white p-10 rounded-lg border border-1 border-gray-100 shadow-lg max-w-md mx-auto mt-10 z-40">
       {/* Logo and Title */}
       <LogoTitle />
 
@@ -30,13 +47,6 @@ const SignInCard: React.FC = () => {
             Sign in with Email
           </button>
         </Link>
-        {/* Cancel Button */}
-      <button
-        onClick={() => router.push('/')}
-        className="mt-4 text-sm text-gray-500 hover:text-gray-600 transition ease-in-out duration-300"
-      >
-        Cancel
-      </button>
       </div>
     </div>
   );

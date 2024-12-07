@@ -42,6 +42,8 @@ const Navbar: FC = () => {
 
   const router = useRouter();
 
+  
+
   useEffect(() => {
     const handleResize = () => {
       if (window.innerWidth >= 1024) setIsOpen(false);
@@ -365,7 +367,7 @@ const Navbar: FC = () => {
 
   return (
     <>
-      <nav className="bg-white/80 backdrop-blur-md border-b px-5 md:px-8 xl:px-16 py-2 flex justify-between items-center font-inter fixed top-0 left-0 z-50 w-full"> {/* The shadow-md to see the limits of navbar */}
+      <nav className="bg-white backdrop-blur-md border-b px-5 md:px-8 xl:px-16 py-2 flex justify-between items-center font-inter fixed top-0 left-0 z-50 w-full"> {/* The shadow-md to see the limits of navbar */}
         {/* Logo */}
         <div className="flex space-x-10 xl:space-x-20">
             <Link href="/" passHref>
@@ -527,7 +529,7 @@ const Navbar: FC = () => {
     ></div>
 
     {/* Mobile/Tablet Menu */}
-    <div className="absolute top-0 right-0 w-full md:w-1/2 h-full bg-white p-6 shadow-lg transition-transform duration-300">
+    <div className="absolute top-0 right-0 w-full md:w-1/2 h-full bg-white p-6 shadow-lg transition-transform duration-300 z-50">
       <div className="flex justify-between items-center mb-4">
         <h2 className="text-lg font-bold">Menu</h2>
         <button
