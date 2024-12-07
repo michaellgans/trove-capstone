@@ -46,7 +46,7 @@ export type Parent_Account = {
 };
 
 export type Child_Account = {
-  c_account_id: string;
+  id: string;
   checking_balance: number;
   savings_balance?: number;
   savings_goal?: number;
@@ -56,7 +56,7 @@ export type Child_Account = {
 
 export type Transactions = {
   id: string;
-  timestamp: string;
+  timestamp: Date;
   type: string;
   description?: string | null;
   to_external_id?: string | null;

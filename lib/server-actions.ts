@@ -288,6 +288,10 @@ export async function newParentToChildTransfer(parent_id: string, child_id: stri
       },
     });
 
+    if (!parent_user || !parent_account) {
+      throw new Error("No parent user found");
+    }
+
     const child_user = await prisma.child_user.findUnique({
       where: {
         id: child_id,
@@ -298,6 +302,10 @@ export async function newParentToChildTransfer(parent_id: string, child_id: stri
         child_id: child_id,
       },
     });
+
+    if (!child_user || !child_account) {
+      throw new Error("No child user found");
+    }
 
     // If withholdings are present
     if (withholdings) {
@@ -415,6 +423,10 @@ export async function newChildToChildTransfer(from_child_id: string, to_child_id
       },
     });
 
+    if (!from_child_user || !from_child_account) {
+      throw new Error("No child user found");
+    }
+
     const to_child_user = await prisma.child_user.findUnique({
       where: {
         id: to_child_id,
@@ -426,12 +438,20 @@ export async function newChildToChildTransfer(from_child_id: string, to_child_id
       },
     });
 
+    if (!to_child_user || !to_child_account) {
+      throw new Error("No child user found");
+    }
+
     // Pull Parent account info
     const parent_account = await prisma.parent_account.findUnique({
       where: {
         parent_id: from_child_user.parent_id,
       },
     });
+
+    if (!parent_account) {
+      throw new Error("No parent account found");
+    }
 
     // Insert new transaction
     await prisma.transaction.create({
@@ -500,6 +520,10 @@ export async function newChildToParentTransfer(child_id: string, parent_id: stri
       },
     });
 
+    if (!parent_user || !parent_account) {
+      throw new Error("No parent user found");
+    }
+
     const child_user = await prisma.child_user.findUnique({
       where: {
         id: child_id,
@@ -510,6 +534,10 @@ export async function newChildToParentTransfer(child_id: string, parent_id: stri
         child_id: child_id,
       },
     });
+
+    if (!child_user || !child_account) {
+      throw new Error("No child user found");
+    }
 
     // Insert new transaction
     await prisma.transaction.create({
@@ -576,11 +604,19 @@ export async function newCheckingToSavingsTransfer(child_id: string, amount: num
       },
     });
 
+    if (!child_user || !child_account) {
+      throw new Error("No child user found");
+    }
+
     const parent_account = await prisma.parent_account.findUnique({
       where: {
         parent_id: child_user.parent_id,
       },
     });
+
+    if (!parent_account) {
+      throw new Error("No parent account found");
+    }
 
     // Insert new transaction
     await prisma.transaction.create({
@@ -639,11 +675,19 @@ export async function newSavingsToCheckingTransfer(child_id: string, amount: num
       },
     });
 
+    if (!child_user || !child_account) {
+      throw new Error("No child user found");
+    }
+
     const parent_account = await prisma.parent_account.findUnique({
       where: {
         parent_id: child_user.parent_id,
       },
     });
+
+    if (!parent_account) {
+      throw new Error("No parent account found");
+    }
 
     // Insert new transaction
     await prisma.transaction.create({
@@ -701,6 +745,10 @@ export async function transferWithholdings(parent_id: string, amount: number) {
         parent_id: parent_id,
       },
     });
+
+    if (!parent_user || !parent_account) {
+      throw new Error("No parent user found");
+    }
 
     // Insert new transaction
     await prisma.transaction.create({
@@ -792,6 +840,10 @@ export async function newParentToChildLoan(lender_id: string, borrower_id: strin
       },
     });
 
+    if (!lender || !lender_account) {
+      throw new Error("No parent user found");
+    }
+
     const borrower = await prisma.child_user.findUnique({
       where: {
         id: borrower_id,
@@ -802,6 +854,10 @@ export async function newParentToChildLoan(lender_id: string, borrower_id: strin
         child_id: borrower_id,
       },
     });
+
+    if (!borrower || !borrower_account) {
+      throw new Error("No child user found");
+    }
 
     // Insert new transaction
     await prisma.transaction.create({
@@ -843,8 +899,8 @@ export async function newParentToChildLoan(lender_id: string, borrower_id: strin
     });
 
     // Determine due date from days_due
-    const today = new Date();
-    const due_date = today.setDate(today.getDate() + loan.days_due);
+    const due_date = new Date();
+    due_date.setDate(due_date.getDate() + loan.days_due);
 
     // Insert new loan
     await prisma.loan.create({
@@ -852,6 +908,7 @@ export async function newParentToChildLoan(lender_id: string, borrower_id: strin
         lender_id: lender.id,
         borrower_id: borrower.id,
         interest_rate: loan.interest_rate,
+        loan_amount: loan.loan_amount,
         current_balance: loan.loan_amount + (loan.loan_amount * (loan.interest_rate / 100)),
         due_date: due_date,
         p_account_id: lender_account.id,
@@ -891,6 +948,10 @@ export async function newChildToChildLoan(lender_id: string, borrower_id: string
       },
     });
 
+    if (!lender || !lender_account) {
+      throw new Error("Child lender not found");
+    }
+
     const borrower = await prisma.child_user.findUnique({
       where: {
         id: borrower_id,
@@ -901,6 +962,10 @@ export async function newChildToChildLoan(lender_id: string, borrower_id: string
         child_id: borrower_id,
       },
     });
+
+    if (!borrower || !borrower_account) {
+      throw new Error("Child borrower not found");
+    }
 
     // Insert new transaction
     await prisma.transaction.create({
@@ -942,8 +1007,8 @@ export async function newChildToChildLoan(lender_id: string, borrower_id: string
     });
 
     // Determine due date from days_due
-    const today = new Date();
-    const due_date = today.setDate(today.getDate() + loan.days_due);
+    const due_date = new Date();
+    due_date.setDate(due_date.getDate() + loan.days_due);
 
     // Insert new loan
     await prisma.loan.create({
@@ -952,6 +1017,7 @@ export async function newChildToChildLoan(lender_id: string, borrower_id: string
         borrower_id: borrower.id,
         interest_rate: loan.interest_rate,
         current_balance: loan.loan_amount + (loan.loan_amount * (loan.interest_rate / 100)),
+        loan_amount: loan.loan_amount,
         due_date: due_date,
         p_account_id: lender_account.parent_id,
       },
@@ -985,6 +1051,10 @@ export async function newChildToParentLoanPayment(lender_id: string, borrower_id
       },
     });
 
+    if (!lender || !lender_account) {
+      throw new Error("Parent lender not found");
+    }
+
     const borrower = await prisma.child_user.findUnique({
       where: {
         id: borrower_id,
@@ -995,6 +1065,10 @@ export async function newChildToParentLoanPayment(lender_id: string, borrower_id
         child_id: borrower_id,
       },
     });
+
+    if (!borrower || !borrower_account) {
+      throw new Error("Child borrower not found");
+    }
 
     // Insert new transaction
     await prisma.transaction.create({
@@ -1035,10 +1109,21 @@ export async function newChildToParentLoanPayment(lender_id: string, borrower_id
       },
     });
 
+    // Find loan record
+    const loan = await prisma.loan.findFirst({
+      where: {
+        borrower_id: borrower.id,
+      },
+    });
+
+    if (!loan) {
+      throw new Error("Loan not found for borrower");
+    }
+
     // Update loan record
     const updatedLoan = await prisma.loan.update({
       where: {
-        borrower_id: borrower.id,
+        id: loan.id,
       },
       data: {
         current_balance: {
@@ -1051,7 +1136,7 @@ export async function newChildToParentLoanPayment(lender_id: string, borrower_id
     if (updatedLoan.current_balance === 0) {
       await prisma.loan.delete({
         where: {
-          borrower_id: borrower.id,
+          id: loan.id,
         },
       });
     }
@@ -1084,6 +1169,10 @@ export async function newChildToChildLoanPayment(lender_id: string, borrower_id:
       },
     });
 
+    if (!lender || !lender_account) {
+      throw new Error("Child lender not found");
+    }
+
     const borrower = await prisma.child_user.findUnique({
       where: {
         id: borrower_id,
@@ -1094,6 +1183,10 @@ export async function newChildToChildLoanPayment(lender_id: string, borrower_id:
         child_id: borrower_id,
       },
     });
+
+    if (!borrower || !borrower_account) {
+      throw new Error("Child borrower not found");
+    }
 
     // Insert new transaction
     await prisma.transaction.create({
@@ -1134,10 +1227,21 @@ export async function newChildToChildLoanPayment(lender_id: string, borrower_id:
       },
     });
 
+    // Find loan record
+    const loan = await prisma.loan.findFirst({
+      where: {
+        borrower_id: borrower.id,
+      },
+    });
+
+    if (!loan) {
+      throw new Error("Loan not found for borrower");
+    }
+
     // Update loan balance
     const updatedLoan = await prisma.loan.update({
       where: {
-        borrower_id: borrower.id,
+        id: loan.id,
       },
       data: {
         current_balance: {
@@ -1150,7 +1254,7 @@ export async function newChildToChildLoanPayment(lender_id: string, borrower_id:
     if (updatedLoan.current_balance === 0) {
       await prisma.loan.delete({
         where: {
-          borrower_id: borrower.id,
+          id: loan.id,
         },
       });
     }
@@ -1216,7 +1320,7 @@ export async function handleSignupWithCredentials({email, password, name, starti
       data: {
         parent_id: parentUser.id,
         balance: startingBalance,
-        withholdings_balance: 0,
+        withholding_balance: 0,
       },
     });
 
@@ -1292,7 +1396,7 @@ export async function handleSignupWithGoogle({parent_id, startingBalance, childr
       data: {
         parent_id: parentUser.id,
         balance: startingBalance,
-        withholdings_balance: 0,
+        withholding_balance: 0,
       },
     });
 
