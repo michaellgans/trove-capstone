@@ -64,7 +64,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
       where: { child_id: childUser.id },
     });
 
-    const loanInfo = await prisma.loan.findUnique({
+    const loanInfo = await prisma.loan.findFirst({
       where: { borrower_id: childUser.id },
     });
 
@@ -75,10 +75,13 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
       select: {
         id: true,
         name: true,
-        username: true,
         avatar_img: true,
       },
     });
+
+    if (!parentUser) {
+      throw new Error("Parent user not found for child");
+    }
 
     const siblings = await prisma.child_user.findMany({
       where: {
