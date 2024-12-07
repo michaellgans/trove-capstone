@@ -7,6 +7,7 @@ import DropdownButton from './DropdownButton';
 import DropdownMenu from './DropdownMenu';
 import { useRouter } from 'next/navigation';
 import MobileDropdownMenu from './MobileDropdownMenu';
+import { FaGithub, FaInstagram } from 'react-icons/fa';
 
 
 
@@ -548,15 +549,84 @@ const Navbar: FC = () => {
       <nav className="flex flex-col items-center space-y-4">
         {!isLoggedIn ? (
           <>
-            <Link href="/login" passHref>
-              <span className="text-gray-800 hover:text-brightRed transition duration-300 ease-in-out cursor-pointer">Log in</span>
+          {/* About Trove */}
+          <div className='border-b font-semibold flex flex-col w-full space-y-4 py-5 ps-5'>
+          <Link onClick={() => setIsOpen(false)} href="/" passHref>
+            <span className="text-gray-800 hover:text-brightRed transition duration-300 ease-in-out cursor-pointer">
+              About Trove
+            </span>
+          </Link>
+    
+          {/* Get the App */}
+          <Link onClick={() => setIsOpen(false)} href="/get-the-app" passHref>
+            <span className="text-gray-800 hover:text-brightRed transition duration-300 ease-in-out cursor-pointer">
+              Get the App
+            </span>
+          </Link>
+
+          </div>
+          {/* Log in and Sign up */}
+          <div className="flex flex-col space-x-5 space-y-5 py-5">
+            <Link onClick={() => setIsOpen(false)} href="/login" passHref>
+              <span>Already have an account?</span>
+              <span className="hover:brightness-110 font-bold text-brightRed transition duration-300 ease-in-out cursor-pointer ms-3">
+                Log in
+              </span>
             </Link>
-            <Link href="/signup" passHref>
-              <span className="bg-brightRed text-white px-4 py-2 rounded-md hover:brightness-110 cursor-pointer transition ease-in-out duration-300">
+            <Link onClick={() => setIsOpen(false)} href="/signup" passHref>
+              <span>New user?</span>
+              <span className="bg-brightRed text-white px-4 ms-3 py-2 rounded-md hover:brightness-110 cursor-pointer transition ease-in-out duration-300">
                 Sign up
               </span>
             </Link>
-          </>
+          </div>
+
+          {/* Footer Content */}
+  <div className="mt-auto border-t border-gray-200 pt-10">
+    <footer className="text-gray-600 font-semibold">
+      <div className="flex flex-col items-center space-y-3">
+        {/* About the Authors */}
+        <div className="flex items-center space-x-3">
+          <Link href="" passHref>
+            <span className="cursor-pointer hover:text-gray-800 transition duration-300 hover:scale-110">
+              About the Authors
+            </span>
+          </Link>
+          <Link
+            href="https://github.com/michaellgans/trove-capstone"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="text-gray-600 hover:text-black transition duration-300 ease-in-out transform hover:scale-110"
+          >
+            <FaGithub className="w-6 h-6" />
+          </Link>
+        </div>
+
+        {/* Copyright Information */}
+        <div className="text-center text-sm">
+          &copy; 2025 Trove LLC | All Rights Reserved
+        </div>
+
+        {/* About the Artist */}
+        <div className="flex items-center space-x-3">
+          <Link href="/about-artist" passHref>
+            <span className="cursor-pointer hover:text-gray-800 transition duration-300">
+              About the Artist
+            </span>
+          </Link>
+          <Link
+            href="https://instagram.com"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="text-gray-600 hover:text-[#E4405F] transition duration-300 hover:scale-110"
+          >
+            <FaInstagram className="w-6 h-6" />
+          </Link>
+        </div>
+      </div>
+    </footer>
+  </div>
+        </>
         ) : (
           <>
             <MobileDropdownMenu
@@ -590,7 +660,51 @@ const Navbar: FC = () => {
   closeMenu={() => setIsOpen(false)}
   handleLogout={handleLogout}
 />
+         {/* Footer Content */}
+         <div className="mt-auto border-t border-gray-200 pt-10">
+    <footer className="text-gray-600 font-semibold">
+      <div className="flex flex-col items-center space-y-3">
+        {/* About the Authors */}
+        <div className="flex items-center space-x-3">
+          <Link href="" passHref>
+            <span className="cursor-pointer hover:text-gray-800 transition duration-300 hover:scale-110">
+              About the Authors
+            </span>
+          </Link>
+          <Link
+            href="https://github.com/michaellgans/trove-capstone"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="text-gray-600 hover:text-black transition duration-300 ease-in-out transform hover:scale-110"
+          >
+            <FaGithub className="w-6 h-6" />
+          </Link>
+        </div>
 
+        {/* Copyright Information */}
+        <div className="text-center text-sm">
+          &copy; 2025 Trove LLC | All Rights Reserved
+        </div>
+
+        {/* About the Artist */}
+        <div className="flex items-center space-x-3">
+          <Link href="/about-artist" passHref>
+            <span className="cursor-pointer hover:text-gray-800 transition duration-300">
+              About the Artist
+            </span>
+          </Link>
+          <Link
+            href="https://instagram.com"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="text-gray-600 hover:text-[#E4405F] transition duration-300 hover:scale-110"
+          >
+            <FaInstagram className="w-6 h-6" />
+          </Link>
+        </div>
+      </div>
+    </footer>
+  </div>
 
           </>
         )}

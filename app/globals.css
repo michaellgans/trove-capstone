@@ -92,11 +92,12 @@
 }
 
 :root {
-  --navbar-height: 3rem; /* Adjust to match your navbar's height */
+  --navbar-height: 3.5rem;
 }
 
 body {
   padding-top: var(--navbar-height);
+  
 }
 
 input[type='number']::-webkit-inner-spin-button,
