@@ -25,9 +25,6 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     alignItems: "center",
     paddingVertical: 10,
-    // Testing
-    borderWidth: 2,
-    borderColor: "red"
   },
   innerContainer: {
     flexDirection: "row",
@@ -41,6 +38,7 @@ const styles = StyleSheet.create({
   },
   slogan: {
     fontSize: 30,
+    lineHeight: 30,
     fontFamily: 'BaskervilleSmall',
     color: '#090A05',
   },

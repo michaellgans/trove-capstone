@@ -1,9 +1,11 @@
 // LoginContainer Component
 
 // Asset Imports
-import { View, StyleSheet } from "react-native";
+import { Text, View, StyleSheet } from "react-native";
 import { Title } from "./Title";
 import { CustomButton } from "./Button";
+import { Input } from "./Input";
+import { SecureInput } from "./SecureInput";
 
 // Returns a LoginContainer Component
 export function LoginContainer() {
@@ -13,7 +15,12 @@ export function LoginContainer() {
       style={styles.container}
     >
       <Title></Title>
-      <CustomButton label="Login " color="#0255EE"/>
+      <Input title="Username" placeholder="Kash"></Input>
+      <SecureInput title="Password" placeholder=""></SecureInput>
+      <CustomButton label="Login" color="#0255EE"/>
+      <Text style={styles.hint}>
+        Don't have an account?  Sign up now!
+      </Text>
     </View>
   );
 }
@@ -21,7 +28,9 @@ export function LoginContainer() {
 const styles = StyleSheet.create({
   container: {
     zIndex: 2,
-    alignItems: "center",
+    justifyContent: 'center',
+    alignContent: 'center',
+    alignItems: 'center',
     backgroundColor: '#FFFFFF',
     borderRadius: 60,
     paddingHorizontal: 10,
@@ -30,5 +39,8 @@ const styles = StyleSheet.create({
     borderColor: '#6C6F6F',
     width: '85%'
   },
+  hint: {
+    color: '#6C6F6F',
+  }
 });
 
