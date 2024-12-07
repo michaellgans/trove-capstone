@@ -256,7 +256,7 @@ const AddBalanceCard: React.FC = () => {
                 Transfer from Stripe Account
               </label>
               <div className="relative flex items-center">
-                <span className="absolute left-3 text-gray-500">{currencySymbols[selectedTroveCurrency]}</span>
+                <span className="absolute left-3 text-gray-500">{currencySymbols[selectedStripeCurrency]}</span>
                 <input
                   type="number"
                   id="stripeBalance"
