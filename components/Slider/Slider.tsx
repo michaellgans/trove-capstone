@@ -1,13 +1,15 @@
 import React, { useState, useEffect, useRef } from "react";
 import { Slide } from "./Slide";
 import { DotsNavigation } from "./DotsNavigation";
-import { NavigationButtons } from "./NavigationButtons";
 import { slides } from "./slides";
 
 export const Slider: React.FC = () => {
-  const [currentIndex, setCurrentIndex] = useState(1); // Start with first real slide
+  const [currentIndex, setCurrentIndex] = useState(1); // Start with the first real slide
   const [isTransitioning, setIsTransitioning] = useState(false);
   const sliderRef = useRef<HTMLDivElement | null>(null);
+  const intervalRef = useRef<NodeJS.Timeout | null>(null);
+
+
   const extendedSlides = [slides[slides.length - 1], ...slides, slides[0]];
 
   useEffect(() => {
@@ -42,17 +44,19 @@ export const Slider: React.FC = () => {
     };
   }, [currentIndex, extendedSlides.length, slides.length]);
 
-  const handleNext = () => {
-    if (isTransitioning) return;
-    setIsTransitioning(true);
-    setCurrentIndex((prev) => prev + 1);
-  };
+  // Auto-slide effect
+  useEffect(() => {
+    intervalRef.current = setInterval(() => {
+      if (!isTransitioning) {
+        setIsTransitioning(true);
+        setCurrentIndex((prev) => prev + 1);
+      }
+    }, 4000); // Change slide every 4 seconds
 
-  const handlePrev = () => {
-    if (isTransitioning) return;
-    setIsTransitioning(true);
-    setCurrentIndex((prev) => prev - 1);
-  };
+    return () => {
+      if (intervalRef.current) clearInterval(intervalRef.current);
+    };
+  }, [isTransitioning]);
 
   return (
     <div className="relative w-full h-screen overflow-hidden group">
@@ -76,9 +80,6 @@ export const Slider: React.FC = () => {
           setIsTransitioning(true);
         }}
       />
-
-      {/* Navigation Buttons */}
-      <NavigationButtons onPrev={handlePrev} onNext={handleNext} />
     </div>
   );
 };

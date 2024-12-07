@@ -20,7 +20,7 @@ interface SlideProps {
 export const Slide: React.FC<SlideProps> = ({ slide }) => (
   <div
     id={slide.id}
-    className={`relative flex-shrink-0 w-full py-10 md:py-0 flex px-10 xl:px-20 ${
+    className={`relative flex-shrink-0 w-full h-auto md:h-[600px] py-10 md:py-0 flex px-10 xl:px-20 ${
       slide.reverseLayout
         ? "flex-col-reverse md:flex-row-reverse"
         : "flex-col-reverse md:flex-row"
@@ -41,7 +41,7 @@ export const Slide: React.FC<SlideProps> = ({ slide }) => (
       <p className="text-gray-600 font-normal text-lg md:text-xl lg:text-2xl">
         {slide.description}
       </p>
-      <button className="flex items-center mt-10 justify-center rounded-lg bg-brightRed hover:brightness-110 font-bold border text-white text-xl lg:text-2xl px-4 py-2 transition duration-300 ease-in-out">
+      <button className="flex items-center mt-10 mb-5 justify-center rounded-lg bg-brightRed hover:brightness-110 font-bold border text-white text-xl lg:text-2xl px-4 py-2 transition duration-300 ease-in-out">
         {slide.phoneIcon && (
           <svg
             xmlns="http://www.w3.org/2000/svg"
@@ -66,6 +66,10 @@ export const Slide: React.FC<SlideProps> = ({ slide }) => (
       src={slide.image}
       alt={slide.imageAlt}
       className={`w-1/2 sm:w-1/3 md:w-1/2 lg:w-1/3 h-auto object-contain ${
+        slide.id === "gradial-point" ? "pb-10" : ""
+      } ${
+        slide.id === "gradial-walk" ? "-mt-3" : ""
+      } lg:pt-6 ${
         slide.flipImage ? "-scale-x-100" : ""
       }`}
     />
