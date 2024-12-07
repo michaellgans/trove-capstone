@@ -17,10 +17,12 @@ export function LoginContainer() {
       <Title></Title>
       <Input title="Username" placeholder="Kash"></Input>
       <SecureInput title="Password" placeholder=""></SecureInput>
-      <CustomButton label="Login" color="#0255EE"/>
+      <View>
+        <CustomButton label="Login" color="#0255EE"/>
       <Text style={styles.hint}>
         Don't have an account?  Sign up now!
       </Text>
+      </View>
     </View>
   );
 }
@@ -41,6 +43,7 @@ const styles = StyleSheet.create({
   },
   hint: {
     color: '#6C6F6F',
+    textAlign: 'center'    
   }
 });
 
