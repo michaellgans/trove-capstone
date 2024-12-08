@@ -7,7 +7,6 @@ export default function RootLayout() {
     <>
       <StatusBar style="light" backgroundColor="#000000" />
       <Stack screenOptions={{ headerShown: false }} />
-      {/* <Text>This is a test</Text> */}
     </>
   );
 }
