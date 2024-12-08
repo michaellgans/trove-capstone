@@ -13,7 +13,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-      <div id='gradial' className="min-h-screen flex flex-col" 
+      <div className="min-h-screen flex flex-col" 
       >
       <main className="flex-grow">
       {children}
