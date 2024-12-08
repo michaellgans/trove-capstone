@@ -175,6 +175,7 @@ const ChildAccountSetup: React.FC<ChildAccountSetupProps> = ({
   const [selectedCurrency, setSelectedCurrency] = useState('USD');
   const [isCurrencyDropdownOpen, setIsCurrencyDropdownOpen] = useState(false);
   const currencies = ['USD', 'EUR', 'GBP'];
+
   const router = useRouter();
 
   return (

@@ -49,8 +49,9 @@ const EmailLoginPage: React.FC = () => {
   return (
     <div className="container mx-auto">
        {/* Progress Indicator */}
-       <ProgressIndicator currentStep={step} totalSteps={3} />
-
+       <div className="fixed top-[var(--navbar-height)] left-0 w-full z-40">
+        <ProgressIndicator currentStep={step} totalSteps={3} />
+       </div>
       {/* Conditional Rendering based on step */}
       {step === 1 && (
       <EmailSignupCard

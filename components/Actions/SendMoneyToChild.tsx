@@ -1,5 +1,5 @@
 'use client';
-import React, { useState } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import LogoTitle from '../LogoTitle';
 import { useRouter } from 'next/navigation';
 import FeedbackMessage from './FeedbackMessage';
@@ -9,6 +9,7 @@ import '../../app/globals.css';
 
 const SendMoneyToChildCard: React.FC = () => {
   const router = useRouter();
+  const cardRef = useRef<HTMLDivElement>(null);
   const [transactionType, setTransactionType] = useState('Transfer');
   const [selectedAccount, setSelectedAccount] = useState('Trove Checking Account 5555');
   const [amount, setAmount] = useState('');
@@ -18,6 +19,20 @@ const SendMoneyToChildCard: React.FC = () => {
   const [errors, setErrors] = useState<{ [key: string]: string }>({});
   const [openDropdown, setOpenDropdown] = useState<string | null>(null);
   const [selectedCurrency, setSelectedCurrency] = useState('USD');
+
+  // Close card when clicking outside of it
+  useEffect(() => {
+    const handleClickOutside = (event: MouseEvent) => {
+      if (cardRef.current && !cardRef.current.contains(event.target as Node)) {
+        router.push('/'); // Redirect or close the card
+      }
+    };
+
+    document.addEventListener('mousedown', handleClickOutside);
+    return () => {
+      document.removeEventListener('mousedown', handleClickOutside);
+    };
+  }, [router]);
 
   const currencies = ['USD', 'EUR', 'GBP'];
   const currencySymbols: { [key: string]: string } = {
@@ -136,7 +151,9 @@ const SendMoneyToChildCard: React.FC = () => {
   };
 
   return (
-    <div className="flex flex-col items-center bg-white p-10 lg:p-14 rounded-lg border border-gray-100 shadow-lg max-w-md md:max-w-lg lg:max-w-xl mx-auto mt-10">
+    <div
+    ref={cardRef}
+    className="flex flex-col items-center bg-white p-10 lg:p-14 rounded-lg border border-gray-100 shadow-lg max-w-md md:max-w-lg lg:max-w-xl mx-auto mt-10">
       <LogoTitle />
       {transactionStatus ? (
         <FeedbackMessage
@@ -307,6 +324,16 @@ const SendMoneyToChildCard: React.FC = () => {
           >
             Send
           </button>
+          {/* Cancel Button */}
+        <div className="mt-4 text-center">
+          <button
+            type="button"
+            onClick={() => router.push('/')}
+            className="text-sm text-gray-500 hover:text-gray-600 transition ease-in-out duration-300"
+          >
+            Cancel
+          </button>
+        </div>
         </form>
       )}
     </div>

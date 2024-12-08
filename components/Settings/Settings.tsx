@@ -1,6 +1,7 @@
 'use client';
-import React, { useState } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
+
 
 type SettingsType = {
     payLoanInBill: boolean;
@@ -16,6 +17,7 @@ type SettingsType = {
 
 const Settings: React.FC = () => {
     const router = useRouter();
+    const cardRef = useRef<HTMLDivElement>(null);
     const [payLoanInBill, setPayLoanInBill] = useState(true);
     const [canTakeOutLoan, setCanTakeOutLoan] = useState(true);
     const [loansHaveInterest, setLoansHaveInterest] = useState(true);
@@ -28,6 +30,20 @@ const Settings: React.FC = () => {
     const [transfersCanBeTaxed, setTransfersCanBeTaxed] = useState(true);
     const [maxTaxes, setMaxTaxes] = useState<number | null>(null);
     const [isFocusedMT, setIsFocusedMT] = useState(false);
+
+    // Close card when clicking outside of it
+   useEffect(() => {
+    const handleClickOutside = (event: MouseEvent) => {
+      if (cardRef.current && !cardRef.current.contains(event.target as Node)) {
+        router.push('/'); // Redirect or close the card
+      }
+    };
+
+    document.addEventListener('mousedown', handleClickOutside);
+    return () => {
+      document.removeEventListener('mousedown', handleClickOutside);
+    };
+  }, [router]);
 
     const handlePayLoanInBill = (e: React.ChangeEvent<HTMLInputElement>) => {
         setPayLoanInBill(e.target.checked);
@@ -67,10 +83,12 @@ const Settings: React.FC = () => {
     const handleBlurMT = () => setIsFocusedMT(false);
 
     return (
-        <div className="flex flex-col bg-white p-10 rounded-lg border border-gray-100 shadow-lg max-w-md lg:max-w-2xl mx-auto mt-6">
+        <div
+        ref={cardRef}
+        className="flex flex-col bg-white p-5 md:p-10 rounded-lg border border-gray-100 shadow-lg max-w-md md:max-w-xl lg:max-w-2xl mx-auto mt-6">
             <header className="items-start mb-6">
-                <h1 className="text-4xl font-inter text-text text-left">Settings</h1>
-                <div className="w-48 h-1 mt-2 rounded-full overflow-hidden flex">
+                <h1 className="text-2xl md:text-3xl lg:text-4xl font-inter text-text text-left">Settings</h1>
+                <div className="w-28 sm:w-32 md:w-36 lg:w-48 h-1 mt-2 rounded-full overflow-hidden flex">
                     <div className="flex-1 bg-brightRed"></div>
                     <div className="flex-1 bg-brightYellow"></div>
                     <div className="flex-1 bg-brightBlue"></div>
@@ -299,13 +317,13 @@ const Settings: React.FC = () => {
                     <div className="flex flex-row justify-center">
                         <div
                         onClick={() => router.push('/reset-password')}
-                        className="font-normal pr-5">Reset Password</div>
+                        className="font-normal pr-5 hover:cursor-pointer hover:opacity-70">Reset Password</div>
                         <div
                         onClick={() => router.push('/reset-pin')}
-                        className="font-normal pr-5">Reset Pin</div>
+                        className="font-normal pr-5 hover:cursor-pointer hover:opacity-70">Reset Pin</div>
                         <div
                         onClick={() => router.push('/delete')}
-                        className="font-normal text-brightRed">Delete Account</div>
+                        className="font-normal text-brightRed hover:cursor-pointer hover:brightness-110">Delete Account</div>
                     </div>
                 </div>
                 <button

@@ -1,6 +1,8 @@
 import "./globals.css";
 import Footer from "@/components/Footer";
 import ClientLayout from "@/app/client-layout";
+import { OverlayProvider } from "@/components/OverlayContext";
+import BlurOverlay from "@/components/BlurOverlay";
 
 export const metadata = {
   title: "Trove",
@@ -18,9 +20,10 @@ export default function RootLayout({
         <link rel="icon" href="/images/favicon.ico" />
       </head>
       <body className="min-h-screen flex flex-col">
-        <ClientLayout>
-          {children}
-        </ClientLayout>
+        <OverlayProvider>
+          <BlurOverlay>{/* Render modal content here */}</BlurOverlay>
+          <ClientLayout>{children}</ClientLayout>
+        </OverlayProvider>
         <Footer />
       </body>
     </html>

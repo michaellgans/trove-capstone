@@ -7,6 +7,7 @@ import { useRouter } from 'next/navigation';
 
 const AddBalanceCard: React.FC = () => {
   const router = useRouter();
+  const cardRef = useRef<HTMLDivElement>(null);
   const [troveBalance, setTroveBalance] = useState('');
   const [stripeBalance, setStripeBalance] = useState('');
   const [error, setError] = useState('');
@@ -22,9 +23,28 @@ const AddBalanceCard: React.FC = () => {
   const [isStripeCurrencyDropdownOpen, setIsStripeCurrencyDropdownOpen] = useState(false);
 
   const currencies = ['USD', 'EUR', 'GBP'];
+  const currencySymbols: Record<string, string> = {
+    USD: '$',
+    EUR: '€',
+    GBP: '£',
+  };
 
   const troveDropdownRef = useRef<HTMLDivElement>(null);
   const stripeDropdownRef = useRef<HTMLDivElement>(null);
+
+  // Close card when clicking outside of it
+  useEffect(() => {
+    const handleClickOutside = (event: MouseEvent) => {
+      if (cardRef.current && !cardRef.current.contains(event.target as Node)) {
+        router.push('/'); // Redirect or close the card
+      }
+    };
+
+    document.addEventListener('mousedown', handleClickOutside);
+    return () => {
+      document.removeEventListener('mousedown', handleClickOutside);
+    };
+  }, [router]);
 
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
@@ -80,7 +100,9 @@ const AddBalanceCard: React.FC = () => {
   };
 
   return (
-    <div className="flex flex-col items-center bg-white p-10 lg:p-14 rounded-lg border border-gray-100 shadow-lg max-w-md lg:max-w-2xl mx-auto mt-10">
+    <div
+    ref={cardRef}
+    className="flex flex-col items-center bg-white p-5 md:p-10 lg:p-14 rounded-lg border border-gray-100 shadow-lg max-w-md lg:max-w-2xl mx-auto mt-10">
       <LogoTitle />
 
       {transactionStatus === 'success' && (
@@ -157,7 +179,7 @@ const AddBalanceCard: React.FC = () => {
                 Current Trove Account Balance
               </label>
               <div className="relative flex items-center">
-                <span className="absolute left-3 text-gray-500">$</span>
+                <span className="absolute left-3 text-gray-500">{currencySymbols[selectedTroveCurrency]}</span>
                 <input
                   type="number"
                   id="troveBalance"
@@ -234,7 +256,7 @@ const AddBalanceCard: React.FC = () => {
                 Transfer from Stripe Account
               </label>
               <div className="relative flex items-center">
-                <span className="absolute left-3 text-gray-500">$</span>
+                <span className="absolute left-3 text-gray-500">{currencySymbols[selectedStripeCurrency]}</span>
                 <input
                   type="number"
                   id="stripeBalance"
