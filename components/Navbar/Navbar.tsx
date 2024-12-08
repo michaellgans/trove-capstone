@@ -379,7 +379,7 @@ const Navbar: FC = () => {
       <nav className="bg-white backdrop-blur-md border-b px-5 md:px-8 xl:px-16 py-2 flex justify-between items-center font-inter fixed top-0 left-0 z-50 w-full">
         {/* Logo */}
         <div className="flex space-x-10 xl:space-x-20">
-            <Link href="/" passHref>
+            <Link href={isLoggedIn ? "/home" : "/"}>
               <div className='flex items-center space-x-4 cursor-pointer'>
                 <Image 
                   src='/images/Trove_Logo.png'
