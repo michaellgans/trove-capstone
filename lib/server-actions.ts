@@ -1,6 +1,6 @@
 'use server'
 import { Child, Child_Account, GoogleSignUpPayload, Loans, LoanDataPayload, Parent, Parent_Account, SignUpPayload, Transactions } from "@/types/types";
-import { prisma } from "@/prisma";
+import { prisma } from "../prisma";
 import bcrypt from "bcryptjs";
 
 
@@ -13,15 +13,19 @@ import bcrypt from "bcryptjs";
  */
 export async function getParentById(parent_id: string): Promise<Parent[]> {
   try {
+    console.log("Fetching parent for ID:", parent_id);
     const parent = await prisma.parent_user.findMany({
       where: {
         id: parent_id,
       },
     });
 
+    if (parent.length === 0) {
+      throw new Error();
+    }
+
     return parent;
   } catch (error) {
-    console.error(`Error fetching parent by parent_id: ${parent_id}`);
     console.error(error);
     throw new Error("Unable to fetch parent");
   }
