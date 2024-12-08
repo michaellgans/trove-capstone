@@ -6,7 +6,6 @@ import { Title } from "./Title";
 import { CustomButton } from "./Button";
 import { Input } from "./Input";
 import { SecureInput } from "./SecureInput";
-import { Link } from "expo-router";
 import { useRouter } from "expo-router";
 
 // Returns a LoginContainer Component
@@ -15,7 +14,7 @@ export function LoginContainer() {
   const router = useRouter();
 
   const handleLogin = () => {
-    router.push("/(tabs)");
+    router.push("/screens/homeScreen");
   }
 
   return (
@@ -26,9 +25,7 @@ export function LoginContainer() {
       <Input title="Username" placeholder="Kash"></Input>
       <SecureInput title="Password" placeholder=""></SecureInput>
       <View>
-        <Link href="/(tabs)" asChild>
-          <CustomButton label="Login" color="#0255EE" onPress={handleLogin}/>
-        </Link>
+        <CustomButton label="Login" color="#0255EE" onPress={handleLogin}/>
         <Text style={styles.hint}>
           Don't have an account?  Sign up now!
         </Text>
