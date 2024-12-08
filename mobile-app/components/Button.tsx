@@ -10,14 +10,16 @@ import { Text, StyleSheet } from "react-native";
 type ButtonProps = {
     label: string;
     color: string;
+    onPress?: () => void;
 };
 
 // Returns a Button Component
-export function CustomButton({label, color}: ButtonProps) {
+export function CustomButton({label, color, onPress}: ButtonProps) {
     // Define Hook
     return (
       <TouchableOpacity
         style={[styles.button, {backgroundColor: color}]}
+        onPress={onPress}
       >
         <Text
           style={[styles.buttonText]}  
