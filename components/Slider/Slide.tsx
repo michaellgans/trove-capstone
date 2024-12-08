@@ -67,19 +67,6 @@ export const Slide: React.FC<SlideProps> = ({
         )}
         <span>{slide.buttonText}</span>
       </button>
-
-      {/* Pagination below the paragraph */}
-      <div className="flex justify-center ms-16 mt-14 space-x-3">
-        {Array.from({ length: totalSlides }).map((_, index) => (
-          <div
-            key={index}
-            onClick={() => onPaginationClick(index)}
-            className={`w-3 h-3 rounded-full cursor-pointer transition duration-300 ${
-              currentIndex === index ? "bg-brightBlue" : "bg-gray-300"
-            }`}
-          ></div>
-        ))}
-      </div>
     </div>
 
     {/* Image */}
