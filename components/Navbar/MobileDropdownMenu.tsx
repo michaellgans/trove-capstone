@@ -1,5 +1,6 @@
 import React, { FC, useState } from 'react';
 import Image from 'next/image';
+import { useSession } from 'next-auth/react';
 
 interface MobileDropdownItem {
   id: number | string;
@@ -17,6 +18,7 @@ interface MobileDropdownMenuProps {
 
 const MobileDropdownMenu: FC<MobileDropdownMenuProps> = ({ items, closeMenu, handleLogout }) => {
   const [openIds, setOpenIds] = useState<Record<number, string | number | null>>({});
+  const { data: session } = useSession();
 
 
 
@@ -115,7 +117,7 @@ const MobileDropdownMenu: FC<MobileDropdownMenuProps> = ({ items, closeMenu, han
       {/* Welcome Section */}
       <div className="flex items-center justify-between px-4 py-3 border-b">
         <span className="text-gray-800 font-semibold text-xl">
-          Welcome, <span className="text-brightGreen">User!</span>
+          Welcome, <span className="text-brightGreen">{session?.user.name}!</span>
         </span>
       </div>
 

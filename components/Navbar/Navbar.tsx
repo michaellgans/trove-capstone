@@ -8,6 +8,8 @@ import DropdownMenu from './DropdownMenu';
 import { useRouter } from 'next/navigation';
 import MobileDropdownMenu from './MobileDropdownMenu';
 import { FaGithub, FaInstagram } from 'react-icons/fa';
+import { useSession } from 'next-auth/react';
+import { signOut } from 'next-auth/react';
 
 
 
@@ -28,6 +30,7 @@ interface MobileDropdownItem {
 
 
 const Navbar: FC = () => {
+  const { data: session } = useSession();
   const [isLoggedIn, setIsLoggedIn] = useState<boolean>(false);
   const [selectedFamilyMember, setSelectedFamilyMember] = useState<string | number>('');
   const [selectedLesson, setSelectedLesson] = useState<string | number>('');
@@ -42,7 +45,11 @@ const Navbar: FC = () => {
 
   const router = useRouter();
 
-  
+  useEffect(() => {
+    if (session) {
+      setIsLoggedIn(true);
+    }
+  }, [session])
 
   useEffect(() => {
     const handleResize = () => {
@@ -339,8 +346,10 @@ const Navbar: FC = () => {
   ];
   
 
-  const handleLogout = (): void => {
+  const handleLogout = async (): Promise<void> => {
     setIsLoggedIn(false);
+    await signOut();
+    router.push("/");
   };
   const handleClose = () => setIsOpen(false);
 
@@ -503,7 +512,7 @@ const Navbar: FC = () => {
             </>
           ) : (
             <>
-              <span className="text-gray-800 font-semibold">Welcome, <span className='text-brightGreen'>User!</span></span>
+              <span className="text-gray-800 font-semibold">Welcome, <span className='text-brightGreen'>{session?.user.name}!</span></span>
               <button
                 onClick={handleLogout}
                 className="flex items-center font-semibold space-x-2 text-gray-800 hover:text-brightGreen transition duration-300 ease-in-out"
