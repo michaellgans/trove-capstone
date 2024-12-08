@@ -3,6 +3,7 @@ import React, { useState, useEffect, useRef } from 'react';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import LogoTitle from '../LogoTitle';
+import { signIn } from 'next-auth/react';
 import { mockUsers } from "./mockdata";
 
 const EmailSignInCard: React.FC = () => {
@@ -29,7 +30,7 @@ const EmailSignInCard: React.FC = () => {
     };
   }, [router]);
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     let isValid = true;
     const newError = { email: "", password: "" };
@@ -45,21 +46,31 @@ const EmailSignInCard: React.FC = () => {
       newError.password = "Password must be at least 6 characters";
       isValid = false;
     }
-  
-    // Check mock user credentials
-    const user = mockUsers.find((user) => user.email === email && user.password === password);
-    if (!user) {
+
+    try {
+      await signIn("credentials", {email: email, password: password, callbackUrl: "/home"});
+    } catch (error) {
       newError.email = "Invalid email or password";
       newError.password = "Invalid email or password";
       isValid = false;
+      setError(newError);
+      throw new Error("Login attempt failed");
     }
+
+    // Check mock user credentials
+    // const user = mockUsers.find((user) => user.email === email && user.password === password);
+    // if (!user) {
+    //   newError.email = "Invalid email or password";
+    //   newError.password = "Invalid email or password";
+    //   isValid = false;
+    // }
   
-    setError(newError);
+    // setError(newError);
   
-    if (isValid) {
-      console.log("Mock sign-in successful");
-      router.push("/home"); // Redirect to the home page
-    }
+    // if (isValid) {
+    //   console.log("Mock sign-in successful");
+    //   router.push("/home"); // Redirect to the home page
+    // }
   };
   
 

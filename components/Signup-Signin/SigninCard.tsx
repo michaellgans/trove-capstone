@@ -5,11 +5,16 @@ import { FcGoogle } from 'react-icons/fc';
 import { FaEnvelope } from 'react-icons/fa';
 import { useRouter } from 'next/navigation';
 import Link from 'next/link';
+import { signIn } from 'next-auth/react';
 
 
 const SignInCard: React.FC = () => {
   const router = useRouter();
   const cardRef = useRef<HTMLDivElement>(null);
+
+  const handleGoogleSignIn = async () => {
+    await signIn("google", { callbackUrl: "/home" });
+  }
 
    // Close card when clicking outside of it
    useEffect(() => {
@@ -35,6 +40,7 @@ const SignInCard: React.FC = () => {
       <div className="w-full flex flex-col space-y-4">
         <button
           className="flex items-center justify-center w-[80%] px-4 py-3 rounded-full border border-gray-300 hover:bg-gray-100 transition ease-in-out duration-300 mx-auto"
+          onClick={handleGoogleSignIn}
         >
           <FcGoogle className="mr-3 w-6 h-6" />
           Sign in with Google
