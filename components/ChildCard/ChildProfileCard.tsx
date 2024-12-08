@@ -32,7 +32,6 @@ const ChildProfileCard: React.FC<Props> = ({
 
   return (
     <>
-    <Header title='Trove Family Tree' />
     <div className="flex flex-col mx-5 md:mx-auto justify-center items-start gap-3 p-10 mx-w-md md:max-w-3xl lg:max-w-5xl bg-white border border-gray-200 rounded-lg shadow-lg">
       {/* Title */}
       <TitleSection childName={childName} />

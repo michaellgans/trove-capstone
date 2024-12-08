@@ -110,7 +110,6 @@ const TransactionHistory: React.FC = () => {
         <div
             className="px-5 md:px-10 w-full"
         >
-          <Header title='Transaction History' />
             <div className="flex mx-0 justify-center rounded-xl overflow-hidden border-[1px] border-slate-200 m-4">
                 <div className="overflow-x-auto w-full">
                 <table className="w-full border border-collapse table-auto">

@@ -50,7 +50,7 @@ export const Carousel: React.FC = () => {
       <div className="wave-container">
         <svg
           xmlns="http://www.w3.org/2000/svg"
-          viewBox="0 0 1370 150"
+          viewBox="0 0 1270 150"
           className="wave-svg"
         >
           <path

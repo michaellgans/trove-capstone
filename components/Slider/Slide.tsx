@@ -28,7 +28,7 @@ export const Slide: React.FC<SlideProps> = ({
  }) => (
   <div
     id={slide.id}
-    className={`relative flex-shrink-0 w-full h-auto md:h-[600px] py-10 md:py-0 flex px-10 xl:px-20 ${
+    className={`relative flex-shrink-0 w-full h-auto md:h-[630px] py-10 md:py-0 flex px-10 xl:px-20 ${
       slide.reverseLayout
         ? "flex-col-reverse md:flex-row-reverse"
         : "flex-col-reverse md:flex-row"
@@ -77,7 +77,8 @@ export const Slide: React.FC<SlideProps> = ({
         slide.id === "gradial-point" ? "pb-10" : ""
       } ${
         slide.id === "gradial-walk" ? "-mt-3" : ""
-      } lg:pt-6 ${
+      }
+      lg:pt-6 ${
         slide.flipImage ? "-scale-x-100" : ""
       }`}
     />

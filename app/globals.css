@@ -231,7 +231,7 @@ input[type='number'] {
 
 .wave-container {
   position: absolute;
-  bottom: -1px; /* Adjust overlap */
+  bottom: -2px;
   width: 100%;
   z-index: 1;
 }
