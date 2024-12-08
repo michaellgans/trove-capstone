@@ -25,8 +25,8 @@ const ChildAccountSetup: React.FC<ChildAccountSetupProps> = ({
       childFirstName: false,
       childLastName: false,
       username: false,
-      pin: false,
-      confirmPin: false,
+      password: false,
+      confirmPassword: false,
       startingBalance: false,
     }))
   );
@@ -37,8 +37,8 @@ const ChildAccountSetup: React.FC<ChildAccountSetupProps> = ({
       childFirstName: '',
       childLastName: '',
       username: '',
-      pin: '',
-      confirmPin: '',
+      password: '',
+      confirmPassword: '',
       startingBalance: '',
     }))
   );
@@ -51,9 +51,9 @@ const ChildAccountSetup: React.FC<ChildAccountSetupProps> = ({
         childFirstName: '',
         childLastName: '',
         username: '',
-        pin: '',
-        confirmPin: '',
-        startingBalance: '10.00',
+        password: '',
+        confirmPassword: '',
+        startingBalance: '10',
         currency: 'USD',
       },
     ]);
@@ -64,8 +64,8 @@ const ChildAccountSetup: React.FC<ChildAccountSetupProps> = ({
         childFirstName: false,
         childLastName: false,
         username: false,
-        pin: false,
-        confirmPin: false,
+        password: false,
+        confirmPassword: false,
         startingBalance: false,
       },
     ]);
@@ -76,8 +76,8 @@ const ChildAccountSetup: React.FC<ChildAccountSetupProps> = ({
         childFirstName: '',
         childLastName: '',
         username: '',
-        pin: '',
-        confirmPin: '',
+        password: '',
+        confirmPassword: '',
         startingBalance: '',
       },
     ]);
@@ -117,8 +117,8 @@ const ChildAccountSetup: React.FC<ChildAccountSetupProps> = ({
         childFirstName: '',
         childLastName: '',
         username: '',
-        pin: '',
-        confirmPin: '',
+        password: '',
+        confirmPassword: '',
         startingBalance: '',
       };
 
@@ -140,23 +140,23 @@ const ChildAccountSetup: React.FC<ChildAccountSetupProps> = ({
         isValid = false;
       }
 
-      // PIN validation (e.g., 4-digit number)
-      const pinPattern = /^\d{4}$/;
-      if (!pinPattern.test(child.pin)) {
-        error.pin = 'PIN must be a 4-digit number';
+      // Password validation (e.g., at least 8 characters and include numbers and letters)
+      const passwordPattern = /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$/;
+      if (!passwordPattern.test(child.password)) {
+        error.password = 'Password must be at least 8 characters and include numbers and letters';
         isValid = false;
       }
 
-      // Confirm PIN validation
-      if (child.confirmPin !== child.pin) {
-        error.confirmPin = 'PINs do not match';
+      // Confirm Password validation
+      if (child.confirmPassword !== child.password) {
+        error.confirmPassword = 'Passwords do not match';
         isValid = false;
       }
 
       // Starting Balance validation (should be a number >= 10)
-      const startingBalanceNum = parseFloat(child.startingBalance);
+      const startingBalanceNum = parseInt(child.startingBalance);
       if (isNaN(startingBalanceNum) || startingBalanceNum < 10) {
-        error.startingBalance = 'Minimum starting balance is $10.00';
+        error.startingBalance = 'Minimum starting balance is $10';
         isValid = false;
       }
 
@@ -291,43 +291,41 @@ const ChildAccountSetup: React.FC<ChildAccountSetupProps> = ({
               </div>
             </div>
 
-            {/* PIN and Confirm PIN Input */}
+            {/* Password and Confirm Password Input */}
             <div className='flex flex-col md:flex-row gap-0 md:gap-5 justify-between'>
-              {/* PIN Input */}
+              {/* Password Input */}
               <div className="mb-4 relative w-full md:w-[50%]">
-                <label htmlFor="pin" className="block text-gray-700 font-semibold mb-2">
-                  PIN Number
+                <label htmlFor="password" className="block text-gray-700 font-semibold mb-2">
+                  Password
                 </label>
                 <input
                   type="password"
-                  id="pin"
-                  value={child.pin}
+                  id="password"
+                  value={child.password}
                   onChange={(e) => handleInputChange(e, index)}
-                  onFocus={() => handleFocus('pin', index)}
-                  onBlur={() => handleBlur('pin', index)}
+                  onFocus={() => handleFocus('password', index)}
+                  onBlur={() => handleBlur('password', index)}
                   className={`w-full px-4 py-3 rounded-lg border ${
-                    errors[index].pin ? 'border-red-500 focus:ring-red-500' : 'border-gray-300 focus:ring-brightBlue'
+                    errors[index].password ? 'border-red-500 focus:ring-red-500' : 'border-gray-300 focus:ring-brightBlue'
                   } focus:outline-none focus:ring-2 focus:ring-opacity-50`}
-                  maxLength={4}
                 />
               </div>
 
-              {/* Confirm PIN Input */}
+              {/* Confirm Password Input */}
               <div className="mb-4 relative w-full md:w-[50%]">
-                <label htmlFor="confirmPin" className="block text-gray-700 font-semibold mb-2">
-                  Confirm PIN Number
+                <label htmlFor="confirmPassword" className="block text-gray-700 font-semibold mb-2">
+                  Confirm Password
                 </label>
                 <input
                   type="password"
-                  id="confirmPin"
-                  value={child.confirmPin}
+                  id="confirmPassword"
+                  value={child.confirmPassword}
                   onChange={(e) => handleInputChange(e, index)}
-                  onFocus={() => handleFocus('confirmPin', index)}
-                  onBlur={() => handleBlur('confirmPin', index)}
+                  onFocus={() => handleFocus('confirmPassword', index)}
+                  onBlur={() => handleBlur('confirmPassword', index)}
                   className={`w-full px-4 py-3 rounded-lg border ${
-                    errors[index].confirmPin ? 'border-red-500 focus:ring-red-500' : 'border-gray-300 focus:ring-brightBlue'
+                    errors[index].confirmPassword ? 'border-red-500 focus:ring-red-500' : 'border-gray-300 focus:ring-brightBlue'
                   } focus:outline-none focus:ring-2 focus:ring-opacity-50`}
-                  maxLength={4}
                 />
               </div>
             </div>
@@ -350,8 +348,8 @@ const ChildAccountSetup: React.FC<ChildAccountSetupProps> = ({
                     errors[index].startingBalance ? 'border-red-500 focus:ring-red-500' : 'border-gray-300 focus:ring-brightBlue'
                   } focus:outline-none focus:ring-2 focus:ring-opacity-50`}
                   min="10"
-                  step="0.01"
-                  placeholder="10.00"
+                  step="1"
+                  placeholder="10"
                 />
               {/* Currency Dropdown */}
             <div className="absolute right-1 flex items-center">

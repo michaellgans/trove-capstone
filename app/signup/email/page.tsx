@@ -1,4 +1,4 @@
-// pages/login/email.tsx or app/login/email/page.tsx
+// pages/signup/email.tsx or app/signup/email/page.tsx
 'use client';
 import React from 'react';
 import { useSession } from "next-auth/react";
@@ -9,7 +9,7 @@ import ProgressIndicator from '@/components/Signup-Signin/ProgressIndicator';
 import { ChildDataType } from '@/types/types';
 import StripeConnectionCard from '@/components/Signup-Signin/StripeConnectionCard';
 
-const EmailLoginPage: React.FC = () => {
+const EmailSignupPage: React.FC = () => {
   const { data: session } = useSession();
   const [step, setStep] = useState(1);
 
@@ -40,9 +40,9 @@ const EmailLoginPage: React.FC = () => {
       childFirstName: '',
       childLastName: '',
       username: '',
-      pin: '',
-      confirmPin: '',
-      startingBalance: '10.00',
+      password: '',
+      confirmPassword: '',
+      startingBalance: '10',
       currency: 'USD',
     },
   ]);
@@ -71,10 +71,12 @@ const EmailLoginPage: React.FC = () => {
       {step === 3 && (
       <StripeConnectionCard
         prevStep={prevStep}
+        parentData={parentData}
+        childData={childData}
       />
       )}
     </div>
   );
 };
 
-export default EmailLoginPage;
+export default EmailSignupPage;

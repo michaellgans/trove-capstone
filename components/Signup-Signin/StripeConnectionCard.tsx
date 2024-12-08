@@ -4,12 +4,18 @@ import LogoTitle from '../LogoTitle';
 import { useRouter } from 'next/navigation';
 import { FaArrowRight, FaArrowLeft } from 'react-icons/fa';
 import Image from 'next/image';
+import { ChildDataType, ParentDataType } from '@/types/types';
+import { handleSignupWithCredentials } from '@/lib/server-actions';
+import { signIn } from 'next-auth/react';
+import { dollarsToCents } from '@/lib/utils';
 
 interface StripeConnectionCardProps {
   prevStep: () => void;
+  parentData: ParentDataType;
+  childData: ChildDataType[];
 }
 
-const StripeConnectionCard: React.FC<StripeConnectionCardProps> = ({ prevStep }) => {
+const StripeConnectionCard: React.FC<StripeConnectionCardProps> = ({ prevStep, parentData, childData }) => {
   const router = useRouter();
   const [startingBalance, setStartingBalance] = useState('');
   const [error, setError] = useState('');
@@ -21,13 +27,13 @@ const StripeConnectionCard: React.FC<StripeConnectionCardProps> = ({ prevStep })
   };
 
   // Handle form submission
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent): Promise<void> => {
     e.preventDefault();
     let isValid = true;
     let newError = '';
 
     // Starting Balance validation
-    const balanceNum = parseFloat(startingBalance);
+    const balanceNum = parseInt(startingBalance);
     if (isNaN(balanceNum) || balanceNum < 10) {
       newError = 'Minimum starting balance is $10.00';
       isValid = false;
@@ -35,9 +41,22 @@ const StripeConnectionCard: React.FC<StripeConnectionCardProps> = ({ prevStep })
 
     setError(newError);
 
-    if (isValid) {
-      // Proceed to the next step or finalize the setup
-      console.log('Stripe connection setup completed');
+    try {
+      if (isValid) {
+        // Proceed to the next step or finalize the setup
+        await handleSignupWithCredentials({
+          email: parentData.email,
+          password: parentData.password,
+          name: parentData.firstName + " " + parentData.lastName,
+          startingBalance: startingBalance,
+          children: childData
+        });
+
+        await signIn("credentials", { email: parentData.email, password: parentData.password, callbackUrl: "/home" });
+      }
+    } catch (error) {
+      router.push("/signup");
+      throw new Error("Failed to register new user");
     }
   };
 
@@ -154,8 +173,8 @@ const StripeConnectionCard: React.FC<StripeConnectionCardProps> = ({ prevStep })
                 error ? 'border-red-500 focus:ring-red-500' : 'border-gray-300 focus:ring-brightBlue'
               } focus:outline-none focus:ring-2 focus:ring-opacity-50`}
               min="10"
-              step="0.01"
-              placeholder="10.00"
+              step="1"
+              placeholder="10"
             />
             {/* Currency selector */}
             <div className="absolute right-3 flex items-center">
@@ -180,7 +199,7 @@ const StripeConnectionCard: React.FC<StripeConnectionCardProps> = ({ prevStep })
         <div className="flex justify-between gap-4 mt-7">
           {/* Back Button */}
           <button
-          onClick={prevStep}
+            onClick={prevStep}
             type="button"
             className="w-full py-3 rounded-lg bg-transparent border-[1px] border-gray-200 text-gray-600 font-semibold hover:bg-gray-200 transition ease-in-out duration-300"
           >

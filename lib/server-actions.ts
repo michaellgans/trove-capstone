@@ -2,6 +2,7 @@
 import { Child, Child_Account, GoogleSignUpPayload, Loans, LoanDataPayload, Parent, Parent_Account, SignUpPayload, Transactions } from "@/types/types";
 import { prisma } from "../prisma";
 import bcrypt from "bcryptjs";
+import { dollarsToCents, centsToDollars } from "./utils";
 
 
 // GET Server Actions
@@ -1323,7 +1324,7 @@ export async function handleSignupWithCredentials({email, password, name, starti
     await prisma.parent_account.create({
       data: {
         parent_id: parentUser.id,
-        balance: startingBalance,
+        balance: dollarsToCents(parseInt(startingBalance)),
         withholding_balance: 0,
       },
     });
@@ -1347,7 +1348,7 @@ export async function handleSignupWithCredentials({email, password, name, starti
         data: {
           parent_id: parentUser.id,
           username: child.username,
-          name: child.name,
+          name: child.childFirstName + " " + child.childLastName,
           password: hashedChildPassword,
         },
       });
@@ -1356,7 +1357,7 @@ export async function handleSignupWithCredentials({email, password, name, starti
         data: {
           child_id: childUser.id,
           parent_id: parentUser.id,
-          checking_balance: child.startingBalance,
+          checking_balance: dollarsToCents(parseInt(child.startingBalance)),
           savings_balance: 0,
           savings_goal: 0,
         },
@@ -1423,7 +1424,7 @@ export async function handleSignupWithGoogle({parent_id, startingBalance, childr
         data: {
           parent_id: parentUser.id,
           username: child.username,
-          name: child.name,
+          name: child.childFirstName + " " + child.childLastName,
           password: hashedChildPassword,
         },
       });
@@ -1432,7 +1433,7 @@ export async function handleSignupWithGoogle({parent_id, startingBalance, childr
         data: {
           child_id: childUser.id,
           parent_id: parentUser.id,
-          checking_balance: child.startingBalance,
+          checking_balance: dollarsToCents(parseInt(child.startingBalance)),
           savings_balance: 0,
           savings_goal: 0,
         },

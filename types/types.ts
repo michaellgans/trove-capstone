@@ -14,8 +14,8 @@ export type ChildDataType = {
   childFirstName: string;
   childLastName: string;
   username: string;
-  pin: string;
-  confirmPin: string;
+  password: string;
+  confirmPassword: string;
   startingBalance: string;
   currency: string;
 };
@@ -98,21 +98,22 @@ export type SignUpPayload = {
   email: string;
   password?: string;
   name: string;
-  startingBalance: number;
-  children: [ChildSignUpPayload];
+  startingBalance: string;
+  children: ChildSignUpPayload[];
 }
 
 export type GoogleSignUpPayload = {
   parent_id: string;
   startingBalance: number;
-  children: [ChildSignUpPayload];
+  children: ChildSignUpPayload[];
 }
 
 export type ChildSignUpPayload = {
-  name: string;
+  childFirstName: string;
+  childLastName: string;
   username: string;
   password: string;
-  startingBalance: number;
+  startingBalance: string;
 }
 
 export type LoanDataPayload = {

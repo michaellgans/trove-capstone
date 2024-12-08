@@ -8,7 +8,7 @@ import { useRouter } from 'next/navigation';
 import Link from 'next/link';
 
 const handleGoogleSignUp = async () => {
-  await signIn("google", { callbackUrl: "/signup/email" }); // Redirect to email sign-up with Google session
+  await signIn("google", { callbackUrl: "/signup/google" }); // Redirect to email sign-up with Google session
 };
 
 const SignUpCard: React.FC = () => {
