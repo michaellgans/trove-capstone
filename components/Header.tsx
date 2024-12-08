@@ -4,7 +4,7 @@ interface HeaderProps {
 
 const Header: React.FC<HeaderProps> = ({ title }) => {
   return (
-    <header className="flex flex-col mt-7 w-full items-center text-center font-['Darker Grotesque'] text-[35px] lg:text-[40px] text-gray-800 relative">
+    <header className="flex flex-col mt-7 w-full items-center text-center font-['Darker Grotesque'] text-[30px] md:text-[35px] lg:text-[40px] text-gray-800 relative">
       {/* Text with shadow and gradient overlay */}
       <h1
         className="relative z-10"
