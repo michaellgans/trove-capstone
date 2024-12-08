@@ -9,7 +9,7 @@ import ProgressIndicator from '@/components/Signup-Signin/ProgressIndicator';
 import { ChildDataType } from '@/types/types';
 import StripeConnectionCard from '@/components/Signup-Signin/StripeConnectionCard';
 
-const EmailSignupPage: React.FC = () => {
+const GoogleSignupPage: React.FC = () => {
   const { data: session } = useSession();
   const [step, setStep] = useState(1);
 
@@ -24,6 +24,8 @@ const EmailSignupPage: React.FC = () => {
     password: '',
   });
 
+  const [parentId, setParentId] = useState("");
+
   useEffect(() => {
     if (session?.user) {
       setParentData((prev) => ({
@@ -32,6 +34,8 @@ const EmailSignupPage: React.FC = () => {
         lastName: session.user.name?.split(" ")[1] || "",
         email: session.user.email || "",
       }));
+
+      setParentId(session?.user.id);
     }
   }, [session]);
 
@@ -50,17 +54,10 @@ const EmailSignupPage: React.FC = () => {
     <div className="container mx-auto">
        {/* Progress Indicator */}
        <div className="fixed top-[var(--navbar-height)] left-0 w-full z-40">
-        <ProgressIndicator currentStep={step} totalSteps={3} />
+        <ProgressIndicator currentStep={step} totalSteps={2} />
        </div>
       {/* Conditional Rendering based on step */}
       {step === 1 && (
-      <EmailSignupCard
-        nextStep={nextStep}
-        parentData={parentData}
-        setParentData={setParentData}
-      />
-      )}
-      {step === 2 && (
       <ChildAccountSetup
         prevStep={prevStep}
         nextStep={nextStep}
@@ -68,15 +65,16 @@ const EmailSignupPage: React.FC = () => {
         setChildData={setChildData}
       />
     )}
-      {step === 3 && (
+      {step === 2 && (
       <StripeConnectionCard
         prevStep={prevStep}
         parentData={parentData}
         childData={childData}
+        parent_id={parentId}
       />
       )}
     </div>
   );
 };
 
-export default EmailSignupPage;
+export default GoogleSignupPage;
