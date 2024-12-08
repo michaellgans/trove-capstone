@@ -1400,7 +1400,7 @@ export async function handleSignupWithGoogle({parent_id, startingBalance, childr
     await prisma.parent_account.create({
       data: {
         parent_id: parentUser.id,
-        balance: startingBalance,
+        balance: dollarsToCents(parseInt(startingBalance)),
         withholding_balance: 0,
       },
     });

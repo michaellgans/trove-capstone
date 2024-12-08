@@ -104,7 +104,7 @@ export type SignUpPayload = {
 
 export type GoogleSignUpPayload = {
   parent_id: string;
-  startingBalance: number;
+  startingBalance: string;
   children: ChildSignUpPayload[];
 }
 

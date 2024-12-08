@@ -27,18 +27,6 @@ const EmailSignupCard: React.FC<SignUpCardProps> = ({
   parentData,
   setParentData,
 }) => {
-  const { data: session } = useSession();
-  // Populate parentData with Google session info if available
-  useEffect(() => {
-    if (session?.user) {
-      setParentData((prev) => ({
-        ...prev,
-        firstName: session.user.name?.split(" ")[0] || "",
-        lastName: session.user.name?.split(" ")[1] || "",
-        email: session.user.email || "",
-      }));
-    }
-  }, [session, setParentData]);
   const router = useRouter();
   // State for confirmPassword (since it's not part of parentData)
   const [confirmPassword, setConfirmPassword] = useState('');
