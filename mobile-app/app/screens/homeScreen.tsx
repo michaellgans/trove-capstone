@@ -15,11 +15,11 @@ export default function HomeScreen() {
       </View>
       <View style={styles.cardsContainer}>
         <BalanceCard accountBalance={100.00} accountName="Checking" />
-        <BalanceCard accountBalance={100.00} accountName="Checking" />
-        <BalanceCard accountBalance={100.00} accountName="Checking" />
+        <BalanceCard accountBalance={100.00} accountName="Savings" />
+        <BalanceCard accountBalance={100.00} accountName="Loans" />
       </View>
       <View style={styles.userIcon}>
-        <UserPhoto />
+          <UserPhoto />
       </View>
     </LinearGradient>
   );
@@ -34,15 +34,17 @@ const styles = StyleSheet.create({
     alignItems: "center",
   },
   banner: {
-    zIndex: 1,
     height: "80%",
     width: "100%",
     backgroundColor: "#4E88F4",
     borderTopLeftRadius: 50,
     borderTopRightRadius: 50,
+    position: "absolute",
+    bottom: 0,
   },
   cardsContainer: {
-    zIndex: 2,
+    position: "absolute",
+    top: 265, 
     justifyContent: "center",
     alignContent: "center",
     alignItems: "center",
@@ -51,7 +53,8 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     alignContent: "center",
     alignItems: "center",
-    marginBottom: -150,
+    position: "absolute",
+    top: 40,
   },
 });
 

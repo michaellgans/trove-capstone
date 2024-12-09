@@ -47,11 +47,14 @@ export function BalanceCard({accountBalance, accountName}: BalanceCardProps) {
 
 const styles = StyleSheet.create({
   accountName: {
-    fontSize: 30,
-    color: "black",
+    fontSize: 20,
+    fontFamily: "Inter",
+    color: "#6C6F6F",
   },
   accountBalance: {
-    fontSize: 40,
+    fontSize: 30,
+    fontWeight: "bold",
+    fontFamily: "Inter",
     color: "black",
   },
   accountIcon: {
@@ -64,7 +67,7 @@ const styles = StyleSheet.create({
     borderRadius: 100,
   },
   container: {
-    width: "80%",
+    width: "90%",
     flexDirection: "row",
     justifyContent: "space-around",
     alignContent: "center",
@@ -72,10 +75,13 @@ const styles = StyleSheet.create({
     backgroundColor: "#FFFFFF",
     borderRadius: 40,
     paddingHorizontal: 20,
-    paddingVertical: 10,
+    paddingVertical: 15,
+    margin: 10,
+    marginVertical: 15,
   },
   infoContainer: {
     flexDirection: "column",
+    width: "50%",
   }
 });
 
