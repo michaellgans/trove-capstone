@@ -10,18 +10,18 @@ import { dollarsToCents, centsToDollars } from "./utils";
  * Fetches the parent user details by their ID.
  * 
  * @param parent_id - The ID of the parent user to fetch.
- * @returns Array of Parent objects.
+ * @returns Parent object.
  */
-export async function getParentById(parent_id: string): Promise<Parent[]> {
+export async function getParentById(parent_id: string): Promise<Parent> {
   try {
     console.log("Fetching parent for ID:", parent_id);
-    const parent = await prisma.parent_user.findMany({
+    const parent = await prisma.parent_user.findUnique({
       where: {
         id: parent_id,
       },
     });
 
-    if (parent.length === 0) {
+    if (!parent) {
       throw new Error();
     }
 
@@ -44,6 +44,13 @@ export async function getChildrenByParent(parent_id: string): Promise<Child[]> {
       where: {
         parent_id: parent_id,
       },
+      select: {
+        id: true,
+        name: true,
+        username: true,
+        avatar_img: true,
+        parent_id: true,
+      }
     });
 
     if (children.length === 0) {
@@ -63,15 +70,15 @@ export async function getChildrenByParent(parent_id: string): Promise<Child[]> {
  * @param parent_id - The ID of the parent user to fetch.
  * @returns Parent Account object.
  */
-export async function getParentAccountByParentId(parent_id: string): Promise<Parent_Account[]> {
+export async function getParentAccountByParentId(parent_id: string): Promise<Parent_Account> {
   try {
-    const parentAccount = await prisma.parent_account.findMany({
+    const parentAccount = await prisma.parent_account.findUnique({
       where: {
         parent_id: parent_id,
       },
     });
 
-    if (parentAccount.length === 0) {
+    if (!parentAccount) {
       throw new Error();
     }
 
