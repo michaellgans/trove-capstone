@@ -18,6 +18,12 @@ describe('Parent Service Tests', () => {
     console.log('Mock calls:', prismaMock.parent_user.findMany.mock.calls);
   });
 
+  it('should throw an error if no parent data is found', async () => {
+    const parent_id = 'non-existent-id';
+    prismaMock.parent_user.findMany.mockResolvedValueOnce([]);
+    await expect(getParentById(parent_id)).rejects.toThrow(Error);
+  });
+
   it('should throw an error if fetching parent fails due to database error', async () => {
     const parent_id = 'test-parent-id';
     prismaMock.parent_user.findMany.mockRejectedValueOnce(new Error('Database error'));
