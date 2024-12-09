@@ -26,7 +26,7 @@ export async function getParentById(parent_id: string): Promise<Parent[]> {
 
     return parent;
   } catch (error) {
-    console.error(error);
+    // console.error(error);
     throw new Error("Unable to fetch parent");
   }
 }
@@ -45,10 +45,13 @@ export async function getChildrenByParent(parent_id: string): Promise<Child[]> {
       },
     });
 
+    if (children.length === 0) {
+      throw new Error();
+    }
+
     return children;
   } catch (error) {
-    console.error(`Error fetching children for parent_id: ${parent_id}`);
-    console.error(error);
+    // console.error(error);
     throw new Error("Unable to fetch children");
   }
 }
@@ -67,10 +70,13 @@ export async function getParentAccountByParentId(parent_id: string): Promise<Par
       },
     });
 
+    if (parentAccount.length === 0) {
+      throw new Error();
+    }
+
     return parentAccount;
   } catch (error) {
-    console.error(`Error fetching parent account for parent_id: ${parent_id}`);
-    console.error(error);
+    // console.error(error);
     throw new Error('Unable to fetch parent account');
   }
 }
@@ -89,10 +95,13 @@ export async function getChildAccountByChildId(child_id: string): Promise<Child_
       },
     });
 
+    if (childAccount.length === 0) {
+      throw new Error();
+    }
+
     return childAccount;
   } catch (error) {
-    console.error(`Error fetching child account for child_id: ${child_id}`);
-    console.error(error);
+    // console.error(error);
     throw new Error('Unable to fetch child account');
   }
 }
@@ -111,10 +120,13 @@ export async function getChildAccountByParentId(parent_id: string): Promise<Chil
       },
     });
 
+    if (childAccountByParentAccount.length === 0) {
+      throw new Error();
+    }
+
     return childAccountByParentAccount;
   } catch (error) {
-    console.error(`Error fetching child accounts for parent_id: ${parent_id}`);
-    console.error(error);
+    // console.error(error);
     throw new Error('Unable to fetch child accounts');
   }
 }
@@ -133,10 +145,13 @@ export async function getAllTransactionsByParentAccountId(p_account_id: string):
       },
     });
 
+    if (transactionsByParentAccount.length === 0) {
+      throw new Error();
+    }
+
     return transactionsByParentAccount;
   } catch (error) {
-    console.error(`Error fetching transactions for p_account_id: ${p_account_id}`);
-    console.error(error);
+    // console.error(error);
     throw new Error('Unable to fetch account transactions');
   }
 }
@@ -185,8 +200,7 @@ export async function getTransactionsByChildId(child_id: string): Promise<Transa
 
     return allTransactionsByChild;
   } catch (error) {
-    console.error(`Error fetching transactions for child_id: ${child_id}`);
-    console.error(error);
+    // console.error(error);
     throw new Error('Unable to fetch transactions');
   }
 }
@@ -235,8 +249,7 @@ export async function getLoansByChildId(child_id: string): Promise<Loans[]> {
 
     return allLoansByChild;
   } catch (error) {
-    console.error(`Error fetching loans for child_id: ${child_id}`);
-    console.error(error);
+    // console.error(error);
     throw new Error('Unable to fetch loans');
   }
 }
@@ -258,10 +271,13 @@ export async function getWithholdingBalanceByParentAccount(p_account_id: string)
       },
     });
 
-    return parentWithholdings ? parentWithholdings.withholding_balance : null;
+    if (!parentWithholdings) {
+      return (null);
+    }
+
+    return (parentWithholdings.withholding_balance);
   } catch (error) {
-    console.error(`Error fetching withholding balance for p_account_id: ${p_account_id}`);
-    console.error(error);
+    // console.error(error);
     throw new Error('Unable to fetch withholding balance');
   }  
 }
@@ -400,7 +416,8 @@ export async function newParentToChildTransfer(parent_id: string, child_id: stri
     }
   } catch (error) {
     console.error(error);
-    throw new Error("Failed to complete parent to child transfer");
+    throw error;
+    // throw new Error("Failed to complete parent to child transfer");
   }
 }
 
