@@ -36,7 +36,7 @@ const AddBalanceCard: React.FC = () => {
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
       if (cardRef.current && !cardRef.current.contains(event.target as Node)) {
-        router.push('/'); // Redirect or close the card
+        router.push('/home'); // Redirect or close the card
       }
     };
 
@@ -96,7 +96,7 @@ const AddBalanceCard: React.FC = () => {
 
   const handleClose = () => {
     setTransactionStatus(null);
-    window.location.href = '/';
+    window.location.href = '/home';
   };
 
   return (
@@ -336,7 +336,7 @@ const AddBalanceCard: React.FC = () => {
             </button>
             <div className="flex w-full justify-center">
               <button
-                onClick={() => router.push('/')}
+                onClick={() => router.push('/home')}
                 className="mt-4 text-base text-gray-500 hover:text-gray-600 transition ease-in-out duration-300"
               >
                 Cancel

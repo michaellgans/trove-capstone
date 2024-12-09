@@ -106,15 +106,14 @@ const TransactionHistory: React.FC = () => {
     };
 
     return (
-    <div id='history' className="flex justify-center mt-5 m-0">
+    <div id='history' className="flex justify-center m-0">
         <div
             className="px-5 md:px-10 w-full"
         >
-          <Header title='Transaction History' />
             <div className="flex mx-0 justify-center rounded-xl overflow-hidden border-[1px] border-slate-200 m-4">
                 <div className="overflow-x-auto w-full">
                 <table className="w-full border border-collapse table-auto">
-                    <thead className="bg-slate-100">
+                    <thead className="bg-white">
                         <tr className="text-left">
                             {['timestamp', 'type', 'sent_to', 'sent_from', 'description', 'interest', 'withholdings', 'amount'].map((column) => (
                             <th
@@ -144,7 +143,7 @@ const TransactionHistory: React.FC = () => {
                             ))}
                         </tr>
                     </thead>
-                    <tbody className="bg-slate-50 text-gray-700">
+                    <tbody className="bg-white text-gray-700">
                       {transactions.map((transaction, index) => (
                         <tr key={index}>
                             <td className="border border-x-transparent p-2">{transaction.timestamp}</td>

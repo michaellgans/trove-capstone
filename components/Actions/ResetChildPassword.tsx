@@ -36,7 +36,7 @@ const ResetChildPassword: React.FC = () => {
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
       if (cardRef.current && !cardRef.current.contains(event.target as Node)) {
-        router.push('/'); // Redirect or close the card
+        router.push('/home'); // Redirect or close the card
       }
     };
 
@@ -195,7 +195,7 @@ const ResetChildPassword: React.FC = () => {
         <div className="mt-4 text-center">
           <button
             type="button"
-            onClick={() => router.push('/')}
+            onClick={() => router.push('/home')}
             className="text-sm text-gray-500 hover:text-gray-600 transition ease-in-out duration-300"
           >
             Cancel

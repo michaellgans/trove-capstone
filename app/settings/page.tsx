@@ -5,7 +5,7 @@ import React from 'react';
 
 const SettingsPage: React.FC = () => {
   return (
-    <div className="container mx-auto">
+    <div className="container mx-auto my-auto">
       <Settings />
     </div>
   );

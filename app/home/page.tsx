@@ -1,10 +1,11 @@
 import ChildProfileCard from "@/components/ChildCard/ChildProfileCard";
-import Separator from "@/components/Separator";
+import Header from "@/components/Header";
 import TransactionHistory from "@/components/TransactionHistory/TransactionHistory";
 
 export default function Home() {
   return (
     <>
+      <Header title='Trove Family Tree' />
       <ChildProfileCard
       childName='Samantha'
       profileImageUrl='/images/samantha.png'
@@ -13,6 +14,7 @@ export default function Home() {
       savingsGoalPercentage={40}
       loanRepaymentPercentage={60}
      />
+     <Header title='Transaction History' />
      <TransactionHistory />
      </>
   )

@@ -265,7 +265,7 @@ const Navbar: FC = () => {
               fill="none"
               viewBox="0 0 24 24"
               strokeWidth="1.5"
-              stroke="currentColor" // Use currentColor to inherit color from the parent
+              stroke="currentColor"
               className="h-6 w-6 transition-colors"
               >
               <path strokeLinecap="round" strokeLinejoin="round" d="M12 4v16m8-8H4" />
@@ -376,10 +376,10 @@ const Navbar: FC = () => {
 
   return (
     <>
-      <nav className="bg-white backdrop-blur-md border-b px-5 md:px-8 xl:px-16 py-2 flex justify-between items-center font-inter fixed top-0 left-0 z-50 w-full"> {/* The shadow-md to see the limits of navbar */}
+      <nav className="bg-white backdrop-blur-md border-b px-5 md:px-8 xl:px-16 py-2 flex justify-between items-center font-inter fixed top-0 left-0 z-50 w-full">
         {/* Logo */}
         <div className="flex space-x-10 xl:space-x-20">
-            <Link href="/" passHref>
+            <Link href={isLoggedIn ? "/home" : "/"}>
               <div className='flex items-center space-x-4 cursor-pointer'>
                 <Image 
                   src='/images/Trove_Logo.png'
@@ -517,7 +517,7 @@ const Navbar: FC = () => {
                 onClick={handleLogout}
                 className="flex items-center font-semibold space-x-2 text-gray-800 hover:text-brightGreen transition duration-300 ease-in-out"
               >
-                <span>Logout</span>
+                <span className='hidden lg:hidden xl:inline-block md:inline-block sm:inline-block'>Logout</span>
                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="2" stroke="currentColor" className="w-6 h-6">
                   <path strokeLinecap="round" strokeLinejoin="round" d="M15.75 9V5.25A2.25 2.25 0 0 0 13.5 3h-6a2.25 2.25 0 0 0-2.25 2.25v13.5A2.25 2.25 0 0 0 7.5 21h6a2.25 2.25 0 0 0 2.25-2.25V15m3 0 3-3m0 0-3-3m3 3H9" />
                 </svg>

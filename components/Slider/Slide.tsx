@@ -22,13 +22,10 @@ interface SlideProps {
 
 export const Slide: React.FC<SlideProps> = ({ 
   slide,
-  totalSlides,
-  currentIndex,
-  onPaginationClick,
  }) => (
   <div
     id={slide.id}
-    className={`relative flex-shrink-0 w-full h-auto md:h-[600px] py-10 md:py-0 flex px-10 xl:px-20 ${
+    className={`relative flex-shrink-0 w-full h-auto md:h-[630px] py-10 md:py-0 flex px-10 xl:px-20 ${
       slide.reverseLayout
         ? "flex-col-reverse md:flex-row-reverse"
         : "flex-col-reverse md:flex-row"
@@ -49,7 +46,7 @@ export const Slide: React.FC<SlideProps> = ({
       <p className="text-gray-600 font-normal text-lg md:text-xl lg:text-2xl">
         {slide.description}
       </p>
-      <button className="flex items-center mt-10 mb-5 justify-center rounded-lg bg-brightRed hover:brightness-110 font-bold border text-white text-xl lg:text-2xl px-4 py-2 transition duration-300 ease-in-out">
+      <button className="flex items-center hover:cursor-pointer mt-10 mb-5 justify-center rounded-lg bg-brightRed hover:brightness-110 font-bold border text-white text-xl lg:text-2xl px-4 py-2 transition duration-300 ease-in-out">
         {slide.phoneIcon && (
           <svg
             xmlns="http://www.w3.org/2000/svg"
@@ -67,19 +64,6 @@ export const Slide: React.FC<SlideProps> = ({
         )}
         <span>{slide.buttonText}</span>
       </button>
-
-      {/* Pagination below the paragraph */}
-      <div className="flex justify-center ms-16 mt-14 space-x-3">
-        {Array.from({ length: totalSlides }).map((_, index) => (
-          <div
-            key={index}
-            onClick={() => onPaginationClick(index)}
-            className={`w-3 h-3 rounded-full cursor-pointer transition duration-300 ${
-              currentIndex === index ? "bg-brightBlue" : "bg-gray-300"
-            }`}
-          ></div>
-        ))}
-      </div>
     </div>
 
     {/* Image */}
@@ -90,7 +74,11 @@ export const Slide: React.FC<SlideProps> = ({
         slide.id === "gradial-point" ? "pb-10" : ""
       } ${
         slide.id === "gradial-walk" ? "-mt-3" : ""
-      } lg:pt-6 ${
+      }
+      ${
+        slide.id === "gradial-fly" ? "scale-95" : "" /* Slightly decrease size */
+      }
+      lg:pt-6 ${
         slide.flipImage ? "-scale-x-100" : ""
       }`}
     />
