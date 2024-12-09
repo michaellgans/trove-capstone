@@ -1,4 +1,4 @@
-// app/home.tsx
+// Home Screen
 import { View, Text, StyleSheet, Button } from "react-native";
 import { useRouter } from "expo-router";
 

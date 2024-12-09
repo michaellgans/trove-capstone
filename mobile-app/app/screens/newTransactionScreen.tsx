@@ -1,10 +1,10 @@
-// Settings Screen
+// New Transaction Screen
 import { View, Text, StyleSheet } from "react-native";
 
-export default function SettingsScreen() {
+export default function NewTransactionScreen() {
   return (
     <View style={styles.container}>
-      <Text style={styles.text}>Welcome to the Settings Screen!</Text>
+      <Text style={styles.text}>Welcome to the New Transaction Screen!</Text>
     </View>
   );
 }

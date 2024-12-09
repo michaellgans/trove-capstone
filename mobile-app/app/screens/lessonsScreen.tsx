@@ -1,10 +1,10 @@
-// Settings Screen
+// Lessons Screen
 import { View, Text, StyleSheet } from "react-native";
 
-export default function SettingsScreen() {
+export default function LessonsScreen() {
   return (
     <View style={styles.container}>
-      <Text style={styles.text}>Welcome to the Settings Screen!</Text>
+      <Text style={styles.text}>Welcome to the Lessons Screen!</Text>
     </View>
   );
 }
