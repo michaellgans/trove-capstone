@@ -51,7 +51,7 @@ import { prisma } from "@/prisma";
  *              }
  *    }
  */
-export default async function GET(req: NextRequest) {
+export async function GET(req: NextRequest) {
   try {
     const childUser = await verifyToken(req);
 
