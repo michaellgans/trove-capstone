@@ -6,10 +6,17 @@ import { Title } from "./Title";
 import { CustomButton } from "./Button";
 import { Input } from "./Input";
 import { SecureInput } from "./SecureInput";
+import { useRouter } from "expo-router";
 
 // Returns a LoginContainer Component
 export function LoginContainer() {
   // Define Hook
+  const router = useRouter();
+
+  const handleLogin = () => {
+    router.push("/screens/homeScreen");
+  }
+
   return (
     <View
       style={styles.container}
@@ -18,10 +25,10 @@ export function LoginContainer() {
       <Input title="Username" placeholder="Kash"></Input>
       <SecureInput title="Password" placeholder=""></SecureInput>
       <View>
-        <CustomButton label="Login" color="#0255EE"/>
-      <Text style={styles.hint}>
-        Don't have an account?  Sign up now!
-      </Text>
+        <CustomButton label="Login" color="#0255EE" onPress={handleLogin}/>
+        <Text style={styles.hint}>
+          Don't have an account?  Sign up now!
+        </Text>
       </View>
     </View>
   );
