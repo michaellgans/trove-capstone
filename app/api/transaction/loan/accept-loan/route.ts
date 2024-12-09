@@ -11,7 +11,7 @@ import { dollarsToCents } from "@/lib/utils";
  * 
  * @returns Successful response or error
  */
-export default async function POST(req: NextRequest) {
+export async function POST(req: NextRequest) {
   try {
     const body = await req.json();
 
@@ -63,7 +63,7 @@ export default async function POST(req: NextRequest) {
       );
     }
 
-    NextResponse.json({ message: "Successful Loan Creation" }, { status: 200 });
+    return NextResponse.json({ message: "Successful Loan Creation" }, { status: 200 });
   } catch (error) {
     return NextResponse.json({ error: "Failed to create new loan" }, { status: 500 });
   }
