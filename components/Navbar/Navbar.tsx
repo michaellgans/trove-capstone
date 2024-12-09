@@ -13,6 +13,7 @@ import { signOut } from 'next-auth/react';
 import { getChildrenByParent, getParentAccountByParentId } from '@/lib/server-actions';
 import { Child, Parent_Account } from '@/types/types';
 import { centsToDollars } from '@/lib/utils';
+import lessonsData from '@/components/Lessons/LessonsData';
 
 
 interface MobileDropdownItem {
@@ -191,6 +192,16 @@ const Navbar: FC = () => {
       />
     </svg>
   );
+
+  const lessons = lessonsData.map((lesson) => ({
+    id: lesson.id,
+    label: lesson.majorTitle, // Use the title for display
+  }));
+
+  const handleLessonSelect = (lessonId: string) => {
+    router.push(`/lessons/${lessonId}`); // Navigate to the lesson page
+    setIsLearningDropdownOpen(false); // Close dropdown
+  };
   
   const lessonsMobile: MobileDropdownItem[] = [
     {
@@ -220,13 +231,13 @@ const Navbar: FC = () => {
     },
   ];
   
-  const lessons: string[] = [
-    'All Lessons',
-    'Bills and Payments',
-    'Loans and Interest',
-    'Savings and Checking',
-    'Taxes and Withholding',
-  ];
+  // const lessons: string[] = [
+  //   'All Lessons',
+  //   'Bills and Payments',
+  //   'Loans and Interest',
+  //   'Savings and Checking',
+  //   'Taxes and Withholding',
+  // ];
   const myBalanceItems = [
     {
       id: 'balance1',
@@ -464,14 +475,14 @@ const Navbar: FC = () => {
               />
                 {isLearningDropdownOpen && (
                   <DropdownMenu
-                  items={lessons.map((lesson, index) => ({
-                    id: index, // Use index as ID
-                    label: lesson,
+                  items={lessons.map((lesson) => ({
+                    id: String(lesson.id), // Use index as ID
+                    label: lesson.label,
                   }))}
                   showLessonIcon={true}
-                  selectedId={selectedLesson} // Pass selected lesson ID
+                  selectedId={String(selectedLesson)}
                   onSelect={(item) => {
-                    setSelectedLesson(item.id); // Store the selected lesson's ID
+                    handleLessonSelect(String(item.id)); // Store the selected lesson's ID
                   }}
                   closeMenu={() => setIsLearningDropdownOpen(false)} // Close dropdown
                 />
