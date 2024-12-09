@@ -46,7 +46,7 @@ const styles = StyleSheet.create({
     lineHeight: 24,
     color: '#FFFFFF',
     fontFamily: 'Inter',
-    fontWeight: 'bold',
+    fontWeight: "semibold",
   },
 });
 

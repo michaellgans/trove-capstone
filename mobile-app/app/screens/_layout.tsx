@@ -1,6 +1,6 @@
 import { Stack } from "expo-router";
 import { StatusBar } from "expo-status-bar";
-import { Text, View, StyleSheet } from "react-native";
+import { View, StyleSheet } from "react-native";
 
 // Icons
 import { HomeIcon } from "@/components/icons/HomeIcon";
@@ -17,7 +17,9 @@ export default function ScreensLayout() {
       <View style={styles.tabsContainer}>
         <HomeIcon />
         <LearningIcon />
-        <SendTransactionIcon />
+        <View style={styles.sendIcon}>
+          <SendTransactionIcon />
+        </View>
         <NotificationIcon />
         <SettingsIcon />
       </View>
@@ -27,15 +29,28 @@ export default function ScreensLayout() {
 
 const styles = StyleSheet.create({
     tabsContainer: {
-        flexDirection: "row",
-        height: 60,
-        width: "100%",
-        paddingBottom: 20,
-        paddingTop: 5,
-        paddingHorizontal: 20,
-        justifyContent: "space-around",
-        backgroundColor: "#FFFFFF",
-        borderTopLeftRadius: 30,
-        borderTopRightRadius: 30,
-    }
+      flexDirection: "row",
+      height: 60,
+      width: "100%",
+      paddingBottom: 20,
+      paddingTop: 5,
+      paddingHorizontal: 20,
+      justifyContent: "space-around",
+      backgroundColor: "#FFFFFF",
+      borderTopLeftRadius: 30,
+      borderTopRightRadius: 30,
+      elevation: 20,
+    },
+    sendIcon: {
+      height: 65,
+      width: 65,
+      justifyContent: "center",
+      alignContent: "center",
+      alignItems: "center",
+      marginTop: -20,
+      paddingLeft: 8,
+      paddingBottom: 5,
+      backgroundColor: "#0255EE",
+      borderRadius: 100,
+    },
   });
