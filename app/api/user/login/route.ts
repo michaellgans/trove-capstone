@@ -1,5 +1,5 @@
 // Route to handle child user login
-import { NextApiRequest, NextApiResponse } from "next";
+import { NextRequest, NextResponse } from "next/server";
 import bcrypt from "bcryptjs";
 import jwt from "jsonwebtoken";
 import { prisma } from "@/prisma";
@@ -7,20 +7,16 @@ import { prisma } from "@/prisma";
 /**
  * 
  * @param req - Request Object
- * @param res - Response Object
  * 
  * @returns - JSON Web Token for Child User Authentication
  */
-export default async function login(req: NextApiRequest, res: NextApiResponse) {
-  // If request is not POST method, return 405 error
-  if (req.method !== "POST") {
-    return res.status(405).json({ message: "Method not allowed" });
-  }
-
-  // Pull username and password from request body
-  const { username, password } = req.body;
-
+export default async function POST(req: NextRequest) {
   try {
+    const body = await req.json();
+
+    // Pull username and password from request body
+    const { username, password } = body;
+
     // Retrieve Child User from DB
     const child = await prisma.child_user.findUnique({
       where: { username },
@@ -28,7 +24,7 @@ export default async function login(req: NextApiRequest, res: NextApiResponse) {
 
     // If no user found, or if password doesn't match, return 401 Unauthorized
     if (!child || !(await bcrypt.compare(password, child.password))) {
-      return res.status(401).json({ message: "Invalid credentials" });
+      return NextResponse.json({ error: "Invalid Credentials" }, { status: 401 });
     }
 
     // Create JWT
@@ -39,15 +35,8 @@ export default async function login(req: NextApiRequest, res: NextApiResponse) {
     );
 
     // Return Token and User Info
-    return res.status(200).json({
-      token,
-      user: {
-        id: child.id,
-        username: child.username,
-        name: child.name,
-      },
-    });
+    return NextResponse.json(token, { status: 200 }); // token or { token }?
   } catch (error) {
-    return res.status(500).json({ message: "Internal Server Error", error });
+    return NextResponse.json({ error: "Internal Server Error" }, { status: 500 });
   }
 }

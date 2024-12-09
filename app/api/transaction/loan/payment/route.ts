@@ -1,30 +1,31 @@
 // Handles loan payment
-import { NextApiRequest, NextApiResponse } from "next";
+import { NextRequest, NextResponse } from "next/server";
 import verifyToken from "@/lib/verifyToken";
 import { prisma } from "@/prisma";
 import { newChildToChildLoanPayment, newChildToParentLoanPayment } from "@/lib/server-actions";
-import { centsToDollars } from "@/lib/utils";
+import { dollarsToCents } from "@/lib/utils";
 
 /**
  * 
  * @param req - Request Object - Must contain { lender_id: string; amount: number; description: string; }
- * @param res - Response Object
  * 
  * @returns Successful response or error
  */
-export default async function handler(req: NextApiRequest, res: NextApiResponse) {
+export default async function POST(req: NextRequest) {
   try {
+    const body = await req.json();
+
     // Authenticate User
-    const childUser = await verifyToken(req, res);
+    const childUser = await verifyToken(req);
 
     if (!childUser) {
-      return res.status(401).json({ error: "Unauthorized" });
+      return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
     }
 
     // Retrieve payment info from request
-    const lender_id = req.body.lender_id;
-    const amount = req.body.amount;
-    const description = req.body.description;
+    const lender_id = body.lender_id;
+    const amount = body.amount;
+    const description = body.description;
 
     // Determine if lender is parent or child
     const lendingParent = await prisma.parent_user.findUnique({
@@ -40,13 +41,13 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
 
     // Initiate loan payment
     if (lendingParent) {
-      await newChildToParentLoanPayment(lendingParent.id, childUser.id, centsToDollars(parseInt(amount)), description);
+      await newChildToParentLoanPayment(lendingParent.id, childUser.id, dollarsToCents(parseInt(amount)), description);
     } else if (lendingChild) {
-      await newChildToChildLoanPayment(lendingChild.id, childUser.id, centsToDollars(parseInt(amount)), description);
+      await newChildToChildLoanPayment(lendingChild.id, childUser.id, dollarsToCents(parseInt(amount)), description);
     }
 
-    res.status(200).json({ message: "Successful Loan Payment" });
+    NextResponse.json({ message: "Successful Loan Payment" }, { status: 200 });
   } catch (error) {
-    return res.status(500).json({ error: "Failed to complete loan payment" });
+    return NextResponse.json({ error: "Failed to complete loan payment" }, { status: 500 });
   }
 }

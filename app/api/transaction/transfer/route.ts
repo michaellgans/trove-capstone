@@ -1,5 +1,5 @@
 // Handles transfer from child user to other parent or child user
-import { NextApiRequest, NextApiResponse } from "next";
+import { NextRequest, NextResponse } from "next/server";
 import verifyToken from "@/lib/verifyToken";
 import { prisma } from "@/prisma";
 import { newChildToChildTransfer, newChildToParentTransfer } from "@/lib/server-actions";
@@ -8,23 +8,24 @@ import { dollarsToCents } from "@/lib/utils";
 /**
  * 
  * @param req - Request Object - Must contain { receiving_id(id of parent or child receiving transfer): string; amount: number; description: string; }
- * @param res - Response Object
  * 
  * @returns Successful response or error
  */
-export default async function handler(req: NextApiRequest, res: NextApiResponse) {
+export default async function POST(req: NextRequest) {
   try {
+    const body = await req.json();
+
     // Authenticate User
-    const childUser = await verifyToken(req, res);
+    const childUser = await verifyToken(req);
 
     if (!childUser) {
-      return res.status(401).json({ error: "Unauthorized" });
+      return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
     }
 
     // Retrieve transfer data from request
-    const receiving_id = req.body.receiving_id;
-    const amount = req.body.amount;
-    const description = req.body.description ? req.body.description : "";
+    const receiving_id = body.receiving_id;
+    const amount = body.amount;
+    const description = body.description ? body.description : "";
 
     // Determine if transfer recipient is parent or child user
     const receivingParent = await prisma.parent_user.findUnique({
@@ -45,8 +46,8 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
       await newChildToChildTransfer(childUser.id, receiving_id, dollarsToCents(parseInt(amount)), description);
     }
 
-    res.status(200).json({ message: "Successful Transfer" });
+    NextResponse.json({ message: "Successful Transfer" }, { status: 200 });
   } catch (error) {
-    return res.status(500).json({ error: "Failed to complete transfer" });
+    return NextResponse.json({ error: "Failed to complete transfer" }, { status: 500 });
   }
 }
