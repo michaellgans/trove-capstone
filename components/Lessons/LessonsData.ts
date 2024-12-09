@@ -19,7 +19,8 @@ export interface Lesson {
   majorTitle: string;
   keywords: Keyword[];
   descriptiveText: string[];
-  example: string;
+  example: string[];
+  mathEquations?: string[];
   quiz: QuizQuestion[];
   conclusion: string;
   resources: Resource[];
@@ -55,8 +56,13 @@ const lessonsData: Lesson[] = [
       "So what are loans helpful for? Adults use them for things like cars and houses, or other big things where it can be hard to save up enough money to buy them all at once. They can also be used in emergencies. If it’s a really hot summer day, and your cold air stops working, you can take out a loan to fix the air conditioner now, and pay back what you borrowed in the future.",
       "Why are loans dangerous? Anytime someone is thinking about borrowing money with a loan, they need to remember that the money is not free. You can think of a loan as borrowing money from yourself in the future. Because when it is time to pay back the money you borrowed, it’s not yours anymore. Finally, if you’re not careful with interest, and it takes you a long time to pay back what you borrowed, you can end up paying back a lot more money than you originally borrowed.",
     ],
-    example:
+    example: [
       "Let’s say there’s a game you want really badly, and it costs $25. You look in your wallet and you only have $5, darn! You talk to your parents and they agree to give you a loan for $20, so now you have enough to buy the game, that’s great! However, you can’t forget interest, your parents say that they are going to charge you 25% interest. So let’s do some quick math. If your parents give you one month to pay back the loan with interest: $20 * 25% = $5. That means that when it’s time to pay back the loan after one month, you will owe your parents $25. It is a lot of fun to have that game right now, but you always have to ask the question, is it better for me to be patient and wait? The answer isn’t always easy, so it’s always important to talk to an adult to figure out what the best choice is.",
+    ],
+    mathEquations: [
+      "$20 * 25% = $5",
+      "$20 + $5 = $25",
+    ],
     quiz: [
       {
         question: "What is a Loan?",
@@ -141,8 +147,13 @@ const lessonsData: Lesson[] = [
       "Savings is the money you set aside to use later, like putting money in a piggy bank or a special account at a bank. It’s important because it helps you pay for things in the future, like toys, games, or even big things when you get older, like a car. People save money for emergencies too, like when something unexpected happens and they need extra money right away.",
       "A savings account helps you save money for future goals and emergencies. It’s like a safe spot for money you won’t need to use right away, and it can even earn a little extra money called interest. A checking account is for spending money more often, like when you need to buy something today. It’s easier to access your money in a checking account, but it doesn’t earn interest. ",
     ],
-    example:
+    example: [
       "Example 1: Saving for a new bike You want to buy a bike that costs $100, but you only get $10 a week for your allowance. If you save all your allowance for 10 weeks (10 weeks x $10 = $100), you'll have enough money to buy the bike!\n\nExample 2: Emergency savings Imagine your pet needs a sudden trip to the vet that costs $20. If you saved $5 each week for 4 weeks (4 weeks x $5 = $20), you’d have the money ready in case your pet needs something unexpected.",
+    ],
+    mathEquations: [
+      "10 weeks * $10 = $100",
+      "4 weeks * $5 = $20",
+    ],
     quiz: [
       {
         question: "Why is it important to save money?",
@@ -206,7 +217,7 @@ const lessonsData: Lesson[] = [
       "Types of Taxes: Income tax — tax on earnings. Income tax is like a fee on the money we earn from jobs. Sales tax — tax on purchases. Sales tax is a fee added to the price of things we buy. Property tax — tax on owning property. Property tax is a fee on owning things like houses or land.",
       "To file a tax return, you gather information about your income and expenses. You then use this information to fill out tax forms, which are sent to the IRS. The IRS is a government agency responsible for collecting taxes. They review the forms to ensure that the correct amount of tax is paid. If you owe money, you pay it to the IRS. If you've paid too much, the IRS may send you a refund. It’s always important to report your taxes truthfully. Not only could you end up owing more if you don’t file them correctly, you can get in trouble for doing so."
     ],
-    example:
+    example: [
       "Imagine you earn $1,000 in a year. The government might have a flat income tax rate of 10% for people with your income level. Here's how the calculation works:\n\n" +
       "1. Calculate the tax amount:\n" +
       "   Tax amount = Income * Tax rate\n\n" +
@@ -216,6 +227,11 @@ const lessonsData: Lesson[] = [
       "   Your net income = $1,000 - $100 = $900\n\n" +
       "So, in this example, you would pay $100 in taxes to the government, and you would have $900 left as your net income.\n\n" +
       "Remember: This is a very simplified example. In reality, tax systems are more complex, with different tax brackets and deductions. The actual amount of tax you pay will depend on various factors like your income level, filing status, and any deductions or credits you may be eligible for.",
+    ],
+    mathEquations: [
+      "$1,000 × 10% = $100",
+      "$1,000 - $100 = $900",
+    ],
     quiz: [
       {
         question: "What are taxes used for?",
@@ -291,8 +307,13 @@ const lessonsData: Lesson[] = [
     descriptiveText: [
       "Financial obligations are promises to pay back money that you owe. When people or businesses borrow money or buy things with credit, they agree to pay it back little by little, sometimes with extra money called interest. Some common financial obligations are loans, credit cards, and bills like rent or water and electricity. Taking care of these payments helps people and businesses stay out of debt and keep their money in good shape.",
     ],
-    example:
+    example: [
       "Buying a Game Console on Layaway\n\nAlex wants a game console that costs $80, but he can’t pay the full amount right away. The store allows him to put down a $20 deposit and pay $10 each week until it's paid off.\n\nAfter one week: $80 - $20 (deposit) - $10 (weekly payment) = $50 remaining.\nAfter two weeks: $50 - $10 = $40 remaining.\n\nBorrowing Money for a New Bike\n\nTaylor borrows $60 from his friend to buy a new bike. He agrees to pay back $15 each month.\n\nAfter one month: $60 - $15 = $45 remaining.\nAfter two months: $45 - $15 = $30 remaining.",
+    ],
+    mathEquations: [
+      "$60 - $15 (monthly payment) = $45 remaining",
+      "$45 - $15 = $30 remaining",
+    ],
     quiz: [
       {
         question: "What is a financial obligation?",
@@ -371,11 +392,12 @@ const lessonsData: Lesson[] = [
     descriptiveText: [
       "Financial Literacy is an important thing to have. As you get older, you’ll start to face important decisions and questions related to money. How you spend it, how you save it, and what attitude you have towards it. With all of that said, it’s vital that you learn about basic financial concepts, and develop an understanding about how to make good decisions with this knowledge. This is the introductory lesson for the Trove Learning Center. Today we’ll explore what money is, learn a little about where it came from, and find out where you can learn more about some of the major topics related to financial literacy.",
     ],
-    example:
+    example: [
       "What is money, and where did it come from?\n\n" +
       "Long ago, humans didn’t have money. When we wanted something that someone else had, we had to trade for it. If I’m a fisherman, and Bob is a farmer, and I want some of his delicious corn, I could offer him a few fish in exchange for some corn. But what if Bob doesn’t want fish? To make a long story short, this is where money comes in. Money is just a thing that represents a value that everyone can agree it has. If I sell my fish to the market for two coins, and Bob is selling his corn for one coin each, now I can buy two corn, and Bob can go spend the coins he earned on something he wants.\n\n" +
       "Why does money matter?\n\n" +
       "Money will play a big role in the choices you make and the opportunities you’ll have. If you learn to make good decisions with your money early on, you’ll prevent a lot of problems, and set yourself up to pursue the things that make you happy.",
+    ],
     quiz: [
       {
         question: "What is Financial Literacy?",
