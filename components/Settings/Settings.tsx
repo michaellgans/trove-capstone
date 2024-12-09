@@ -35,7 +35,7 @@ const Settings: React.FC = () => {
    useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
       if (cardRef.current && !cardRef.current.contains(event.target as Node)) {
-        router.push('/'); // Redirect or close the card
+        router.push('/home'); // Redirect or close the card
       }
     };
 
@@ -85,7 +85,7 @@ const Settings: React.FC = () => {
     return (
         <div
         ref={cardRef}
-        className="flex flex-col bg-white p-5 md:p-10 rounded-lg border border-gray-100 shadow-lg max-w-md md:max-w-xl lg:max-w-2xl mx-auto mt-6">
+        className=" flex flex-col bg-white p-5 md:p-10 rounded-lg border border-gray-100 shadow-lg max-w-md md:max-w-xl lg:max-w-2xl mx-auto mt-6">
             <header className="items-start mb-6">
                 <h1 className="text-2xl md:text-3xl lg:text-4xl font-inter text-text text-left">Settings</h1>
                 <div className="w-28 sm:w-32 md:w-36 lg:w-48 h-1 mt-2 rounded-full overflow-hidden flex">

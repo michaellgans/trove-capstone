@@ -16,7 +16,7 @@ const ResetPasswordCard: React.FC = () => {
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
       if (cardRef.current && !cardRef.current.contains(event.target as Node)) {
-        router.push('/'); // Redirect or close the card
+        router.push('/home'); // Redirect or close the card
       }
     };
 

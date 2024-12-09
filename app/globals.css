@@ -146,6 +146,33 @@ input[type='number'] {
 box-shadow: 0px 2px 4px 0px rgba(0, 0, 0, 0.25);
 }
 
+#gradial-page {
+  background: radial-gradient(
+      44.29% 70.71% at 0% 100%,
+      rgba(254, 51, 2, 0.4) 0%,
+      rgba(255, 255, 255, 0) 100%
+    ),
+    radial-gradient(
+      111.04% 70.71% at 100% 0%,
+      rgba(75, 112, 31, 0.4) 0%,
+      rgba(255, 255, 255, 0) 100%
+    ),
+    radial-gradient(
+      73.92% 70.71% at 100% 100%,
+      rgba(2, 85, 238, 0.4) 0%,
+      rgba(255, 255, 255, 0) 100%
+    ),
+    radial-gradient(
+      60.62% 70.71% at 0% 0%,
+      rgba(254, 192, 1, 0.4) 0%,
+      rgba(255, 255, 255, 0) 100%
+    ),
+    #fff;
+  box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.25);
+}
+
+
+
 .border-none {
   border: none !important;
 }
@@ -273,4 +300,19 @@ box-shadow: 0px 2px 4px 0px rgba(0, 0, 0, 0.25);
 .swiper-container {
   position: relative;
   z-index: 10; /* Dots and carousel should stack above wave */
+}
+
+/* Background lock styles */
+.bg-locked {
+  background: url('/images/landing-background') center center / cover, rgba(0, 0, 0, 0.5);
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.5);
+  backdrop-filter: blur(8px);
+  z-index: 10;
+}
+
+.locked-content {
+  position: relative;
+  z-index: 20;
 }

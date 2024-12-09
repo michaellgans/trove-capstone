@@ -1,8 +1,6 @@
 import "./globals.css";
 import Footer from "@/components/Footer";
 import ClientLayout from "@/app/client-layout";
-import { OverlayProvider } from "@/components/OverlayContext";
-import BlurOverlay from "@/components/BlurOverlay";
 import BodyWithConditionalId from "@/components/BodyWithConditionalId";
 
 export const metadata = {
@@ -21,10 +19,7 @@ export default function RootLayout({
         <link rel="icon" href="/images/favicon.ico" />
       </head>
       <BodyWithConditionalId>
-        <OverlayProvider>
-          <BlurOverlay>{/* Render modal content here */}</BlurOverlay>
-          <ClientLayout>{children}</ClientLayout>
-        </OverlayProvider>
+        <ClientLayout>{children}</ClientLayout>
         <Footer />
       </BodyWithConditionalId>
     </html>
