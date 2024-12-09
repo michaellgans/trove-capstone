@@ -1,18 +1,26 @@
 // Verifies token for mobile app authentication
-import jwt from "jsonwebtoken";
-import { NextApiRequest, NextApiResponse } from "next";
+import jwt, { JwtPayload } from "jsonwebtoken";
+import { NextRequest, NextResponse } from "next/server";
 
-export default async function verifyToken(req: NextApiRequest, res: NextApiResponse): Promise<any> {
-  const token = req.headers.authorization?.split(" ")[1];
+interface DecodedToken extends JwtPayload {
+  id: string;
+  name: string;
+  username: string;
+}
 
-  if (!token) {
-    return res.status(401).json({ error: "Unauthorized" });
+export default async function verifyToken(req: NextRequest): Promise<JwtPayload> {
+  const authHeader = req.headers.get("authorization");
+
+  if (!authHeader) {
+    return NextResponse.json({ error: "Authorization Header Missing" }, { status: 401 });
   }
 
+  const token = authHeader.split(" ")[1];
+
   try {
-    const decodedToken = jwt.verify(token, process.env.AUTH_SECRET!);
+    const decodedToken = jwt.verify(token, process.env.AUTH_SECRET!) as DecodedToken;
     return decodedToken;
   } catch (error) {
-    return res.status(403).json({ error: "Invalid token" });
+    return NextResponse.json({ error: "Invalid Token" }, { status: 401 });
   }
 }

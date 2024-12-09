@@ -1,5 +1,5 @@
 // Handles new loan creation
-import { NextApiRequest, NextApiResponse } from "next";
+import { NextRequest, NextResponse } from "next/server";
 import verifyToken from "@/lib/verifyToken";
 import { prisma } from "@/prisma";
 import { newChildToChildLoan, newParentToChildLoan } from "@/lib/server-actions";
@@ -8,22 +8,23 @@ import { dollarsToCents } from "@/lib/utils";
 /**
  * 
  * @param req - Request Object - Must contain { lender_id: string; loan: {interest_rate: number; days_due: number; loan_amount: number; description: string;}; }
- * @param res - Response Object
  * 
  * @returns Successful response or error
  */
-export default async function handler(req: NextApiRequest, res: NextApiResponse) {
+export default async function POST(req: NextRequest) {
   try {
+    const body = await req.json();
+
     // Authorize User
-    const childUser = await verifyToken(req, res);
+    const childUser = await verifyToken(req);
 
     if (!childUser) {
-      return res.status(401).json({ error: "Unauthorized" });
+      return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
     }
 
     // Retrieve Loan info from request
-    const lender_id = req.body.lender_id;
-    const loan = req.body.loan;
+    const lender_id = body.lender_id;
+    const loan = body.loan;
 
     // Determine if lender is child or parent
     const lendingParent = await prisma.parent_user.findUnique({
@@ -62,8 +63,8 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
       );
     }
 
-    res.status(200).json({ message: "Successful Loan Creation" });
+    NextResponse.json({ message: "Successful Loan Creation" }, { status: 200 });
   } catch (error) {
-    return res.status(500).json({ error: "Failed to create new loan" });
+    return NextResponse.json({ error: "Failed to create new loan" }, { status: 500 });
   }
 }

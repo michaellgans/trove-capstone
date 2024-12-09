@@ -1,12 +1,11 @@
 // Home route, provides all data needed to populate user and family information
-import { NextApiRequest, NextApiResponse } from "next";
+import { NextRequest, NextResponse } from "next/server";
 import verifyToken from "@/lib/verifyToken";
 import { prisma } from "@/prisma";
 
 /**
  * 
  * @param req - Request Object
- * @param res - Response Object
  * 
  * @returns - User data object:
  *    {
@@ -52,12 +51,12 @@ import { prisma } from "@/prisma";
  *              }
  *    }
  */
-export default async function handler(req: NextApiRequest, res: NextApiResponse) {
+export default async function GET(req: NextRequest) {
   try {
-    const childUser = await verifyToken(req, res);
+    const childUser = await verifyToken(req);
 
     if (!childUser) {
-      return res.status(401).json({ error: "Unauthorized" });
+      return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
     }
 
     const childAccount = await prisma.child_account.findUnique({
@@ -108,8 +107,8 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
       }
     };
 
-    return res.status(200).json(familyData);
+    return NextResponse.json(familyData, { status: 200 });
   } catch (error) {
-    return res.status(500).json({ error: "Failed to retrieve user data" });
+    return NextResponse.json({ error: "Failed to retrieve user data" }, { status: 500 });
   }
 }
