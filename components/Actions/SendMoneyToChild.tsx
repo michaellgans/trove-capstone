@@ -159,7 +159,7 @@ const SendMoneyToChildCard: React.FC = () => {
         <FeedbackMessage
           status={transactionStatus}
           message="Transaction Successful!"
-          onClose={() => router.push('/')}
+          onClose={() => router.push('/home')}
           onBack={() => setTransactionStatus(null)}
         />
       ) : (
@@ -328,7 +328,7 @@ const SendMoneyToChildCard: React.FC = () => {
         <div className="mt-4 text-center">
           <button
             type="button"
-            onClick={() => router.push('/')}
+            onClick={() => router.push('/home')}
             className="text-sm text-gray-500 hover:text-gray-600 transition ease-in-out duration-300"
           >
             Cancel

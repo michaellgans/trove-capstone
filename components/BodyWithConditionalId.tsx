@@ -12,15 +12,13 @@ export default function BodyWithConditionalId({
   const bodyId =
   pathname === "/home"
     ? "gradial"
-    : pathname === "/landing-page"
+    : pathname === "/"
     ? ""
     : "gradial-page";
 
   return (
     <body id={bodyId} className="min-h-screen flex flex-col">
-      <div>
       {children}
-      </div>
     </body>
   );
 }

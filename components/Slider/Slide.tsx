@@ -22,9 +22,6 @@ interface SlideProps {
 
 export const Slide: React.FC<SlideProps> = ({ 
   slide,
-  totalSlides,
-  currentIndex,
-  onPaginationClick,
  }) => (
   <div
     id={slide.id}
@@ -49,7 +46,7 @@ export const Slide: React.FC<SlideProps> = ({
       <p className="text-gray-600 font-normal text-lg md:text-xl lg:text-2xl">
         {slide.description}
       </p>
-      <button className="flex items-center mt-10 mb-5 justify-center rounded-lg bg-brightRed hover:brightness-110 font-bold border text-white text-xl lg:text-2xl px-4 py-2 transition duration-300 ease-in-out">
+      <button className="flex items-center hover:cursor-pointer mt-10 mb-5 justify-center rounded-lg bg-brightRed hover:brightness-110 font-bold border text-white text-xl lg:text-2xl px-4 py-2 transition duration-300 ease-in-out">
         {slide.phoneIcon && (
           <svg
             xmlns="http://www.w3.org/2000/svg"
@@ -77,6 +74,9 @@ export const Slide: React.FC<SlideProps> = ({
         slide.id === "gradial-point" ? "pb-10" : ""
       } ${
         slide.id === "gradial-walk" ? "-mt-3" : ""
+      }
+      ${
+        slide.id === "gradial-fly" ? "scale-95" : "" /* Slightly decrease size */
       }
       lg:pt-6 ${
         slide.flipImage ? "-scale-x-100" : ""
