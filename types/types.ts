@@ -32,7 +32,6 @@ export type Child = {
   id: string;
   name: string;
   username: string;
-  password: string;
   avatar_img?: string | null;
   parent_id: string;
 };

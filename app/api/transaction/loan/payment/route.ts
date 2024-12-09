@@ -11,7 +11,7 @@ import { dollarsToCents } from "@/lib/utils";
  * 
  * @returns Successful response or error
  */
-export default async function POST(req: NextRequest) {
+export async function POST(req: NextRequest) {
   try {
     const body = await req.json();
 
@@ -46,7 +46,7 @@ export default async function POST(req: NextRequest) {
       await newChildToChildLoanPayment(lendingChild.id, childUser.id, dollarsToCents(parseInt(amount)), description);
     }
 
-    NextResponse.json({ message: "Successful Loan Payment" }, { status: 200 });
+    return NextResponse.json({ message: "Successful Loan Payment" }, { status: 200 });
   } catch (error) {
     return NextResponse.json({ error: "Failed to complete loan payment" }, { status: 500 });
   }

@@ -10,14 +10,10 @@ import MobileDropdownMenu from './MobileDropdownMenu';
 import { FaGithub, FaInstagram } from 'react-icons/fa';
 import { useSession } from 'next-auth/react';
 import { signOut } from 'next-auth/react';
+import { getChildrenByParent, getParentAccountByParentId } from '@/lib/server-actions';
+import { Child, Parent_Account } from '@/types/types';
+import { centsToDollars } from '@/lib/utils';
 
-
-
-interface FamilyMember {
-  id: number;
-  name: string;
-  avatar: string;
-}
 
 interface MobileDropdownItem {
   id: number | string;
@@ -26,7 +22,6 @@ interface MobileDropdownItem {
   children?: MobileDropdownItem[]; // Recursive type for nested dropdowns
   action?: () => void; // Optional action for clickable items
 }
-
 
 
 const Navbar: FC = () => {
@@ -38,12 +33,38 @@ const Navbar: FC = () => {
   const [isLearningDropdownOpen, setIsLearningDropdownOpen] = useState<boolean>(false);
   const [isMyBalanceDropdownOpen, setIsMyBalanceDropdownOpen] = useState<boolean>(false);
   const [isOpen, setIsOpen] = useState<boolean>(false);
+  const [parentAccount, setParentAccount] = useState<Parent_Account>({id: "", stripe_acct_id: null, balance: 0, withholding_balance: 0, parent_id: ""});
+  const [userChildren, setUserChildren] = useState<Child[]>([{id: "", name: "", username: "", avatar_img: "", parent_id: ""}]);
 
   const familyDropdownRef = useRef<HTMLDivElement>(null);
   const learningDropdownRef = useRef<HTMLDivElement>(null);
   const myBalanceDropdownRef = useRef<HTMLDivElement>(null);
 
   const router = useRouter();
+
+  // Pull Parent Account info
+  useEffect(() => {
+    const fetchParentAccount = async () => {
+      if (session?.user.id) {
+        const account = await getParentAccountByParentId(session?.user.id);
+        setParentAccount(account);
+      }
+    }
+
+    fetchParentAccount();
+  }, [session?.user.id])
+
+  // Pull Child Info
+  useEffect(() => {
+    const fetchChildInfo = async () => {
+      if (session?.user.id) {
+        const children = await getChildrenByParent(session?.user.id);
+        setUserChildren(children);
+      }
+    }
+
+    fetchChildInfo();
+  }, [session?.user.id])
 
   useEffect(() => {
     if (session) {
@@ -84,7 +105,7 @@ const Navbar: FC = () => {
         </svg>
 
       ),
-      action: (member: FamilyMember) => {
+      action: (member: Child) => {
         console.log(`Sending money to ${member.name}`);
         router.push(`/send?to=${member.id}`);
       },
@@ -109,7 +130,7 @@ const Navbar: FC = () => {
         </svg>
 
       ),
-      action: (member: FamilyMember) => {
+      action: (member: Child) => {
         console.log(`Viewing history for ${member.name}`);
         router.push(`/home/#history?member=${member.id}`);
       },
@@ -139,20 +160,14 @@ const Navbar: FC = () => {
 </svg>
 
       ),
-      action: (member: FamilyMember) => {
+      action: (member: Child) => {
         console.log(`Viewing settings for ${member.name}`);
         router.push(`/settings?member=${member.id}`);
       },
     },
   ];
   
-  const familyMembers = [
-    { id: 1, name: 'Mei', avatar: '/images/avatar.svg' },
-    { id: 2, name: 'Michael', avatar: '/images/avatar.svg' },
-    { id: 3, name: 'Chris', avatar: '/images/avatar.svg' },
-    { id: 4, name: 'Lee', avatar: '/images/avatar.svg' },
-    { id: 5, name: 'Svitlana', avatar: '/images/avatar.svg' },
-  ].map((member) => ({
+  const familyMembers = userChildren.map((member) => ({
     ...member,
     children: familyMemberActions.map((action) => ({
       ...action,
@@ -215,7 +230,7 @@ const Navbar: FC = () => {
   const myBalanceItems = [
     {
       id: 'balance1',
-      label: 'Trove Checking Account 5555',
+      label: `Trove Checking Account ${parentAccount.id.slice(-4)}`,
       icon: (
         <svg
   xmlns="http://www.w3.org/2000/svg"
@@ -236,7 +251,7 @@ const Navbar: FC = () => {
       children: [
         {
           id: 'balance',
-          label: '$1,000',
+          label: `$ ${centsToDollars(parentAccount.balance).toString()}`,
           icon: (
             <svg
   xmlns="http://www.w3.org/2000/svg"
@@ -299,7 +314,7 @@ const Navbar: FC = () => {
       children: [
         {
           id: 'transfer-withholdings',
-          label: '$50.05',
+          label: `$ ${centsToDollars(parentAccount.withholding_balance).toString()}`,
           icon: (
             <svg
   xmlns="http://www.w3.org/2000/svg"
@@ -430,7 +445,7 @@ const Navbar: FC = () => {
                   items={familyMembers.map((member) => ({
                     id: member.id,
                     label: member.name,
-                    icon: member.avatar,
+                    icon: member.avatar_img,
                     children: member.children, // Pass children for nested dropdowns
                   }))}
                   selectedId={selectedFamilyMember}
@@ -653,7 +668,7 @@ const Navbar: FC = () => {
       children: familyMembers.map((member) => ({
         id: member.id,
         label: member.name,
-        icon: member.avatar,
+        icon: member.avatar_img,
         children: member.children,
       })),
     },
