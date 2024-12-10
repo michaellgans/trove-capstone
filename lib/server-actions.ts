@@ -214,6 +214,39 @@ export async function getTransactionsByChildId(child_id: string): Promise<Transa
 }
 
 /**
+ * Fetches loan where child_id is borrower.
+ * 
+ * @param child_id - The ID of the child to fetch by.
+ * @returns Loan object.
+ */
+export async function getLoanWhereChildIsBorrower(child_id: string): Promise<Loans> {
+  try {
+    // Get Child Account
+    const childAccount = await prisma.child_account.findUnique({
+      where: {
+        child_id: child_id
+      },
+    });
+
+    if (!childAccount) {
+      throw new Error("No child user found");
+    }
+
+    // Get Loan
+    const loan = await prisma.loan.findMany({
+      where: {
+        borrower_id: childAccount.id
+      }
+    })
+
+    return loan[0];
+  } catch (error) {
+    throw new Error('Unable to fetch loan');
+  }
+}
+
+
+/**
  * Fetches the all transactions details by child ID.
  * 
  * @param child_id - The ID of the child to fetch by.
@@ -934,8 +967,8 @@ export async function newParentToChildLoan(lender_id: string, borrower_id: strin
     // Insert new loan
     await prisma.loan.create({
       data: {
-        lender_id: lender.id,
-        borrower_id: borrower.id,
+        lender_id: lender_account.id,
+        borrower_id: borrower_account.id,
         interest_rate: loan.interest_rate,
         loan_amount: loan.loan_amount,
         current_balance: loan.loan_amount + (loan.loan_amount * (loan.interest_rate / 100)),
@@ -1042,8 +1075,8 @@ export async function newChildToChildLoan(lender_id: string, borrower_id: string
     // Insert new loan
     await prisma.loan.create({
       data: {
-        lender_id: lender.id,
-        borrower_id: borrower.id,
+        lender_id: lender_account.id,
+        borrower_id: borrower_account.id,
         interest_rate: loan.interest_rate,
         current_balance: loan.loan_amount + (loan.loan_amount * (loan.interest_rate / 100)),
         loan_amount: loan.loan_amount,
@@ -1141,7 +1174,7 @@ export async function newChildToParentLoanPayment(lender_id: string, borrower_id
     // Find loan record
     const loan = await prisma.loan.findFirst({
       where: {
-        borrower_id: borrower.id,
+        borrower_id: borrower_account.id,
       },
     });
 
@@ -1259,7 +1292,7 @@ export async function newChildToChildLoanPayment(lender_id: string, borrower_id:
     // Find loan record
     const loan = await prisma.loan.findFirst({
       where: {
-        borrower_id: borrower.id,
+        borrower_id: borrower_account.id,
       },
     });
 
