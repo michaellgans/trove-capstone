@@ -16,6 +16,7 @@ const QuizSection: React.FC<QuizSectionProps> = ({ quiz }) => {
   const [selectedAnswers, setSelectedAnswers] = useState<{ [key: number]: string }>({});
   const [feedback, setFeedback] = useState<{ [key: number]: 'correct' | 'incorrect' }>({});
   const [submitted, setSubmitted] = useState(false);
+  const [allCorrect, setAllCorrect] = useState(false); // Track if all answers are correct
 
   const handleOptionChange = (questionIndex: number, option: string) => {
     setSelectedAnswers((prev) => ({
@@ -41,10 +42,14 @@ const QuizSection: React.FC<QuizSectionProps> = ({ quiz }) => {
 
     setFeedback(newFeedback);
     setSubmitted(true);
+
+    // Check if all answers are correct
+    setAllCorrect(Object.values(newFeedback).every((val) => val === 'correct'));
   };
 
   const handleRetry = () => {
     setSubmitted(false); // Only reset the submitted state
+    setAllCorrect(false); // Reset all-correct flag
   };
 
   return (
@@ -66,7 +71,7 @@ const QuizSection: React.FC<QuizSectionProps> = ({ quiz }) => {
       </div>
       <div className="grid md:grid-cols-2 gap-6">
         {quiz.map((q, index) => (
-          <div key={index} className="p-4 border rounded-md shadow-sm bg-white">
+          <div key={index} className="p-4 rounded-lg shadow-md bg-white">
             <p className="font-medium mb-4">{q.question}</p>
             <div className="space-y-2">
               {q.options.map((option, optionIndex) => (
@@ -116,22 +121,24 @@ const QuizSection: React.FC<QuizSectionProps> = ({ quiz }) => {
           </button>
         )}
       </div>
-      {submitted && (
-  <div
-    className={`mt-4 py-4 rounded ${
-      Object.values(feedback).every((val) => val === 'correct')
-        ? ' text-green-700'
-        : 'text-yellow-700'
-    }`}
-  >
-    <h3 className="text-lg font-bold">
-      {Object.values(feedback).every((val) => val === 'correct')
-        ? 'Well done! You got all the answers correct!'
-        : 'Good effort! Review the incorrect answers and try again.'}
-    </h3>
-  </div>
-)}
-
+      {submitted && allCorrect && (
+        <div
+          className={`mt-4 py-4 rounded text-green-700`}
+        >
+          <h3 className="text-lg font-bold">
+            Well done! You got all the answers correct!
+          </h3>
+        </div>
+      )}
+      {submitted && !allCorrect && (
+        <div
+          className={`mt-4 py-4 rounded text-yellow-700`}
+        >
+          <h3 className="text-lg font-bold">
+            Good effort! Review the incorrect answers and try again.
+          </h3>
+        </div>
+      )}
     </div>
   );
 };

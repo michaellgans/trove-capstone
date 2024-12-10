@@ -22,7 +22,11 @@ const ConclusionSection: React.FC<ConclusionSectionProps> = ({ conclusion }) => 
           <rect x="66.6666" width="33.3334" height="4" fill="#0255EE" />
         </svg>
       </div>
-      <p className="text-gray-800 text-base leading-relaxed">{conclusion}</p>
+      <div className="flex flex-col md:flex-row items-center md:items-start md:space-x-6">
+        <div className="text-gray-800 text-base leading-relaxed w-full md:w-2/3 lg:w-4/5">
+          {conclusion}
+        </div>
+      </div>
     </div>
   );
 };
