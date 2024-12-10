@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 
 type AccountBalanceProps = {
   label: string;
-  balance: number;
+  balance: number | string;
   selectedCurrency: string;
   onCurrencyChange: (currency: string) => void;
 };
