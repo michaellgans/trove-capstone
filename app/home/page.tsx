@@ -1,4 +1,4 @@
-'use client'
+'use client';
 import ChildProfileCard from "@/components/ChildCard/ChildProfileCard";
 import Header from "@/components/Header";
 import TransactionHistory from "@/components/TransactionHistory/TransactionHistory";
@@ -11,6 +11,7 @@ export default function Home() {
   const { data: session } = useSession();
   const [children, setChildren] = useState<Child[]>([{id: "", name: "", username: "", avatar_img: "", parent_id: ""}]);
   const [loading, setLoading] = useState(true);
+  const [parentId, setParentId] = useState<string | null>(null);
 
   useEffect(() => {
     const fetchChildInfo = async () => {
@@ -18,13 +19,14 @@ export default function Home() {
         try {
           const children = await getChildrenByParent(session?.user.id);
           setChildren(children);
+          setParentId(session.user.id);
         } catch (error) {
           console.error("Failed to fetch children");
         } finally {
           setLoading(false);
         }
       }
-    }
+    };
 
     fetchChildInfo();
   }, [session?.user.id])
@@ -47,7 +49,9 @@ export default function Home() {
       ))}
       </div>
      <Header title='Transaction History' />
-     <TransactionHistory />
+     {parentId ? (<TransactionHistory parentId={parentId} />) : (
+      <p>No parent ID available</p>
+     )}
      </>
-  )
+  );
 }
