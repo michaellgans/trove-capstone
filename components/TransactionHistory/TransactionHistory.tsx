@@ -1,6 +1,6 @@
 'use client';
-import React, { useState } from 'react';
-import Header from '../Header';
+import React, { useEffect, useState } from 'react';
+import { getAllTransactionsByParentUserId } from '@/lib/server-actions';
 
 type Transaction = {
     timestamp: string;
@@ -8,67 +8,36 @@ type Transaction = {
     sent_to: string;
     sent_from: string;
     description: string;
-    interest: string;
     withholdings?: string | null;
     amount: string;
 };
 
-const TransactionHistory: React.FC = () => {
-    const [transactions, setTransations] = useState<Transaction[]>([
-        {
-            timestamp: 'November 11, 2024 10:19 PM',
-            type: 'Deposit',
-            sent_to: 'Samantha',
-            sent_from: 'Mom',
-            description: 'Weekly allowance',
-            interest: '0%',
-            withholdings: '$0.00',
-            amount: '$20.00',
-        },
-        {
-            timestamp: 'November 11, 2024 10:40 PM',
-            type: 'Deposit / Taxes',
-            sent_to: 'Christopher',
-            sent_from: 'Mom',
-            description: 'Weekly allowance',
-            interest: '0%',
-            withholdings: '$5.00',
-            amount: '$15.00',
-        },
-        {
-            timestamp: 'November 11, 2024 10:49 PM',
-            type: 'Loan',
-            sent_to: 'Christopher',
-            sent_from: 'Samantha',
-            description: 'Loaning money for Pokemon Cards',
-            interest: '30%',
-            withholdings: 'N/A',
-            amount: '$20.00',
-        },
-        {
-            timestamp: 'November 11, 2024 11:00 PM',
-            type: 'Payment',
-            sent_to: 'Samantha',
-            sent_from: 'Christopher',
-            description: 'Loan Payment',
-            interest: '0%',
-            withholdings: 'N/A',
-            amount: '$5.00',
-        },
-        {
-            timestamp: 'November 11, 2024 11:24 PM',
-            type: 'Transfer',
-            sent_to: 'Samantha',
-            sent_from: 'Savings',
-            description: 'Savings Transfer',
-            interest: '0%',
-            withholdings: null,
-            amount: '$50.00',
-        },
-    ]);
-
+const TransactionHistory: React.FC<{ parentId: string }> = ({ parentId }) => {
+    const [transactions, setTransactions] = useState<Transaction[]>([]);
     const [sortOrder, setSortOrder] = useState<'asc' | 'desc'>('asc');
     const [sortColumn, setSortColumn] = useState<keyof Transaction>('type');
+
+    useEffect(() => {
+        async function fetchTransactions() {
+          try {
+            const data = await getAllTransactionsByParentUserId(parentId);
+            const formattedData = data.map((transaction) => ({
+              timestamp: new Date(transaction.timestamp).toLocaleString(),
+              type: transaction.type,
+              sent_to: transaction.to_name || "N/A",
+              sent_from: transaction.from_name || "N/A",
+              description: transaction.description || "N/A",
+              withholdings: transaction.withholdings ? `$${(transaction.withholdings / 100).toFixed(2)}` : null,
+              amount: `$${(transaction.amount / 100).toFixed(2)}`, // Convert cents to dollars
+            }));
+            setTransactions(formattedData);
+          } catch (error) {
+            console.error("Failed to fetch transactions:", error);
+          }
+        }
+    
+        fetchTransactions();
+      }, [parentId]);
 
     const handleSort = (column: keyof Transaction) => {
         const sortedTransactions = [...transactions].sort((a, b) => {
@@ -80,7 +49,7 @@ const TransactionHistory: React.FC = () => {
                 return aValue < bValue ? 1 : -1;
             }
         });
-        setTransations(sortedTransactions);
+        setTransactions(sortedTransactions);
         setSortOrder(sortOrder === 'asc' ? 'desc' : 'asc');
         setSortColumn(column);
     };
@@ -107,15 +76,13 @@ const TransactionHistory: React.FC = () => {
 
     return (
     <div id='history' className="flex justify-center m-0">
-        <div
-            className="px-5 md:px-10 w-full"
-        >
+        <div className="px-5 md:px-10 w-full">
             <div className="flex mx-0 justify-center rounded-xl overflow-hidden border-[1px] border-slate-200 m-4">
                 <div className="overflow-x-auto w-full">
                 <table className="w-full border border-collapse table-auto">
                     <thead className="bg-white">
                         <tr className="text-left">
-                            {['timestamp', 'type', 'sent_to', 'sent_from', 'description', 'interest', 'withholdings', 'amount'].map((column) => (
+                            {['timestamp', 'type', 'sent_to', 'sent_from', 'description', 'withholdings', 'amount'].map((column) => (
                             <th
                                 key={column}
                                 className="border border-r-transparent p-2 cursor-pointer"
@@ -169,7 +136,6 @@ const TransactionHistory: React.FC = () => {
                             <td className="border border-r-transparent p-2">{transaction.sent_to}</td>
                             <td className="border border-r-transparent p-2">{transaction.sent_from}</td>
                             <td className="border border-r-transparent p-2">{transaction.description}</td>
-                            <td className="border border-r-transparent p-2">{transaction.interest}</td>
                             <td className="border border-r-transparent p-2">{transaction.withholdings}</td>
                             <td className="border border-r-transparent p-2">{transaction.amount}</td>
                         </tr>
