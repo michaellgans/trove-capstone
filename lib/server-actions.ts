@@ -229,7 +229,7 @@ export async function getLoanWhereChildIsBorrower(child_id: string): Promise<Loa
     });
 
     if (!childAccount) {
-      throw new Error("No child user found");
+      throw new Error();
     }
 
     // Get Loan
@@ -238,6 +238,10 @@ export async function getLoanWhereChildIsBorrower(child_id: string): Promise<Loa
         borrower_id: childAccount.id
       }
     })
+
+    if (loan.length === 0) {
+      throw new Error();
+    }
 
     return loan[0];
   } catch (error) {
@@ -783,7 +787,7 @@ export async function newSavingsToCheckingTransfer(child_id: string, amount: num
     });
   } catch (error) {
     console.error(error);
-    throw new Error("Failed to complete checking to savings transfer")
+    throw error;
   }
 }
 
@@ -844,7 +848,7 @@ export async function transferWithholdings(parent_id: string, amount: number) {
     });
   } catch (error) {
     console.error(error);
-    throw new Error("Failed to complete withholdings transfer")
+    throw error;
   }
 }
 
@@ -978,7 +982,7 @@ export async function newParentToChildLoan(lender_id: string, borrower_id: strin
     });
   } catch (error) {
     console.error(error);
-    throw new Error("Failed to create parent to child loan");
+    throw error;
   }
 }
 
@@ -1086,7 +1090,7 @@ export async function newChildToChildLoan(lender_id: string, borrower_id: string
     });
   } catch (error) {
     console.error(error);
-    throw new Error("Failed to create child to child loan");
+    throw error;
   }
 }
 
@@ -1204,7 +1208,7 @@ export async function newChildToParentLoanPayment(lender_id: string, borrower_id
     }
   } catch (error) {
     console.error(error);
-    throw new Error("Failed to complete child to parent loan payment");
+    throw error;
   }
 }
 
@@ -1322,7 +1326,7 @@ export async function newChildToChildLoanPayment(lender_id: string, borrower_id:
     }
   } catch (error) {
     console.error(error);
-    throw new Error("Failed to complete child to child loan payment");
+    throw error;
   }
 }
 
@@ -1334,7 +1338,7 @@ export async function newChildToChildLoanPayment(lender_id: string, borrower_id:
  */
 export async function deleteAccount(parent_id: string) {
   try {
-    prisma.parent_user.delete({
+    await prisma.parent_user.delete({
       where: {
         id: parent_id,
       },
