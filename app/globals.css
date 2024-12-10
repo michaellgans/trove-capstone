@@ -91,6 +91,30 @@
   font-display: swap;
 }
 
+@layer utilities {
+  @keyframes gradient-pulse {
+    0%, 100% {
+      background-position: 0% 50%;
+    }
+    50% {
+      background-position: 100% 50%;
+    }
+  }
+
+  .animate-gradient-pulse {
+    animation: gradient-pulse 3s ease infinite;
+    background-size: 200% 200%;
+  }
+
+  .skeleton-bg {
+    @apply bg-gradient-to-r from-brightRed/10 via-brightYellow/10 to-brightBlue/10 animate-gradient-pulse rounded-md;
+  }
+
+  .skeleton-circle {
+    @apply bg-gradient-to-r from-brightRed/10 via-brightYellow/10 to-brightBlue/10 animate-gradient-pulse rounded-full;
+  }
+}
+
 :root {
   --navbar-height: 3.5rem;
 }
@@ -342,4 +366,12 @@ box-shadow: 0px 2px 4px 0px rgba(0, 0, 0, 0.25);
 .locked-content {
   position: relative;
   z-index: 20;
+}
+
+.skeleton-bg {
+  @apply bg-gradient-to-r from-brightRed/10 via-brightYellow/10 to-brightBlue/10 animate-gradient-pulse rounded-md;
+}
+
+.skeleton-circle {
+  @apply bg-gradient-to-r from-brightRed/10 via-brightYellow/10 to-brightBlue/10 animate-gradient-pulse rounded-full;
 }
