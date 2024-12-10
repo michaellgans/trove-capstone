@@ -203,41 +203,13 @@ const Navbar: FC = () => {
     setIsLearningDropdownOpen(false); // Close dropdown
   };
   
-  const lessonsMobile: MobileDropdownItem[] = [
-    {
-      id: 1,
-      label: 'All Lessons',
-      icon: lessonIcon,
-    },
-    {
-      id: 2,
-      label: 'Bills and Payments',
-      icon: lessonIcon,
-    },
-    {
-      id: 3,
-      label: 'Loans and Interest',
-      icon: lessonIcon,
-    },
-    {
-      id: 4,
-      label: 'Savings and Checking',
-      icon: lessonIcon,
-    },
-    {
-      id: 5,
-      label: 'Taxes and Withholding',
-      icon: lessonIcon,
-    },
-  ];
+  const lessonsMobile: MobileDropdownItem[] = lessonsData.map((lesson) => ({
+    id: String(lesson.id), // Ensure id is a string
+    label: lesson.majorTitle,
+    icon: lessonIcon, // Use the shared lesson icon
+    action: () => handleLessonSelect(lesson.id), // Navigate to the lesson page
+  }));
   
-  // const lessons: string[] = [
-  //   'All Lessons',
-  //   'Bills and Payments',
-  //   'Loans and Interest',
-  //   'Savings and Checking',
-  //   'Taxes and Withholding',
-  // ];
   const myBalanceItems = [
     {
       id: 'balance1',
@@ -686,7 +658,7 @@ const Navbar: FC = () => {
     {
       id: 'learning-center',
       label: 'Learning Center',
-      children: lessonsMobile,
+      children: lessonsMobile, // Use the dynamically generated lessonsMobile
     },
     {
       id: 'settings',
