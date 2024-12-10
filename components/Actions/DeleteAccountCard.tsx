@@ -64,7 +64,7 @@ const DeleteAccountCard: React.FC = () => {
   return (
     <div
     ref={cardRef}
-    className="flex flex-col items-center bg-white p-10 rounded-lg border border-gray-100 shadow-lg max-w-md mx-auto mt-10">
+    className="flex flex-col items-center bg-white p-10 sm:rounded-lg border border-gray-100 shadow-lg max-w-md mx-auto mt-0 sm:mt-10">
       <LogoTitle />
       {/* Title and Danger Zone */}
       <div className="text-center mb-4">
@@ -149,7 +149,7 @@ const DeleteAccountCard: React.FC = () => {
         <div className="mt-4 text-center">
           <button
             type="button"
-            onClick={() => router.push('/')}
+            onClick={() => router.push('/home')}
             className="text-sm text-gray-500 hover:text-gray-600 transition ease-in-out duration-300"
           >
             Cancel
