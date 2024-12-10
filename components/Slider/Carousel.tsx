@@ -39,9 +39,6 @@ export const Carousel: React.FC = () => {
           <SwiperSlide key={index}>
             <Slide
               slide={slide}
-              totalSlides={slides.length}
-              currentIndex={currentIndex}
-              onPaginationClick={goToSlide} // Navigate using the pagination dots
             />
           </SwiperSlide>
         ))}

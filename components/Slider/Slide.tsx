@@ -15,9 +15,6 @@ interface SlideProps {
     flipImage?: boolean;
     phoneIcon?: boolean;
   };
-  totalSlides: number;
-  currentIndex: number;
-  onPaginationClick: (index: number) => void;
 }
 
 export const Slide: React.FC<SlideProps> = ({ 
