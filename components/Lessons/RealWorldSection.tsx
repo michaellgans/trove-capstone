@@ -19,7 +19,7 @@ const RealWorldSection: React.FC<RealWorldSectionProps> = ({ descriptiveText, ke
   };
 
   return (
-    <div className="mb-8">
+    <div className="mb-8 px-5">
       <h2 className="text-xl md:text-2xl font-semibold mb-2">What is it in the Real World?</h2>
       <div className="w-[270px] md:w-[310px] h-[4px] mb-4">
         <svg
@@ -45,11 +45,11 @@ const RealWorldSection: React.FC<RealWorldSectionProps> = ({ descriptiveText, ke
             ></p>
           ))}
         </div>
-        <div>
+        <div className='flex items-center justify-center h-[20dvh] md:h-auto'>
           <img
             src="/images/real-world-examples.png"
             alt="Illustration"
-            className="w-full h-auto md:w-1/2"
+            className="max-h-full max-w-full h-full md:h-auto md:w-1/2 object-contain md:scale-95"
           />
         </div>
       </div>

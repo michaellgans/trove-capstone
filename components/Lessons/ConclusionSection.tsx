@@ -6,7 +6,7 @@ type ConclusionSectionProps = {
 
 const ConclusionSection: React.FC<ConclusionSectionProps> = ({ conclusion }) => {
   return (
-    <div className="mb-8">
+    <div className="mb-8 px-5">
       <h2 className="text-xl md:text-2xl font-semibold mb-2">Conclusion</h2>
       <div className="w-[130px] md:w-[150px] h-[4px] mb-4">
         <svg

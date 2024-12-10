@@ -27,7 +27,7 @@ const ExamplesSection: React.FC<ExamplesSectionProps> = ({
     );
   };
   return (
-    <div className="mb-8">
+    <div className="mb-8 px-5">
       <h2 className="text-xl md:text-2xl font-semibold mb-2">Examples</h2>
       <div className="w-[100px] md:w-[130px] h-[4px] mb-4">
         <svg
