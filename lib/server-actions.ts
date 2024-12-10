@@ -522,7 +522,7 @@ export async function newChildToChildTransfer(from_child_id: string, to_child_id
     });
   } catch (error) {
     console.error(error);
-    throw new Error("Failed to complete child to child transfer");
+    throw error;
   }
 }
 
@@ -608,7 +608,7 @@ export async function newChildToParentTransfer(child_id: string, parent_id: stri
     });
   } catch (error) {
     console.error(error);
-    throw new Error("Failed to complete child to parent transfer");
+    throw error;
   }
 }
 
@@ -679,7 +679,7 @@ export async function newCheckingToSavingsTransfer(child_id: string, amount: num
     });
   } catch (error) {
     console.error(error);
-    throw new Error("Failed to complete checking to savings transfer")
+    throw error;
   }
 }
 

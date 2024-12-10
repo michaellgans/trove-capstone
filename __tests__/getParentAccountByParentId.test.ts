@@ -3,19 +3,17 @@ import { getParentAccountByParentId } from '../lib/server-actions';
 
 describe('Parent Service Tests', () => {
   it('should fetch parent details by ID', async () => {
-    const mockParentAccountData = [
-      {
+    const mockParentAccountData = {
         id: "cm4eniw0d000008kvblsvhkac",
         parent_id: "cm4eniw0d000008kvblsvhkdb",
         stripe_account_id: "cm4eniw0d000008kvblsvhkop",
         balance: 10000,
         withholding_balance: 10000,
-      }
-    ];
+      };
 
-    prismaMock.parent_account.findMany.mockResolvedValueOnce(mockParentAccountData);
+    prismaMock.parent_account.findUnique.mockResolvedValueOnce(mockParentAccountData);
     await expect(getParentAccountByParentId("cm4eniw0d000008kvblsvhkdb")).resolves.toEqual(mockParentAccountData);
-    console.log('Mock calls:', prismaMock.parent_account.findMany.mock.calls);
+    console.log('Mock calls:', prismaMock.parent_account.findUnique.mock.calls);
   });
 
   it('should throw an error if no parent account data is found', async () => {
