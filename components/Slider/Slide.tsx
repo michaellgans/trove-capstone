@@ -1,6 +1,7 @@
 import React from "react";
 import Image from "next/image";
 import type { StaticImageData } from "next/image";
+import Link from "next/link";
 
 interface SlideProps {
   slide: {
@@ -43,6 +44,7 @@ export const Slide: React.FC<SlideProps> = ({
       <p className="text-gray-600 font-normal text-lg md:text-xl lg:text-2xl">
         {slide.description}
       </p>
+      <Link href='signup'>
       <button className="flex items-center hover:cursor-pointer mt-10 mb-5 justify-center rounded-lg bg-brightRed hover:brightness-110 font-bold border text-white text-xl lg:text-2xl px-4 py-2 transition duration-300 ease-in-out">
         {slide.phoneIcon && (
           <svg
@@ -61,6 +63,7 @@ export const Slide: React.FC<SlideProps> = ({
         )}
         <span>{slide.buttonText}</span>
       </button>
+      </Link>
     </div>
 
     {/* Image */}

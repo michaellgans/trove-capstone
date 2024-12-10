@@ -88,7 +88,7 @@ const ResetChildPassword: React.FC = () => {
   return (
     <div
     ref={cardRef}
-    className="flex flex-col items-center bg-white p-10 rounded-lg border border-gray-100 shadow-lg max-w-md md:max-w-lg lg:max-w-xl mx-auto mt-10">
+    className="flex flex-col items-center bg-white p-10 sm:rounded-lg border border-gray-100 shadow-lg max-w-md md:max-w-lg lg:max-w-xl mx-auto mt-0 sm:mt-10">
       <LogoTitle />
 
       {/* Heading */}

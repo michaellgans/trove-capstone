@@ -52,7 +52,7 @@ const ChildProfileCard: React.FC<Props> = ({
 
   return (
     <>
-    <div className="flex flex-col self-center mx-auto justify-center items-start gap-3 p-10 max-w-md md:max-w-3xl lg:max-w-5xl bg-white border border-gray-200 rounded-lg shadow-lg">
+    <div className="flex flex-col self-center mx-auto justify-center items-start gap-3 p-10 max-w-sm sm:max-w-md md:max-w-3xl lg:max-w-5xl bg-white border border-gray-200 rounded-lg shadow-lg">
       {/* Title */}
       <TitleSection childName={childName} />
 
