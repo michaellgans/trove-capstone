@@ -5,6 +5,7 @@ type ExamplesSectionProps = {
   mathEquations: string[]; // Updated to string[]
   imageSrc?: string;
   imageAlt?: string;
+  keywords: { term: string; definition: string }[];
 };
 
 const ExamplesSection: React.FC<ExamplesSectionProps> = ({
@@ -12,7 +13,19 @@ const ExamplesSection: React.FC<ExamplesSectionProps> = ({
   mathEquations,
   imageSrc,
   imageAlt,
+  keywords
 }) => {
+  // Highlight function
+  const highlightKeywords = (text: string) => {
+    const regex = new RegExp(
+      `\\b(${keywords.map((k) => `${k.term}(s)?`).join('|')})\\b`,
+      'gi'
+    );
+    return text.replace(
+      regex,
+      (matched) => `<span class="text-brightBlue font-bold">${matched}</span>`
+    );
+  };
   return (
     <div className="mb-8">
       <h2 className="text-xl md:text-2xl font-semibold mb-2">Examples</h2>
@@ -33,7 +46,10 @@ const ExamplesSection: React.FC<ExamplesSectionProps> = ({
       <div className="flex flex-col items-start space-y-6">
         {example.map((paragraph, index) => (
           <div key={index} className="w-full">
-            <p className="mb-4">{paragraph}</p>
+            <p 
+            className="mb-4"
+            dangerouslySetInnerHTML={{ __html: highlightKeywords(paragraph) }}
+            ></p>
 
             {/* Display the image and math equation between paragraphs */}
             {index === 0 && (
