@@ -1,33 +1,54 @@
-'use client';
-import React, { useState } from 'react';
+'use client'
+import React, { useState, useEffect } from 'react';
 import TitleSection from '../TitleSection';
 import ProfileImage from './ProfileImage';
 import AccountBalance from './AccountBalance';
 import ProgressCircle from './ProgressCircle';
 import ActionButtons from './ActionButtons';
+import { useSession } from 'next-auth/react';
+import { getChildAccountByChildId, getLoanWhereChildIsBorrower } from '@/lib/server-actions';
+import { Child_Account, Loans } from '@/types/types';
+import { centsToDollars } from '@/lib/utils';
 
 type Props = {
+  child_id: string;
   childName: string;
-  profileImageUrl: string;
-  checkingBalance: number;
-  savingsBalance: number;
-  savingsGoalPercentage: number;
-  loanRepaymentPercentage: number;
+  profileImageUrl: string | null | undefined;
 };
 
 const ChildProfileCard: React.FC<Props> = ({
+  child_id,
   childName,
   profileImageUrl,
-  checkingBalance,
-  savingsBalance,
-  savingsGoalPercentage,
-  loanRepaymentPercentage,
 }) => {
   const [selectedCurrency, setSelectedCurrency] = useState('USD');
+  const { data: session } = useSession();
+  const [childAccountInfo, setChildAccountInfo] = useState<Child_Account>({id: "", checking_balance: 0, savings_balance: 0, savings_goal: 0, child_id: "", parent_id: ""});
+  const [childLoanInfo, setChildLoanInfo] = useState<Loans>();
 
   const handleCurrencyChange = (currency: string) => {
     setSelectedCurrency(currency);
   };
+
+  useEffect(() => {
+    const fetchChildAccountInfo = async () => {
+      if (session?.user.id) {
+        console.log(child_id);
+        const childAccount = await getChildAccountByChildId(child_id);
+        setChildAccountInfo(childAccount[0]);
+      }
+    }
+
+    const fetchChildLoanInfo = async () => {
+      if (session?.user.id) {
+        const childLoan = await getLoanWhereChildIsBorrower(child_id);
+        setChildLoanInfo(childLoan[0]);
+      }
+    }
+
+    fetchChildAccountInfo();
+    fetchChildLoanInfo();
+  }, [session?.user.id])
 
   return (
     <>
@@ -47,7 +68,7 @@ const ChildProfileCard: React.FC<Props> = ({
             {/* Trove Checking Account */}
             <AccountBalance
             label="Trove Checking Account:"
-            balance={checkingBalance}
+            balance={centsToDollars(childAccountInfo.checking_balance)}
             selectedCurrency={selectedCurrency}
             onCurrencyChange={handleCurrencyChange}
             />
@@ -55,7 +76,7 @@ const ChildProfileCard: React.FC<Props> = ({
             {/* Trove Savings Account */}
             <AccountBalance
               label="Trove Savings Account:"
-              balance={savingsBalance}
+              balance={!childAccountInfo.savings_balance ? "N/A" : centsToDollars(childAccountInfo.savings_balance)}
               selectedCurrency={selectedCurrency}
               onCurrencyChange={handleCurrencyChange}
             />
@@ -69,7 +90,7 @@ const ChildProfileCard: React.FC<Props> = ({
           {/* Savings Goal Circle */}
           <ProgressCircle
             label="Savings Goal"
-            percentage={savingsGoalPercentage}
+            percentage={!childAccountInfo.savings_balance ? 0 : Math.floor((childAccountInfo.savings_balance / childAccountInfo.savings_goal!) * 100)}
             strokeColor="#4B701F"
             
           />
@@ -77,7 +98,7 @@ const ChildProfileCard: React.FC<Props> = ({
           {/* Loan Repayment Circle */}
           <ProgressCircle
             label="Loan Repayment"
-            percentage={loanRepaymentPercentage}
+            percentage={!childLoanInfo ? 0 : Math.floor((childLoanInfo.current_balance / childLoanInfo.loan_amount) * 100)}
             strokeColor="#0255EE"
             
           />
