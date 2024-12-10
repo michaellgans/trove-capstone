@@ -139,6 +139,30 @@ export async function getChildAccountByParentId(parent_id: string): Promise<Chil
   }
 }
 
+export async function getAllTransactionsByParentUserId(parent_id: string): Promise<Transactions[]> {
+  try {
+    const parent_account = await prisma.parent_account.findUnique({
+      where: {
+        parent_id: parent_id,
+      },
+    });
+
+    if (!parent_account) {
+      throw new Error();
+    }
+
+    const transactionsByParentAccount = await prisma.transaction.findMany({
+      where: {
+        p_account_id: parent_account.id,
+      }
+    });
+
+    return transactionsByParentAccount;
+  } catch (error) {
+    throw new Error('Unable to fetch user transactions');
+  }
+}
+
 /**
  * Fetches the all transactions details by parent account ID.
  * 
