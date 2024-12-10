@@ -8,7 +8,13 @@ import QuizSection from '@/components/Lessons/QuizSection';
 import ConclusionSection from '@/components/Lessons/ConclusionSection';
 import ResourcesSection from '@/components/Lessons/ResourcesSection';
 
-export default function LessonPage({ params }: { params: { id: string } }) {
+type LessonPageProps = {
+  params: {
+    id: string;
+  }
+}
+
+export default function LessonPage({ params }: LessonPageProps) {
   const lesson = lessonsData.find((lesson) => lesson.id === params.id);
 
   if (!lesson) {
