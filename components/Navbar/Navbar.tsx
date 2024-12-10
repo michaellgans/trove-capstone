@@ -675,7 +675,7 @@ const Navbar: FC = () => {
       <div className="flex flex-col items-center space-y-3">
         {/* About the Authors */}
         <div className="flex items-center space-x-3">
-          <Link href="" passHref>
+          <Link href="https://linktr.ee/troveteam" passHref target='_blank'>
             <span className="cursor-pointer hover:text-gray-800 transition duration-300 hover:scale-110">
               About the Authors
             </span>
@@ -697,13 +697,13 @@ const Navbar: FC = () => {
 
         {/* About the Artist */}
         <div className="flex items-center space-x-3">
-          <Link href="/about-artist" passHref>
+          <Link href="https://instagram.com/macks_tatts" passHref>
             <span className="cursor-pointer hover:text-gray-800 transition duration-300">
               About the Artist
             </span>
           </Link>
           <Link
-            href="https://instagram.com"
+            href="https://instagram.com/macks_tatts"
             target="_blank"
             rel="noopener noreferrer"
             className="text-gray-600 hover:text-[#E4405F] transition duration-300 hover:scale-110"

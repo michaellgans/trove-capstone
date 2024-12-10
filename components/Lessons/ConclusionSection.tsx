@@ -6,7 +6,7 @@ type ConclusionSectionProps = {
 
 const ConclusionSection: React.FC<ConclusionSectionProps> = ({ conclusion }) => {
   return (
-    <div className="mb-8">
+    <div className="mb-8 px-5">
       <h2 className="text-xl md:text-2xl font-semibold mb-2">Conclusion</h2>
       <div className="w-[130px] md:w-[150px] h-[4px] mb-4">
         <svg
@@ -22,11 +22,22 @@ const ConclusionSection: React.FC<ConclusionSectionProps> = ({ conclusion }) => 
           <rect x="66.6666" width="33.3334" height="4" fill="#0255EE" />
         </svg>
       </div>
-      <div className="flex flex-col md:flex-row items-center md:items-start md:space-x-6">
-        <div className="text-gray-800 text-base leading-relaxed w-full md:w-2/3 lg:w-4/5">
-          {conclusion}
-        </div>
-      </div>
+      <div className="grid grid-cols-1 md:grid-cols-3 gap-6 items-center">
+  {/* Paragraph Section */}
+  <div className="text-gray-800 text-base leading-relaxed md:col-span-2 lg:col-span-1">
+    {conclusion}
+  </div>
+
+  {/* Image Section */}
+  <div className="flex justify-center md:justify-end">
+    <img
+      src="/images/conclusion.avif"
+      alt="conclusion"
+      className="rounded-full w-full max-w-[200px] md:max-w-[150px] lg:max-w-[200px]"
+    />
+  </div>
+</div>
+
     </div>
   );
 };

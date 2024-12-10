@@ -6,6 +6,7 @@ import { useSession } from "next-auth/react";
 import { useEffect, useState } from "react";
 import { Child } from "@/types/types";
 import { getChildrenByParent } from "@/lib/server-actions";
+import HomeSkeleton from "@/components/LoadingSkeleton/HomeSkeleton";
 
 export default function Home() {
   const { data: session } = useSession();
@@ -32,7 +33,7 @@ export default function Home() {
   }, [session?.user.id])
 
   if (loading) {
-    return  <p>Loading</p>
+    return  <HomeSkeleton />
   }
 
   return (

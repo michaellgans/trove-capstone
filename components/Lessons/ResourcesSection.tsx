@@ -12,7 +12,7 @@ type ResourcesSectionProps = {
 
 const ResourcesSection: React.FC<ResourcesSectionProps> = ({ resources }) => {
   return (
-    <div className="mb-8">
+    <div className="mb-8 px-5">
       <h2 className="text-xl md:text-2xl font-semibold mb-2">Resources</h2>
       <div className="w-[110px] md:w-[130px] h-[4px] mb-4">
         <svg

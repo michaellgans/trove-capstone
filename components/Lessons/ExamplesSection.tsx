@@ -27,7 +27,7 @@ const ExamplesSection: React.FC<ExamplesSectionProps> = ({
     );
   };
   return (
-    <div className="mb-8">
+    <div className="mb-8 px-5">
       <h2 className="text-xl md:text-2xl font-semibold mb-2">Examples</h2>
       <div className="w-[100px] md:w-[130px] h-[4px] mb-4">
         <svg
@@ -53,14 +53,17 @@ const ExamplesSection: React.FC<ExamplesSectionProps> = ({
 
             {/* Display the image and math equation between paragraphs */}
             {index === 0 && (
-              <div className="flex flex-col items-center my-6">
+              <div className="flex flex-col md:flex-row justify-center items-center my-6">
+                <div className='flex items-center justify-center'>
                 {imageSrc && (
                   <img
                     src={imageSrc}
                     alt={imageAlt}
-                    className="w-full max-w-[300px] md:max-w-[20%] mb-4"
+                    className="w-full max-w-[200px] md:max-w-[30%] mb-4"
                   />
                 )}
+                </div>
+                <div className='flex flex-col items-center justify-center'>
                 {mathEquations.map((math, i) => (
                   <div
                     key={i}
@@ -69,6 +72,7 @@ const ExamplesSection: React.FC<ExamplesSectionProps> = ({
                     {math} {/* Directly render the string */}
                   </div>
                 ))}
+                </div>
               </div>
             )}
           </div>

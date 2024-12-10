@@ -173,7 +173,7 @@ const MobileDropdownMenu: FC<MobileDropdownMenuProps> = ({ items, closeMenu, han
             {/* Logout Section */}
             <div className="py-3">
         <button
-          onClick={handleLogout} // Assuming this handles logout
+          onClick={handleLogout}
           className="flex items-center font-semibold text-gray-800 hover:text-brightGreen transition duration-300 ease-in-out"
         >
           <span className='me-1 px-4'>Logout</span>
