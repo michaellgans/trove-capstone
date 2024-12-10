@@ -103,7 +103,7 @@ export async function getChildAccountByChildId(child_id: string): Promise<Child_
       },
     });
 
-    if (!childAccount) {
+    if (!childAccount || childAccount.length === 0) {
       throw new Error();
     }
 
@@ -243,7 +243,7 @@ export async function getLoanWhereChildIsBorrower(child_id: string): Promise<Loa
       throw new Error();
     }
 
-    return loan[0];
+    return loan;
   } catch (error) {
     throw new Error('Unable to fetch loan');
   }

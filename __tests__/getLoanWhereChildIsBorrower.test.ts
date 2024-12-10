@@ -25,12 +25,12 @@ describe("getLoanWhereChildIsBorrower", () => {
   it("should return the loan if child account and loan exist", async () => {
     prismaMock.child_account.findUnique.mockResolvedValueOnce(mockChildAccount);
     prismaMock.loan.findMany.mockResolvedValueOnce([mockLoan]);
-    await expect(getLoanWhereChildIsBorrower(mockChildId)).resolves.toEqual(mockLoan);
-
+    await expect(getLoanWhereChildIsBorrower(mockChildId)).resolves.toEqual([mockLoan]);
+  
     expect(prismaMock.child_account.findUnique).toHaveBeenCalledWith({
       where: { child_id: mockChildId },
     });
-
+  
     expect(prismaMock.loan.findMany).toHaveBeenCalledWith({
       where: { borrower_id: mockChildAccount.id },
     });
