@@ -14,6 +14,8 @@ export default function BodyWithConditionalId({
     ? "gradial"
     : pathname === "/"
     ? ""
+    : pathname.startsWith("/lessons/") && pathname.split("/").length > 2
+    ? "gradial-blobs"
     : "gradial-page";
 
   return (
