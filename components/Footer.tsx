@@ -8,7 +8,7 @@ const Footer: React.FC = () => {
       <div className="container mx-auto flex flex-col md:flex-row justify-center space-y-3 md:space-y-0 md:space-x-10">
         {/* About the Authors Link */}
         <div className='flex space-x-3 self-center items-center'>
-        <Link href="/about-authors" passHref>
+        <Link href="https://linktr.ee/troveteam" passHref target='_blank'>
           <span className="cursor-pointer hover:text-gray-800 transition duration-300 hover:scale-110">
             About the Authors
           </span>
@@ -33,14 +33,14 @@ const Footer: React.FC = () => {
 
         {/* About the Artist Link */}
         <div className='flex space-x-3 self-center items-center'>
-          <Link href="/about-artist" passHref>
+          <Link href="https://instagram.com/macks_tatts" passHref>
             <span className="cursor-pointer hover:text-gray-800 transition duration-300">
               About the Artist
             </span>
           </Link>
         {/* Instagram Icon */}
         <Link
-          href="https://instagram.com"
+          href="https://instagram.com/macks_tatts"
           target="_blank"
           rel="noopener noreferrer"
           className="text-gray-600 hover:text-[#E4405F] transition duration-300 hover:scale-110"
