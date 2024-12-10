@@ -8,13 +8,10 @@ import QuizSection from '@/components/Lessons/QuizSection';
 import ConclusionSection from '@/components/Lessons/ConclusionSection';
 import ResourcesSection from '@/components/Lessons/ResourcesSection';
 
-type LessonPageProps = {
-  params: {
-    id: string;
-  }
-}
+type LessonPageProps = Promise<{ id: string }>
 
-export default function LessonPage({ params }: LessonPageProps) {
+export default async function LessonPage(props: { params: LessonPageProps }) {
+  const params = await props.params;
   const lesson = lessonsData.find((lesson) => lesson.id === params.id);
 
   if (!lesson) {
