@@ -6,10 +6,10 @@ type TitleSectionProps = {
 
 const TitleSection: React.FC<TitleSectionProps> = ({ lessonName }) => (
   <div className="w-full flex flex-col items-center mb-8">
-    <h1 className="text-gray-800 text-center font-['Darker Grotesque'] text-[28px] md:text-[35px] font-medium">
+    <h1 className="text-gray-800 text-center font-['Darker Grotesque'] font-semibold text-[35px] md:text-[40px]">
       {lessonName}
     </h1>
-    <div className="w-[140px] md:w-[180px] h-[4px] mt-2">
+    <div className="w-[270px] md:w-[400px] h-[4px] mt-2">
       <svg
         xmlns="http://www.w3.org/2000/svg"
         width="100%"

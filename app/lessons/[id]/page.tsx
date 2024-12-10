@@ -23,7 +23,7 @@ export default function LessonPage({ params }: { params: { id: string } }) {
       <ExamplesSection
         example={lesson.example}
         mathEquations={lesson.mathEquations || []}
-        imageSrc="/path-to-common-image.jpg"
+        imageSrc="/images/equations.png"
         imageAlt="Examples illustration"
       />
       <QuizSection quiz={lesson.quiz} />

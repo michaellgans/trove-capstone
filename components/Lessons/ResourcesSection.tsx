@@ -1,4 +1,5 @@
 import React from 'react';
+import Link from 'next/link';
 
 type Resource = {
   title: string;
@@ -27,17 +28,17 @@ const ResourcesSection: React.FC<ResourcesSectionProps> = ({ resources }) => {
           <rect x="66.6666" width="33.3334" height="4" fill="#0255EE" />
         </svg>
       </div>
-      <div className="space-y-4">
+      <div className="space-y-4 space-x-0 md:space-x-4">
         {resources.map((resource, index) => (
-          <a
+          <Link
             key={index}
             href={resource.url}
             target="_blank"
             rel="noopener noreferrer"
-            className="inline-block px-4 py-2 bg-blue-500 text-white font-medium rounded hover:bg-blue-600 transition"
+            className="inline-block px-4 py-2 bg-brightBlue bg-opacity-25 text-brightBlue font-medium rounded hover:bg-opacity-30 transition ease-in-out duration-300"
           >
             {resource.title}
-          </a>
+          </Link>
         ))}
       </div>
     </div>

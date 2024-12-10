@@ -32,7 +32,7 @@ const RealWorldSection: React.FC<RealWorldSectionProps> = ({ descriptiveText }) 
         </div>
         <div>
           <img
-            src="/path-to-image.jpg" // Replace with actual image path
+            src="/images/real-world-examples.png"
             alt="Illustration"
             className="w-full h-auto md:w-1/2"
           />
