@@ -1,6 +1,8 @@
 'use client';
 import React, { useState, useRef, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
+import FeedbackMessage from '../Actions/FeedbackMessage';
+import LogoTitle from '../LogoTitle';
 
 
 type SettingsType = {
@@ -18,6 +20,7 @@ type SettingsType = {
 const Settings: React.FC = () => {
     const router = useRouter();
     const cardRef = useRef<HTMLDivElement>(null);
+
     const [payLoanInBill, setPayLoanInBill] = useState(true);
     const [canTakeOutLoan, setCanTakeOutLoan] = useState(true);
     const [loansHaveInterest, setLoansHaveInterest] = useState(true);
@@ -31,6 +34,8 @@ const Settings: React.FC = () => {
     const [maxTaxes, setMaxTaxes] = useState<number | null>(null);
     const [isFocusedMT, setIsFocusedMT] = useState(false);
 
+    const [showFeedback, setShowFeedback] = useState(false);
+    
     // Close card when clicking outside of it
    useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
@@ -82,6 +87,29 @@ const Settings: React.FC = () => {
     const handleFocusMT = () => setIsFocusedMT(true);
     const handleBlurMT = () => setIsFocusedMT(false);
 
+    const handleSaveChanges = (e: React.FormEvent) => {
+        e.preventDefault();
+        setShowFeedback(true);
+    };
+
+    const handleCloseFeedback = () => {
+        router.push('/home');
+    };
+
+    if (showFeedback) {
+        return (
+            <div className="flex flex-col items-center bg-white p-10 lg:p-14 rounded-lg border border-gray-100 shadow-lg max-w-md md:max-w-lg lg:max-w-xl mx-auto mt-10">
+                <LogoTitle />
+                <FeedbackMessage
+                    status="success"
+                    message="Settings saved successfully!"
+                    onClose={handleCloseFeedback}
+                    onBack={() => setShowFeedback(false)}
+                />
+            </div>
+        );
+    }
+
     return (
         <div
         ref={cardRef}
@@ -94,7 +122,7 @@ const Settings: React.FC = () => {
                     <div className="flex-1 bg-brightBlue"></div>
                 </div>
             </header>
-            <form>
+            <form onSubmit={handleSaveChanges}>
                 <div className="mb-6">
                     <h2 className="font-bold mb-1">Bills and Payments</h2>
                     <div className="flex items-center space-x-3">
