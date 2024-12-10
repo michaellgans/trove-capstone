@@ -13,8 +13,8 @@ type ResourcesSectionProps = {
 const ResourcesSection: React.FC<ResourcesSectionProps> = ({ resources }) => {
   return (
     <div className="mb-8">
-      <h2 className="text-lg font-semibold mb-4">Resources</h2>
-      <div className="w-[140px] md:w-[180px] h-[4px] mb-4">
+      <h2 className="text-xl md:text-2xl font-semibold mb-2">Resources</h2>
+      <div className="w-[110px] md:w-[130px] h-[4px] mb-4">
         <svg
           xmlns="http://www.w3.org/2000/svg"
           width="100%"

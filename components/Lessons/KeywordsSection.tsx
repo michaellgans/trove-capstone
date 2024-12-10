@@ -7,8 +7,8 @@ type KeywordsSectionProps = {
 const KeywordsSection: React.FC<KeywordsSectionProps> = ({ keywords }) => {
   return (
     <div className="mb-8 bg-white p-5 rounded-lg shadow-md">
-      <h2 className="text-2xl font-semibold mb-2">Keywords</h2>
-      <div className="w-[140px] md:w-[120px] h-[4px] mb-4">
+      <h2 className="text-xl md:text-2xl font-semibold mb-2">Keywords</h2>
+      <div className="w-[110px] md:w-[120px] h-[4px] mb-4">
         <svg
           xmlns="http://www.w3.org/2000/svg"
           width="100%"

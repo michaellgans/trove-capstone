@@ -7,8 +7,8 @@ type RealWorldSectionProps = {
 const RealWorldSection: React.FC<RealWorldSectionProps> = ({ descriptiveText }) => {
   return (
     <div className="mb-8">
-      <h2 className="text-lg font-semibold mb-4">What is it in the Real World?</h2>
-      <div className="w-[140px] md:w-[180px] h-[4px] mb-4">
+      <h2 className="text-xl md:text-2xl font-semibold mb-2">What is it in the Real World?</h2>
+      <div className="w-[270px] md:w-[310px] h-[4px] mb-4">
         <svg
           xmlns="http://www.w3.org/2000/svg"
           width="100%"

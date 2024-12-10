@@ -15,28 +15,42 @@ type QuizSectionProps = {
 const QuizSection: React.FC<QuizSectionProps> = ({ quiz }) => {
   const [selectedAnswers, setSelectedAnswers] = useState<{ [key: number]: string }>({});
   const [feedback, setFeedback] = useState<{ [key: number]: 'correct' | 'incorrect' }>({});
+  const [submitted, setSubmitted] = useState(false);
 
   const handleOptionChange = (questionIndex: number, option: string) => {
     setSelectedAnswers((prev) => ({
       ...prev,
       [questionIndex]: option,
     }));
+
+    // Reset feedback for the current question if they change their answer
+    setFeedback((prev) => {
+      const newFeedback = { ...prev };
+      delete newFeedback[questionIndex];
+      return newFeedback;
+    });
   };
 
-  const handleSubmit = (questionIndex: number) => {
-    const userAnswer = selectedAnswers[questionIndex];
-    const correctAnswer = quiz[questionIndex].answer;
+  const handleSubmit = () => {
+    const newFeedback: { [key: number]: 'correct' | 'incorrect' } = {};
 
-    setFeedback((prev) => ({
-      ...prev,
-      [questionIndex]: userAnswer === correctAnswer ? 'correct' : 'incorrect',
-    }));
+    quiz.forEach((q, index) => {
+      const userAnswer = selectedAnswers[index];
+      newFeedback[index] = userAnswer === q.answer ? 'correct' : 'incorrect';
+    });
+
+    setFeedback(newFeedback);
+    setSubmitted(true);
+  };
+
+  const handleRetry = () => {
+    setSubmitted(false); // Only reset the submitted state
   };
 
   return (
     <div className="mb-8">
-      <h2 className="text-lg font-semibold mb-4">Quiz</h2>
-      <div className="w-[140px] md:w-[180px] h-[4px] mb-4">
+      <h2 className="text-xl md:text-2xl font-semibold mb-2">Quiz</h2>
+      <div className="w-[60px] md:w-[80px] h-[4px] mb-4">
         <svg
           xmlns="http://www.w3.org/2000/svg"
           width="100%"
@@ -64,6 +78,7 @@ const QuizSection: React.FC<QuizSectionProps> = ({ quiz }) => {
                     type="radio"
                     name={`question-${index}`}
                     value={option}
+                    checked={selectedAnswers[index] === option}
                     onChange={() => handleOptionChange(index, option)}
                     className="form-radio text-purple-500 focus:ring-purple-500"
                   />
@@ -71,26 +86,52 @@ const QuizSection: React.FC<QuizSectionProps> = ({ quiz }) => {
                 </label>
               ))}
             </div>
-            <button
-              onClick={() => handleSubmit(index)}
-              className="mt-4 bg-purple-500 text-white py-2 px-4 rounded hover:bg-purple-600"
-            >
-              Submit
-            </button>
             {feedback[index] && (
               <div
-                className={`mt-4 p-2 rounded ${
+                className={`mt-4 px-4 py-1 rounded-full inline-block ${
                   feedback[index] === 'correct'
                     ? 'bg-green-100 text-green-600'
                     : 'bg-red-100 text-red-600'
                 }`}
               >
-                {feedback[index] === 'correct' ? 'Correct!' : 'Try Again!'}
+                {feedback[index] === 'correct' ? 'Correct!' : 'Try again!'}
               </div>
             )}
           </div>
         ))}
       </div>
+      <div className="flex space-x-4 mt-6">
+        <button
+          onClick={handleSubmit}
+          className="bg-brightRed text-white py-2 px-6 rounded hover:brightness-110"
+        >
+          Submit
+        </button>
+        {submitted && (
+          <button
+            onClick={handleRetry}
+            className="text-yellow-950 bg-yellow-400 bg-opacity-30 py-2 px-6 rounded hover:bg-opacity-40"
+          >
+            Retry
+          </button>
+        )}
+      </div>
+      {submitted && (
+  <div
+    className={`mt-4 py-4 rounded ${
+      Object.values(feedback).every((val) => val === 'correct')
+        ? ' text-green-700'
+        : 'text-yellow-700'
+    }`}
+  >
+    <h3 className="text-lg font-bold">
+      {Object.values(feedback).every((val) => val === 'correct')
+        ? 'Well done! You got all the answers correct!'
+        : 'Good effort! Review the incorrect answers and try again.'}
+    </h3>
+  </div>
+)}
+
     </div>
   );
 };
