@@ -1,16 +1,17 @@
 import { prismaMock } from "../__mock__/prisma";
-import { newCheckingToSavingsTransfer } from "../lib/server-actions";
+import { newSavingsToCheckingTransfer } from "../lib/server-actions";
 
-describe("newCheckingToSavingsTransfer", () => {
+describe("newSavingsToCheckingTransfer", () => {
   const child_id = "child-id";
   const parent_id = "parent-id";
   const amount = 100;
+
   const mockParentAccount = {
     id: "parent-account-id",
-      parent_id: parent_id,
-      balance: 5000,
-      withholding_balance: 0,
-      stripe_account_id: null,
+    parent_id: parent_id,
+    balance: 5000,
+    withholding_balance: 0,
+    stripe_account_id: null,
   };
 
   const mockChildUser = {
@@ -35,13 +36,15 @@ describe("newCheckingToSavingsTransfer", () => {
     prismaMock.child_user.findUnique.mockResolvedValueOnce(mockChildUser);
     prismaMock.child_account.findUnique.mockResolvedValueOnce(mockChildAccount);
     prismaMock.parent_account.findUnique.mockResolvedValueOnce(null);
-    await expect(newCheckingToSavingsTransfer(child_id, 100)).rejects.toThrow("No parent account found");
+
+    await expect(newSavingsToCheckingTransfer(child_id, amount)).rejects.toThrow("No parent account found");
   });
 
   it("throws an error if child user or account does not exist", async () => {
     prismaMock.child_user.findUnique.mockResolvedValueOnce(null);
     prismaMock.child_account.findUnique.mockResolvedValueOnce(null);
-    await expect(newCheckingToSavingsTransfer(child_id, 100)).rejects.toThrow("No child user found");
+
+    await expect(newSavingsToCheckingTransfer(child_id, amount)).rejects.toThrow("No child user found");
   });
 
   it("creates a transaction and updates child account balances correctly", async () => {
@@ -49,7 +52,6 @@ describe("newCheckingToSavingsTransfer", () => {
     prismaMock.child_account.findUnique.mockResolvedValueOnce(mockChildAccount);
     prismaMock.parent_account.findUnique.mockResolvedValueOnce(mockParentAccount);
 
-    // Mock the transaction creation
     prismaMock.transaction.create.mockResolvedValueOnce({
       id: "transaction-id",
       timestamp: new Date(),
@@ -67,11 +69,11 @@ describe("newCheckingToSavingsTransfer", () => {
 
     prismaMock.child_account.update.mockResolvedValueOnce({
       ...mockChildAccount,
-      checking_balance: mockChildAccount.checking_balance - amount,
-      savings_balance: mockChildAccount.savings_balance + amount,
+      savings_balance: mockChildAccount.savings_balance - amount,
+      checking_balance: mockChildAccount.checking_balance + amount,
     });
 
-    await newCheckingToSavingsTransfer(child_id, amount);
+    await newSavingsToCheckingTransfer(child_id, amount);
 
     expect(prismaMock.transaction.create).toHaveBeenCalledWith({
       data: {
@@ -93,10 +95,10 @@ describe("newCheckingToSavingsTransfer", () => {
         child_id: child_id,
       },
       data: {
-        checking_balance: {
+        savings_balance: {
           decrement: amount,
         },
-        savings_balance: {
+        checking_balance: {
           increment: amount,
         },
       },

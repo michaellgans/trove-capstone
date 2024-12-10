@@ -103,7 +103,7 @@ export async function getChildAccountByChildId(child_id: string): Promise<Child_
       },
     });
 
-    if (!childAccount) {
+    if (!childAccount || childAccount.length === 0) {
       throw new Error();
     }
 
@@ -136,6 +136,30 @@ export async function getChildAccountByParentId(parent_id: string): Promise<Chil
   } catch (error) {
     // console.error(error);
     throw new Error('Unable to fetch child accounts');
+  }
+}
+
+export async function getAllTransactionsByParentUserId(parent_id: string): Promise<Transactions[]> {
+  try {
+    const parent_account = await prisma.parent_account.findUnique({
+      where: {
+        parent_id: parent_id,
+      },
+    });
+
+    if (!parent_account) {
+      throw new Error();
+    }
+
+    const transactionsByParentAccount = await prisma.transaction.findMany({
+      where: {
+        p_account_id: parent_account.id,
+      }
+    });
+
+    return transactionsByParentAccount;
+  } catch (error) {
+    throw new Error('Unable to fetch user transactions');
   }
 }
 
@@ -229,7 +253,7 @@ export async function getLoanWhereChildIsBorrower(child_id: string): Promise<Loa
     });
 
     if (!childAccount) {
-      throw new Error("No child user found");
+      throw new Error();
     }
 
     // Get Loan
@@ -238,6 +262,10 @@ export async function getLoanWhereChildIsBorrower(child_id: string): Promise<Loa
         borrower_id: childAccount.id
       }
     })
+
+    if (loan.length === 0) {
+      throw new Error();
+    }
 
     return loan;
   } catch (error) {
@@ -783,7 +811,7 @@ export async function newSavingsToCheckingTransfer(child_id: string, amount: num
     });
   } catch (error) {
     console.error(error);
-    throw new Error("Failed to complete checking to savings transfer")
+    throw error;
   }
 }
 
@@ -844,7 +872,7 @@ export async function transferWithholdings(parent_id: string, amount: number) {
     });
   } catch (error) {
     console.error(error);
-    throw new Error("Failed to complete withholdings transfer")
+    throw error;
   }
 }
 
@@ -978,7 +1006,7 @@ export async function newParentToChildLoan(lender_id: string, borrower_id: strin
     });
   } catch (error) {
     console.error(error);
-    throw new Error("Failed to create parent to child loan");
+    throw error;
   }
 }
 
@@ -1086,7 +1114,7 @@ export async function newChildToChildLoan(lender_id: string, borrower_id: string
     });
   } catch (error) {
     console.error(error);
-    throw new Error("Failed to create child to child loan");
+    throw error;
   }
 }
 
@@ -1204,7 +1232,7 @@ export async function newChildToParentLoanPayment(lender_id: string, borrower_id
     }
   } catch (error) {
     console.error(error);
-    throw new Error("Failed to complete child to parent loan payment");
+    throw error;
   }
 }
 
@@ -1322,7 +1350,7 @@ export async function newChildToChildLoanPayment(lender_id: string, borrower_id:
     }
   } catch (error) {
     console.error(error);
-    throw new Error("Failed to complete child to child loan payment");
+    throw error;
   }
 }
 
@@ -1334,7 +1362,7 @@ export async function newChildToChildLoanPayment(lender_id: string, borrower_id:
  */
 export async function deleteAccount(parent_id: string) {
   try {
-    prisma.parent_user.delete({
+    await prisma.parent_user.delete({
       where: {
         id: parent_id,
       },
