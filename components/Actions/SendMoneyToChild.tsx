@@ -153,7 +153,7 @@ const SendMoneyToChildCard: React.FC = () => {
   return (
     <div
     ref={cardRef}
-    className="flex flex-col items-center bg-white p-10 lg:p-14 sm:rounded-lg border border-gray-100 shadow-lg max-w-md md:max-w-lg lg:max-w-xl mx-auto mt-0 md:mt-10">
+    className="flex flex-col items-center bg-white p-10 lg:p-14 sm:rounded-lg border border-gray-100 shadow-lg max-w-md md:max-w-lg lg:max-w-xl mx-auto mt-0 md:mt-10 mb-0 sm:mb-10">
       <LogoTitle />
       {transactionStatus ? (
         <FeedbackMessage
