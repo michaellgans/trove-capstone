@@ -103,7 +103,7 @@ export async function getChildAccountByChildId(child_id: string): Promise<Child_
       },
     });
 
-    if (childAccount.length === 0) {
+    if (!childAccount) {
       throw new Error();
     }
 
@@ -219,7 +219,7 @@ export async function getTransactionsByChildId(child_id: string): Promise<Transa
  * @param child_id - The ID of the child to fetch by.
  * @returns Loan object.
  */
-export async function getLoanWhereChildIsBorrower(child_id: string): Promise<Loans> {
+export async function getLoanWhereChildIsBorrower(child_id: string): Promise<Loans[]> {
   try {
     // Get Child Account
     const childAccount = await prisma.child_account.findUnique({

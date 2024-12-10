@@ -256,6 +256,33 @@ box-shadow: 0px 2px 4px 0px rgba(0, 0, 0, 0.25);
    #FFF;
 }
 
+#gradial-blobs {
+    background: 
+    linear-gradient(to left, rgba(255, 255, 255, 0) 0%, #ffffff 100%),
+    radial-gradient(
+      circle at 95% 74%,
+      rgba(246, 2, 2, 0.3) 0%,
+      rgba(254, 51, 2, 0) 25%
+    ),
+    radial-gradient(
+      circle at 95% 5.03%,
+      rgba(232, 240, 3, 0.4) 0%,
+      rgba(254, 192, 1, 0) 25%
+    ),
+    radial-gradient(
+      circle at 70% 120.84%,
+      rgba(136, 245, 3, 0.3) 0%,
+      rgba(75, 112, 31, 0) 20%
+    ),
+    radial-gradient(
+      circle at 70% 0.74%,
+      rgba(3, 55, 245, 0.3) 0%,
+      rgba(2, 85, 238, 0) 30%
+    ),
+   #FFF;
+}
+
+
 .carousel-wrapper {
   position: relative;
   overflow: hidden;
