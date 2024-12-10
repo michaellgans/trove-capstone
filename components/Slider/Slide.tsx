@@ -76,7 +76,7 @@ export const Slide: React.FC<SlideProps> = ({
         slide.id === "gradial-walk" ? "-mt-3" : ""
       }
       ${
-        slide.id === "gradial-fly" ? "scale-95" : "" /* Slightly decrease size */
+        slide.id === "gradial-fly" ? "scale-90" : "" /* Slightly decrease size */
       }
       lg:pt-6 ${
         slide.flipImage ? "-scale-x-100" : ""
