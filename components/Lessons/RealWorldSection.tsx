@@ -2,9 +2,22 @@ import React from 'react';
 
 type RealWorldSectionProps = {
   descriptiveText: string[];
+  keywords: { term: string; definition: string }[];
 };
 
-const RealWorldSection: React.FC<RealWorldSectionProps> = ({ descriptiveText }) => {
+const RealWorldSection: React.FC<RealWorldSectionProps> = ({ descriptiveText, keywords }) => {
+  // Highlight function
+  const highlightKeywords = (text: string) => {
+    const regex = new RegExp(
+      `\\b(${keywords.map((k) => `${k.term}(s)?`).join('|')})\\b`,
+      'gi'
+    );
+    return text.replace(
+      regex,
+      (matched) => `<span class="text-brightBlue font-bold">${matched}</span>`
+    );
+  };
+
   return (
     <div className="mb-8">
       <h2 className="text-xl md:text-2xl font-semibold mb-2">What is it in the Real World?</h2>
@@ -25,9 +38,11 @@ const RealWorldSection: React.FC<RealWorldSectionProps> = ({ descriptiveText }) 
       <div className="grid md:grid-cols-2 gap-4">
         <div>
           {descriptiveText.map((paragraph, index) => (
-            <p key={index} className="mb-4">
-              {paragraph}
-            </p>
+            <p
+              key={index}
+              className="mb-4"
+              dangerouslySetInnerHTML={{ __html: highlightKeywords(paragraph) }}
+            ></p>
           ))}
         </div>
         <div>

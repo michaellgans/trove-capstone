@@ -25,12 +25,16 @@ export default function LessonPage({ params }: LessonPageProps) {
     <div className="container mx-auto px-4 py-8">
       <TitleSection lessonName={lesson.majorTitle} />
       <KeywordsSection keywords={lesson.keywords} />
-      <RealWorldSection descriptiveText={lesson.descriptiveText} />
+      <RealWorldSection
+        descriptiveText={lesson.descriptiveText}
+        keywords={lesson.keywords}
+      />
       <ExamplesSection
         example={lesson.example}
         mathEquations={lesson.mathEquations || []}
         imageSrc="/images/equations.png"
         imageAlt="Examples illustration"
+        keywords={lesson.keywords}
       />
       <QuizSection quiz={lesson.quiz} />
       <ConclusionSection conclusion={lesson.conclusion} />
