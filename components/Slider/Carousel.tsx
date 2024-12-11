@@ -29,10 +29,10 @@ export const Carousel: React.FC = () => {
         pagination={{
           clickable: true,
         }}
-        autoplay={{ delay: 4000, disableOnInteraction: false }}
+        autoplay={{ delay: 6000, disableOnInteraction: false }}
         loop={true}
         slidesPerView={1}
-        speed={1000}
+        speed={1500}
         onSlideChange={handleSlideChange} // Sync index with active slide
       >
         {slides.map((slide, index) => (
