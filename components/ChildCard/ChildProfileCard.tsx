@@ -69,8 +69,8 @@ const ChildProfileCard: React.FC<Props> = ({
             {/* Trove Checking Account */}
             <AccountBalanceChildCard
             label="Trove Checking Account:"
-            balance={centsToDollars(childAccountInfo.checking_balance)}
-            // balance={centsToDollars(childAccountInfo.checking_balance).toString()}
+            // balance={centsToDollars(childAccountInfo.checking_balance)}
+            balance={centsToDollars(childAccountInfo.checking_balance).toString()}
             selectedCurrency={selectedCurrency}
             onCurrencyChange={handleCurrencyChange}
             />
@@ -78,12 +78,12 @@ const ChildProfileCard: React.FC<Props> = ({
             {/* Trove Savings Account */}
             <AccountBalanceChildCard
               label="Trove Savings Account:"
-              balance={!childAccountInfo.savings_balance ? "N/A" : centsToDollars(childAccountInfo.savings_balance)}
-              // balance={
-              //   !childAccountInfo.savings_balance
-              //     ? "N/A"
-              //     : centsToDollars(childAccountInfo.savings_balance).toString()
-              // }
+              // balance={!childAccountInfo.savings_balance ? "N/A" : centsToDollars(childAccountInfo.savings_balance)}
+              balance={
+                !childAccountInfo.savings_balance
+                  ? "N/A"
+                  : centsToDollars(childAccountInfo.savings_balance).toString()
+              }
               selectedCurrency={selectedCurrency}
               onCurrencyChange={handleCurrencyChange}
             />
