@@ -167,7 +167,6 @@ const ChildAccountSetup: React.FC<ChildAccountSetupProps> = ({
 
     if (isValid) {
       // Proceed to the next step
-      console.log('Child account setup completed');
       nextStep();
     }
   };

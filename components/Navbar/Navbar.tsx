@@ -107,7 +107,6 @@ const Navbar: FC = () => {
 
       ),
       action: (member: Child) => {
-        console.log(`Sending money to ${member.name}`);
         router.push(`/send?to=${member.id}`);
       },
     },
@@ -132,7 +131,6 @@ const Navbar: FC = () => {
 
       ),
       action: (member: Child) => {
-        console.log(`Viewing history for ${member.name}`);
         router.push(`/home/#history?member=${member.id}`);
       },
     },
@@ -162,7 +160,6 @@ const Navbar: FC = () => {
 
       ),
       action: (member: Child) => {
-        console.log(`Viewing settings for ${member.name}`);
         router.push(`/settings?member=${member.id}`);
       },
     },

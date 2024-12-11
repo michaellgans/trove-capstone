@@ -56,21 +56,6 @@ const EmailSignInCard: React.FC = () => {
       setError(newError);
       throw new Error("Login attempt failed");
     }
-
-    // Check mock user credentials
-    // const user = mockUsers.find((user) => user.email === email && user.password === password);
-    // if (!user) {
-    //   newError.email = "Invalid email or password";
-    //   newError.password = "Invalid email or password";
-    //   isValid = false;
-    // }
-  
-    // setError(newError);
-  
-    // if (isValid) {
-    //   console.log("Mock sign-in successful");
-    //   router.push("/home"); // Redirect to the home page
-    // }
   };
   
 
