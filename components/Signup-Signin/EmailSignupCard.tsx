@@ -111,7 +111,6 @@ const EmailSignupCard: React.FC<SignUpCardProps> = ({
 
     if (isValid) {
       // Handle successful form submission
-      console.log('Form submitted successfully');
       nextStep(); // Move to the next step
     }
   };
