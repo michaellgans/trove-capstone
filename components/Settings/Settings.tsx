@@ -179,12 +179,12 @@ const Settings: React.FC = () => {
                                 <div className="relative w-full">
                                     <input
                                         type="number"
-                                        placeholder={isFocusedML || maxLoan !== null ? '' : 'N/A'}
+                                        placeholder={isFocusedML || maxLoan !== null ? '' : '$ N/A'}
                                         value={maxLoan || ''}
                                         onChange={handleMaxLoan}
                                         onFocus={handleFocusML}
                                         onBlur={handleBlurML}
-                                        className="pl-8 w-full px-4 py-3 rounded-lg border focus:outline-none focus:ring-2 focus:ring-opacity-50"
+                                        className="pl-6 w-full px-4 py-3 rounded-lg border focus:outline-none focus:ring-2 focus:ring-opacity-50"
                                     />
                                     <span
                                         className={`absolute inset-y-0 left-3 flex items-center text-gray-500 transition-opacity ${
@@ -225,7 +225,7 @@ const Settings: React.FC = () => {
                                     <div className="flex">
                                         <input
                                             type="number"
-                                            placeholder={isFocusedMI || maxInterest !== null ? '' : 'N/A'}
+                                            placeholder={isFocusedMI || maxInterest !== null ? '' : 'N/A %'}
                                             value={maxInterest || ''}
                                             onChange={handleMaxInterest}
                                             onFocus={handleFocusMI}
@@ -321,22 +321,24 @@ const Settings: React.FC = () => {
                     <div className="flex flex-col mb-6 relative">
                         <label className="font-light mb-1">Maximum Taxes</label>
                         <div className="relative w-full">
+                          <div className="flex">
                             <input
                                 type="number"
-                                placeholder={isFocusedMT || maxTaxes !== null ? '' : 'N/A'}
+                                placeholder={isFocusedMT || maxTaxes !== null ? '' : 'N/A %'}
                                 value={maxTaxes || ''}
                                 onChange={handleMaxTaxes}
                                 onFocus={handleFocusMT}
                                 onBlur={handleBlurMT}
-                                className="pl-8 w-full px-4 py-3 rounded-lg border focus:outline-none focus:ring-2 focus:ring-opacity-50"
+                                className="pr-8 w-full px-4 py-3 rounded-lg border focus:outline-none focus:ring-2 focus:ring-opacity-50 text-right"
                             />
                             <span
-                                className={`absolute inset-y-0 left-3 flex items-center text-gray-500 transition-opacity ${
+                                className={`absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-600 transition-opacity ${
                                     isFocusedMT || maxTaxes !== null ? 'opacity-100' : 'opacity-0'
                                 }`}
                             >
-                            $
+                            %
                             </span>
+                          </div>
                         </div>
                     </div>
                 </div>
