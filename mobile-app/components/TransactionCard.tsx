@@ -21,13 +21,13 @@ export function TransactionCard() {
       <View
         style={styles.transfer}
       >
-        <UserPhotoSmall />
+        <UserPhotoSmall source={require("../assets/images/avatarSmall.png")} />
         <View
           style={styles.icon}
         >
           <ArrowIcon />
         </View>
-        <UserPhotoSmall />
+        <UserPhotoSmall source={require("../assets/images/avatarSmall2.png")} />
       </View>
       <FinancialInput symbol="$" type="USD" />
       <CustomButton label="Send Money" color="#0255EE" />

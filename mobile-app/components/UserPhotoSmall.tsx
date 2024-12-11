@@ -1,15 +1,20 @@
 // UserPhotoSmall Component
 
 // Asset Imports
-import { Image, StyleSheet } from "react-native";
+import { Image, StyleSheet, ImageSourcePropType } from "react-native";
+
+// Types
+type UserPhotoSmallProps = {
+  source: ImageSourcePropType;
+};
 
 // Returns a UserPhotoSmall Component
-export function UserPhotoSmall() {
+export function UserPhotoSmall({ source }: UserPhotoSmallProps) {
     // Define Hook
     return (
       <Image
         style={styles.image}
-        source={require("../assets/images/avatarSmall.png")}
+        source={source}
       ></Image>
     );
 }
