@@ -2,7 +2,8 @@
 import React, { useState, useEffect } from 'react';
 import TitleSection from '../TitleSection';
 import ProfileImage from './ProfileImage';
-import AccountBalance from './AccountBalance';
+// import AccountBalance from './AccountBalance';
+import AccountBalanceChildCard from './AccountBalanceChildCard';
 import ProgressCircle from './ProgressCircle';
 import ActionButtons from './ActionButtons';
 import { useSession } from 'next-auth/react';
@@ -66,17 +67,23 @@ const ChildProfileCard: React.FC<Props> = ({
           {/* Middle Section - Account Balances */}
           <div className="flex mt-5 md:mt-0 flex-col justify-center">
             {/* Trove Checking Account */}
-            <AccountBalance
+            <AccountBalanceChildCard
             label="Trove Checking Account:"
             balance={centsToDollars(childAccountInfo.checking_balance)}
+            // balance={centsToDollars(childAccountInfo.checking_balance).toString()}
             selectedCurrency={selectedCurrency}
             onCurrencyChange={handleCurrencyChange}
             />
 
             {/* Trove Savings Account */}
-            <AccountBalance
+            <AccountBalanceChildCard
               label="Trove Savings Account:"
               balance={!childAccountInfo.savings_balance ? "N/A" : centsToDollars(childAccountInfo.savings_balance)}
+              // balance={
+              //   !childAccountInfo.savings_balance
+              //     ? "N/A"
+              //     : centsToDollars(childAccountInfo.savings_balance).toString()
+              // }
               selectedCurrency={selectedCurrency}
               onCurrencyChange={handleCurrencyChange}
             />
