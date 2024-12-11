@@ -51,6 +51,7 @@ export async function getChildrenByParent(parent_id: string): Promise<Child[]> {
       }
     });
 
+    // throws error if children array is empty
     if (children.length === 0) {
       throw new Error();
     }
@@ -75,6 +76,7 @@ export async function getParentAccountByParentId(parent_id: string): Promise<Par
       },
     });
 
+    // Throws error if parent_account does not exist
     if (!parentAccount) {
       throw new Error();
     }
@@ -99,6 +101,7 @@ export async function getChildAccountByChildId(child_id: string): Promise<Child_
       },
     });
 
+    // Throws error if child_account does not exist or is an empty array
     if (!childAccount || childAccount.length === 0) {
       throw new Error();
     }
@@ -123,6 +126,7 @@ export async function getChildAccountByParentId(parent_id: string): Promise<Chil
       },
     });
 
+    // Throws an error is an empty array is returned
     if (childAccountByParentAccount.length === 0) {
       throw new Error();
     }
@@ -141,6 +145,7 @@ export async function getAllTransactionsByParentUserId(parent_id: string): Promi
       },
     });
 
+    // Throws an error if parent_account doesn't exist
     if (!parent_account) {
       throw new Error();
     }
@@ -171,6 +176,7 @@ export async function getAllTransactionsByParentAccountId(p_account_id: string):
       },
     });
 
+    // Throws an error if the array is empty
     if (transactionsByParentAccount.length === 0) {
       throw new Error();
     }

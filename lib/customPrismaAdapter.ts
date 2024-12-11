@@ -1,10 +1,12 @@
+// Custom Prisma adapter
 import { Adapter, AdapterAccount, AdapterUser } from "next-auth/adapters";
 import { PrismaAdapter } from "@next-auth/prisma-adapter";
 
-
+// Extend default behavior with custom user handling
 export const CustomPrismaAdapter = (prisma: any): Adapter => {
   const adapter = PrismaAdapter(prisma);
 
+  // Fetch user by ID
   return {
     ...adapter,
     async getUser(id) {
@@ -24,6 +26,8 @@ export const CustomPrismaAdapter = (prisma: any): Adapter => {
         emailVerified: null,
       }
     },
+
+    // Retrieve user by email
     async getUserByEmail(email) {
       const user = await prisma.parent_user.findUnique({
         where: { email },
@@ -41,6 +45,8 @@ export const CustomPrismaAdapter = (prisma: any): Adapter => {
         emailVerified: null
       }
     },
+
+    // Create a new user record in the database
     async createUser(user: AdapterUser) {
       return prisma.parent_user.create({
         data: {
@@ -50,6 +56,8 @@ export const CustomPrismaAdapter = (prisma: any): Adapter => {
         },
       });
     },
+
+    // Link an external account to a user
     async linkAccount(account: AdapterAccount) {
       return prisma.account.create({
         data: {
@@ -59,6 +67,8 @@ export const CustomPrismaAdapter = (prisma: any): Adapter => {
         },
       });
     },
+
+    // Retrieve user associated with a specific account
     async getUserByAccount({ provider, providerAccountId }) {
       const account = await prisma.account.findUnique({
         where: {
