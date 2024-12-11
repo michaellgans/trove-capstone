@@ -50,7 +50,7 @@ const HomeSkeleton: React.FC = () => {
       <div className="mt-7 mb-7">
         <div className="h-10 w-72 bg-gradient-to-r from-brightRed/10 via-brightYellow/10 to-brightBlue/10 animate-gradient-pulse mx-auto rounded-md"></div>
       </div>
-      <div className="space-y-4">
+      <div className="space-y-4 mx-4">
         {Array(3)
           .fill("")
           .map((_, i) => (

@@ -32,14 +32,14 @@ const SignInCard: React.FC = () => {
   return (
     <div
     ref={cardRef}
-     className="flex relative flex-col items-center bg-white p-10 rounded-lg border border-1 border-gray-100 shadow-lg max-w-md mx-auto mt-10 z-40">
+     className="flex relative flex-col items-center bg-white p-10 rounded-lg border border-1 border-gray-100 shadow-lg max-w-xs md:max-w-md mx-auto mt-10 z-40">
       {/* Logo and Title */}
       <LogoTitle />
 
       {/* Sign Up Buttons */}
       <div className="w-full flex flex-col space-y-4">
         <button
-          className="flex items-center justify-center w-[80%] px-4 py-3 rounded-full border border-gray-300 hover:bg-gray-100 transition ease-in-out duration-300 mx-auto"
+          className="flex items-center justify-center w-full md:w-[80%] px-4 py-3 rounded-full border border-gray-300 hover:bg-gray-100 transition ease-in-out duration-300 mx-auto"
           onClick={handleGoogleSignIn}
         >
           <FcGoogle className="mr-3 w-6 h-6" />
@@ -47,7 +47,7 @@ const SignInCard: React.FC = () => {
         </button>
         <Link href="/login/email" passHref>
           <button
-            className="flex items-center justify-center w-[80%] px-4 py-3 rounded-full bg-brightRed text-white hover:brightness-110 transition ease-in-out duration-300 mx-auto"
+            className="flex items-center justify-center w-full md:w-[80%] px-4 py-3 rounded-full bg-brightRed text-white hover:brightness-110 transition ease-in-out duration-300 mx-auto"
           >
             <FaEnvelope className="mr-3 w-6 h-6" />
             Sign in with Email

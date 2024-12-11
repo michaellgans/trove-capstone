@@ -14,7 +14,7 @@ export const Slider: React.FC = () => {
 
   useEffect(() => {
     if (sliderRef.current && !isTransitioning) {
-      sliderRef.current.style.transition = "transform 0.7s ease-in-out";
+      sliderRef.current.style.transition = "transform 3s ease-in-out";
     }
   }, [currentIndex, isTransitioning]);
 
@@ -51,7 +51,7 @@ export const Slider: React.FC = () => {
         setIsTransitioning(true);
         setCurrentIndex((prev) => prev + 1);
       }
-    }, 4000); // Change slide every 4 seconds
+    }, 8000); // Change slide every 8 seconds
 
     return () => {
       if (intervalRef.current) clearInterval(intervalRef.current);

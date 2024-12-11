@@ -77,7 +77,7 @@ const EmailSignInCard: React.FC = () => {
   return (
     <div
     ref={cardRef}
-    className="flex relative flex-col items-center bg-white p-10 rounded-lg border border-gray-100 shadow-lg max-w-md mx-auto mt-10">
+    className="flex relative flex-col items-center bg-white p-10 sm:rounded-lg border border-gray-100 sm:shadow-lg max-w-md mx-auto mt-0 sm:mt-10">
       <LogoTitle />
       {/* Sign In Form */}
       <form onSubmit={handleSubmit} className="w-full" noValidate>

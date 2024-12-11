@@ -179,7 +179,7 @@ const ChildAccountSetup: React.FC<ChildAccountSetupProps> = ({
   const router = useRouter();
 
   return (
-    <div className="flex flex-col items-center bg-white p-10 rounded-lg border border-gray-100 shadow-lg max-w-md lg:max-w-2xl mx-auto mt-5">
+    <div className="flex flex-col items-center bg-white p-10 sm:rounded-lg border border-gray-100 shadow-lg max-w-md lg:max-w-2xl mx-auto mt-0 sm:mt-5">
       {/* Progress Indicator */}
       <ProgressIndicator currentStep={2} totalSteps={3} />
       <LogoTitle />
