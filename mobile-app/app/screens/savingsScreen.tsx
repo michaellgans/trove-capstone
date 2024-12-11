@@ -1,10 +1,22 @@
-// Home Screen
-import { View, StyleSheet } from "react-native";
+// savingsScreen Component
+
+// Asset Imports
+import { View, Text, StyleSheet } from "react-native";
 import { LinearGradient } from "expo-linear-gradient";
 import { UserPhoto } from "@/components/UserPhoto";
 import { BalanceCard } from "@/components/BalanceCard";
 
-export default function HomeScreen() {
+// Script Imports
+
+// Types
+type savingsScreenProps = {
+    prop: type;
+    prop: type;
+};
+
+// Returns a savingsScreen Component
+export default function savingsScreen({}: savingsScreenProps) {
+  // Define Hook
   return (
     <LinearGradient
       colors={["rgba(2, 85, 238, 0.30)", "#FFFFFF", "#FFFFFF", "#FFFFFF", "#FFFFFF"]}
@@ -13,9 +25,7 @@ export default function HomeScreen() {
       <View style={styles.banner}>
       </View>
       <View style={styles.cardsContainer}>
-        <BalanceCard accountBalance={100.00} accountName="Checking" />
-        <BalanceCard accountBalance={100.00} accountName="Savings" />
-        <BalanceCard accountBalance={100.00} accountName="Loans" />
+        <Text>Savings Coming Soon!</Text>
       </View>
       <View style={styles.userIcon}>
           <UserPhoto />
@@ -23,7 +33,7 @@ export default function HomeScreen() {
     </LinearGradient>
   );
 }
-
+  
 const styles = StyleSheet.create({
   background: {
     flex: 1,
@@ -56,4 +66,4 @@ const styles = StyleSheet.create({
     top: 40,
   },
 });
-
+  
