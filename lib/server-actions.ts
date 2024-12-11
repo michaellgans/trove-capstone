@@ -14,7 +14,6 @@ import { dollarsToCents, centsToDollars } from "./utils";
  */
 export async function getParentById(parent_id: string): Promise<Parent> {
   try {
-    console.log("Fetching parent for ID:", parent_id);
     const parent = await prisma.parent_user.findUnique({
       where: {
         id: parent_id,
@@ -27,7 +26,6 @@ export async function getParentById(parent_id: string): Promise<Parent> {
 
     return parent;
   } catch (error) {
-    // console.error(error);
     throw new Error("Unable to fetch parent");
   }
 }
@@ -59,7 +57,6 @@ export async function getChildrenByParent(parent_id: string): Promise<Child[]> {
 
     return children;
   } catch (error) {
-    // console.error(error);
     throw new Error("Unable to fetch children");
   }
 }
@@ -84,7 +81,6 @@ export async function getParentAccountByParentId(parent_id: string): Promise<Par
 
     return parentAccount;
   } catch (error) {
-    // console.error(error);
     throw new Error('Unable to fetch parent account');
   }
 }
@@ -109,7 +105,6 @@ export async function getChildAccountByChildId(child_id: string): Promise<Child_
 
     return childAccount;
   } catch (error) {
-    // console.error(error);
     throw new Error('Unable to fetch child account');
   }
 }
@@ -134,7 +129,6 @@ export async function getChildAccountByParentId(parent_id: string): Promise<Chil
 
     return childAccountByParentAccount;
   } catch (error) {
-    // console.error(error);
     throw new Error('Unable to fetch child accounts');
   }
 }
@@ -183,7 +177,6 @@ export async function getAllTransactionsByParentAccountId(p_account_id: string):
 
     return transactionsByParentAccount;
   } catch (error) {
-    // console.error(error);
     throw new Error('Unable to fetch account transactions');
   }
 }
@@ -232,7 +225,6 @@ export async function getTransactionsByChildId(child_id: string): Promise<Transa
 
     return allTransactionsByChild;
   } catch (error) {
-    // console.error(error);
     throw new Error('Unable to fetch transactions');
   }
 }
@@ -318,7 +310,6 @@ export async function getLoansByChildId(child_id: string): Promise<Loans[]> {
 
     return allLoansByChild;
   } catch (error) {
-    // console.error(error);
     throw new Error('Unable to fetch loans');
   }
 }
@@ -346,7 +337,6 @@ export async function getWithholdingBalanceByParentAccount(p_account_id: string)
 
     return (parentWithholdings.withholding_balance);
   } catch (error) {
-    // console.error(error);
     throw new Error('Unable to fetch withholding balance');
   }  
 }
@@ -484,9 +474,7 @@ export async function newParentToChildTransfer(parent_id: string, child_id: stri
       });
     }
   } catch (error) {
-    console.error(error);
     throw error;
-    // throw new Error("Failed to complete parent to child transfer");
   }
 }
 
@@ -582,7 +570,6 @@ export async function newChildToChildTransfer(from_child_id: string, to_child_id
       },
     });
   } catch (error) {
-    console.error(error);
     throw error;
   }
 }
@@ -668,7 +655,6 @@ export async function newChildToParentTransfer(child_id: string, parent_id: stri
       },
     });
   } catch (error) {
-    console.error(error);
     throw error;
   }
 }
@@ -739,7 +725,6 @@ export async function newCheckingToSavingsTransfer(child_id: string, amount: num
       },
     });
   } catch (error) {
-    console.error(error);
     throw error;
   }
 }
@@ -810,7 +795,6 @@ export async function newSavingsToCheckingTransfer(child_id: string, amount: num
       },
     });
   } catch (error) {
-    console.error(error);
     throw error;
   }
 }
@@ -871,7 +855,6 @@ export async function transferWithholdings(parent_id: string, amount: number) {
       },
     });
   } catch (error) {
-    console.error(error);
     throw error;
   }
 }
@@ -897,7 +880,6 @@ export async function updateWithholdingsBalance(parent_account_id: string, withh
       },
     });
   } catch (error) {
-    console.error(error);
     throw new Error("Failed to update withholdings balance");
   }
 }
@@ -1005,7 +987,6 @@ export async function newParentToChildLoan(lender_id: string, borrower_id: strin
       },
     });
   } catch (error) {
-    console.error(error);
     throw error;
   }
 }
@@ -1113,7 +1094,6 @@ export async function newChildToChildLoan(lender_id: string, borrower_id: string
       },
     });
   } catch (error) {
-    console.error(error);
     throw error;
   }
 }
@@ -1231,7 +1211,6 @@ export async function newChildToParentLoanPayment(lender_id: string, borrower_id
       });
     }
   } catch (error) {
-    console.error(error);
     throw error;
   }
 }
@@ -1349,7 +1328,6 @@ export async function newChildToChildLoanPayment(lender_id: string, borrower_id:
       });
     }
   } catch (error) {
-    console.error(error);
     throw error;
   }
 }
@@ -1368,7 +1346,6 @@ export async function deleteAccount(parent_id: string) {
       },
     });
   } catch (error) {
-    console.error(error);
     throw new Error("Failed to delete account");
   }
 }
