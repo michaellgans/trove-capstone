@@ -57,6 +57,7 @@ const styles = StyleSheet.create({
   hintContainer: {
     justifyContent: 'center',
     flexDirection: 'row',
+    paddingTop: 20,
   },
   hint: {
     color: '#6C6F6F',

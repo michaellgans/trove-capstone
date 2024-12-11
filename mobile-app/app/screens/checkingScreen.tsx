@@ -5,17 +5,10 @@ import { View, Text, StyleSheet } from "react-native";
 import { LinearGradient } from "expo-linear-gradient";
 import { UserPhoto } from "@/components/UserPhoto";
 import { BalanceCard } from "@/components/BalanceCard";
-
-// Script Imports
-
-// Types
-type checkingScreenProps = {
-    prop: type;
-    prop: type;
-};
+import { TransactionCard } from "@/components/TransactionCard";
 
 // Returns a checkingScreen Component
-export default function checkingScreen({}: checkingScreenProps) {
+export default function checkingScreen() {
   // Define Hook
   return (
     <LinearGradient
@@ -26,6 +19,7 @@ export default function checkingScreen({}: checkingScreenProps) {
       </View>
       <View style={styles.cardsContainer}>
         <BalanceCard accountBalance={100.00} accountName="Checking" color="#0255EE"/>
+        <TransactionCard></TransactionCard>
       </View>
       <View style={styles.userIcon}>
           <UserPhoto />
