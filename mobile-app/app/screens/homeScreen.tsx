@@ -15,7 +15,7 @@ export default function HomeScreen() {
       <View style={styles.cardsContainer}>
         <BalanceCard accountBalance={100.00} accountName="Checking" color="#0255EE"/>
         <BalanceCard accountBalance={100.00} accountName="Savings" color="#0255EE" />
-        <BalanceCard accountBalance={100.00} accountName="Loans" color="#0255EE" />
+        <BalanceCard accountBalance={100.00} accountName="Loans" color="#0255EE"/>
       </View>
       <View style={styles.userIcon}>
           <UserPhoto />

@@ -19,7 +19,7 @@ export default function savingsScreen({}: savingsScreenProps) {
   // Define Hook
   return (
     <LinearGradient
-      colors={["rgba(2, 85, 238, 0.30)", "#FFFFFF", "#FFFFFF", "#FFFFFF", "#FFFFFF"]}
+      colors={["rgba(106, 136, 71, 0.40)", "#FFFFFF", "#FFFFFF", "#FFFFFF", "#FFFFFF"]}
       style={styles.background}
     >
       <View style={styles.banner}>

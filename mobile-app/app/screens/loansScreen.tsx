@@ -18,7 +18,7 @@ type loansScreenProps = {
 export default function loansScreen({}: loansScreenProps) {
   return (
     <LinearGradient
-      colors={["rgba(2, 85, 238, 0.30)", "#FFFFFF", "#FFFFFF", "#FFFFFF", "#FFFFFF"]}
+      colors={["rgba(249, 87, 48, 0.4)", "#FFFFFF", "#FFFFFF", "#FFFFFF", "#FFFFFF"]}
       style={styles.background}
     >
       <View style={styles.banner}>
@@ -44,7 +44,7 @@ const styles = StyleSheet.create({
   banner: {
     height: "80%",
     width: "100%",
-    backgroundColor: "#4E88F4",
+    backgroundColor: "#F76745",
     borderTopLeftRadius: 50,
     borderTopRightRadius: 50,
     position: "absolute",

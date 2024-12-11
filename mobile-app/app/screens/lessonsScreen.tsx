@@ -1,22 +1,32 @@
 // Lessons Screen
-import { View, Text, StyleSheet } from "react-native";
+import { View, Text, Image, StyleSheet } from "react-native";
 import { LinearGradient } from "expo-linear-gradient";
 import { UserPhoto } from "@/components/UserPhoto";
 import { BalanceCard } from "@/components/BalanceCard";
+import { Keywords } from "@/components/Keywords";
 
 export default function LessonsScreen() {
   return (
     <LinearGradient
-      colors={["rgba(2, 85, 238, 0.30)", "#FFFFFF", "#FFFFFF", "#FFFFFF", "#FFFFFF"]}
+      colors={["#FFFFFF", "#FFFFFF", "#FFFFFF", "#FFFFFF", "rgba(249, 200, 47, 0.30)" ]}
       style={styles.background}
     >
-      <View style={styles.banner}>
+      {/* Banner */}
+      <View
+        style={styles.banner}>
+        <Image
+            source={require('@/assets/images/lessonsBanner.png')}
+            style={styles.bannerImage}
+        />
+      </View>
+      <View
+        style={styles.kashContainer}>
+        <Image 
+          source={require('@/assets/images/kashFlyingLessons.png')}
+        />
       </View>
       <View style={styles.cardsContainer}>
-        <Text>Lessons Coming Soon!</Text>
-      </View>
-      <View style={styles.userIcon}>
-          <UserPhoto />
+        <Keywords />
       </View>
     </LinearGradient>
   );
@@ -31,26 +41,28 @@ const styles = StyleSheet.create({
     alignItems: "center",
   },
   banner: {
-    height: "80%",
-    width: "100%",
-    backgroundColor: "#4E88F4",
-    borderTopLeftRadius: 50,
-    borderTopRightRadius: 50,
-    position: "absolute",
-    bottom: 0,
+    position: 'absolute',
+    top: 0,
+    left: 0,
+    right: 0,
+    height: 298,
+    zIndex: 1,
+  },
+  bannerImage: {
+    width: '100%',
+    height: '100%',
   },
   cardsContainer: {
     position: "absolute",
-    top: 275, 
+    top: 400, 
     justifyContent: "center",
     alignContent: "center",
     alignItems: "center",
+    borderWidth: 1,
   },
-  userIcon: {
-    justifyContent: "center",
-    alignContent: "center",
-    alignItems: "center",
+  kashContainer: {
+    zIndex: 2,
     position: "absolute",
-    top: 40,
+    top: 55,
   },
 });
