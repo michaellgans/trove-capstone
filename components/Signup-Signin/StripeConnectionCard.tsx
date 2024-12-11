@@ -66,7 +66,7 @@ const StripeConnectionCard: React.FC<StripeConnectionCardProps> = ({ prevStep, p
   };
 
   return (
-    <div className="flex flex-col items-center bg-white p-10 lg:p-14 rounded-lg border border-gray-100 shadow-lg max-w-md lg:max-w-2xl mx-auto mt-10">
+    <div className="flex flex-col items-center bg-white p-10 lg:p-14 sm:rounded-lg border border-gray-100 shadow-lg max-w-md lg:max-w-2xl mx-auto mt-0 sm:mt-10">
       {/* Logo and Title */}
       <LogoTitle />
 
