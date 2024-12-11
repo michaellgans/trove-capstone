@@ -25,7 +25,7 @@ export default function savingsScreen({}: savingsScreenProps) {
       <View style={styles.banner}>
       </View>
       <View style={styles.cardsContainer}>
-        <Text>Savings Coming Soon!</Text>
+        <BalanceCard accountBalance={100.00} accountName="Savings" color="#6D8B4B" />
       </View>
       <View style={styles.userIcon}>
           <UserPhoto />
@@ -45,7 +45,7 @@ const styles = StyleSheet.create({
   banner: {
     height: "80%",
     width: "100%",
-    backgroundColor: "#4E88F4",
+    backgroundColor: "#6D8B4B",
     borderTopLeftRadius: 50,
     borderTopRightRadius: 50,
     position: "absolute",

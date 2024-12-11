@@ -25,7 +25,7 @@ export default function checkingScreen({}: checkingScreenProps) {
       <View style={styles.banner}>
       </View>
       <View style={styles.cardsContainer}>
-        <Text>Checking Coming Soon!</Text>
+        <BalanceCard accountBalance={100.00} accountName="Checking" color="#0255EE"/>
       </View>
       <View style={styles.userIcon}>
           <UserPhoto />

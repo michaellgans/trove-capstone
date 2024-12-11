@@ -24,7 +24,7 @@ export default function loansScreen({}: loansScreenProps) {
       <View style={styles.banner}>
       </View>
       <View style={styles.cardsContainer}>
-        <Text>Loans Coming Soon!</Text>
+        <BalanceCard accountBalance={100.00} accountName="Loans" color="#CA1401" />
       </View>
       <View style={styles.userIcon}>
           <UserPhoto />

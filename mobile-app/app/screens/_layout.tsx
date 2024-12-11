@@ -31,7 +31,6 @@ export default function ScreensLayout() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: "#4E88F4",
   },
   tabsContainer: {
     flexDirection: "row",
@@ -42,8 +41,6 @@ const styles = StyleSheet.create({
     paddingHorizontal: 20,
     justifyContent: "space-around",
     backgroundColor: "#FFFFFF",
-    borderTopLeftRadius: 30,
-    borderTopRightRadius: 30,
     elevation: 20,
   },
   sendIcon: {

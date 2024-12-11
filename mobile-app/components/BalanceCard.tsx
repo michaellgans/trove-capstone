@@ -10,10 +10,11 @@ import { LoansIcon } from "./icons/LoansIcon";
 type BalanceCardProps = {
     accountName: string;
     accountBalance: number;
+    color: string;
 };
 
 // Returns a BalanceCard Component
-export function BalanceCard({accountBalance, accountName}: BalanceCardProps) {
+export function BalanceCard({accountBalance, accountName, color}: BalanceCardProps) {
     // Define Hook
     const handleAccountIcon = () => {
       switch (accountName) {
@@ -38,7 +39,7 @@ export function BalanceCard({accountBalance, accountName}: BalanceCardProps) {
             ${accountBalance}
           </Text>
         </View>
-        <TouchableOpacity style={styles.accountIcon}>
+        <TouchableOpacity style={[styles.accountIcon, { backgroundColor: color }]}>
           {handleAccountIcon()}
         </TouchableOpacity>
       </View>
