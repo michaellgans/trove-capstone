@@ -1,5 +1,5 @@
 'use client';
-import React, { useState } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import LogoTitle from '../LogoTitle';
 import ProgressIndicator from './ProgressIndicator';
 import { ChildDataType } from '@/types/types';
@@ -53,7 +53,7 @@ const ChildAccountSetup: React.FC<ChildAccountSetupProps> = ({
         username: '',
         password: '',
         confirmPassword: '',
-        startingBalance: '10',
+        startingBalance: '',
         currency: 'USD',
       },
     ]);
@@ -153,10 +153,10 @@ const ChildAccountSetup: React.FC<ChildAccountSetupProps> = ({
         isValid = false;
       }
 
-      // Starting Balance validation (should be a number >= 10)
+      // Starting Balance validation
       const startingBalanceNum = parseInt(child.startingBalance);
-      if (isNaN(startingBalanceNum) || startingBalanceNum < 10) {
-        error.startingBalance = 'Minimum starting balance is $10';
+      if (isNaN(startingBalanceNum) || startingBalanceNum < 0) {
+        error.startingBalance = 'Starting balance cannot be negative';
         isValid = false;
       }
 
@@ -175,9 +175,29 @@ const ChildAccountSetup: React.FC<ChildAccountSetupProps> = ({
   const [selectedCurrency, setSelectedCurrency] = useState('USD');
   const [isCurrencyDropdownOpen, setIsCurrencyDropdownOpen] = useState(false);
   const currencies = ['USD', 'EUR', 'GBP'];
+  const currencySymbols: Record<string, string> = {
+    USD: '$',
+    EUR: '€',
+    GBP: '£',
+  };
 
   const router = useRouter();
+  const troveDropdownRef = useRef<HTMLDivElement>(null);
+  useEffect(() => {
+    const handleClickOutside = (event: MouseEvent) => {
+      if (
+        troveDropdownRef.current &&
+        !troveDropdownRef.current.contains(event.target as Node)
+      ) {
+        setIsCurrencyDropdownOpen(false);
+      }
+    };
 
+    document.addEventListener('mousedown', handleClickOutside);
+    return () => {
+      document.removeEventListener('mousedown', handleClickOutside);
+    };
+  }, []);
   return (
     <div className="flex flex-col items-center bg-white p-10 sm:rounded-lg border border-gray-100 shadow-lg max-w-md lg:max-w-2xl mx-auto mt-0 sm:mt-5">
       {/* Progress Indicator */}
@@ -336,7 +356,7 @@ const ChildAccountSetup: React.FC<ChildAccountSetupProps> = ({
                 Starting Balance
               </label>
               <div className="relative flex items-center">
-                <span className="absolute left-3 text-gray-500">$</span>
+                <span className="absolute left-3 text-gray-500">{currencySymbols[selectedCurrency]}</span>
                 <input
                   type="number"
                   id="startingBalance"
@@ -347,9 +367,9 @@ const ChildAccountSetup: React.FC<ChildAccountSetupProps> = ({
                   className={`w-full pl-8 pr-20 py-3 rounded-lg border ${
                     errors[index].startingBalance ? 'border-red-500 focus:ring-red-500' : 'border-gray-300 focus:ring-brightBlue'
                   } focus:outline-none focus:ring-2 focus:ring-opacity-50`}
-                  min="10"
-                  step="1"
-                  placeholder="10"
+                  min="0"
+                  step="0.01"
+                  placeholder="Enter starting balance"
                 />
               {/* Currency Dropdown */}
             <div className="absolute right-1 flex items-center">
@@ -373,7 +393,7 @@ const ChildAccountSetup: React.FC<ChildAccountSetupProps> = ({
                 </svg>
               </button>
               {isCurrencyDropdownOpen && (
-                <div className="absolute top-12 right-0 w-32 bg-white border rounded-lg shadow-lg z-10">
+                <div ref={troveDropdownRef} className="absolute top-12 right-0 w-32 bg-white border rounded-lg shadow-lg z-10">
                   {currencies.map((currency) => (
                     <button
                       key={currency}
