@@ -6,8 +6,7 @@ import { UserPhotoSmall } from "./UserPhotoSmall";
 import { ArrowIcon } from "./icons/ArrowIcon";
 import { CustomButton } from "./Button";
 import { FinancialInput } from "./FinancialInput";
-import { Input } from "./Input";
-
+import RNPickerSelect from 'react-native-picker-select';
 // Script Imports
 
 // Types

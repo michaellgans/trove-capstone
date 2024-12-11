@@ -18,7 +18,7 @@ export default function loansScreen() {
       <View style={styles.banner}>
       </View>
       <View style={styles.cardsContainer}>
-        <BalanceCard accountBalance={20.00} accountName="Loans" color="#CA1401" />
+        <BalanceCard accountBalance={40.00} accountName="Loans" color="#CA1401" />
         <TransactionCard themeColor="#CA1401" buttonLabel="Send Loan" />
       </View>
       <View style={styles.userIcon}>

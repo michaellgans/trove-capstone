@@ -18,7 +18,7 @@ export default function checkingScreen() {
       <View style={styles.banner}>
       </View>
       <View style={styles.cardsContainer}>
-        <BalanceCard accountBalance={100.00} accountName="Checking" color="#0255EE"/>
+        <BalanceCard accountBalance={50.00} accountName="Checking" color="#0255EE"/>
         <TransactionCard themeColor="#0255EE" buttonLabel="Send Money" />
       </View>
       <View style={styles.userIcon}>

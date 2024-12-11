@@ -18,7 +18,7 @@ export default function savingsScreen() {
       <View style={styles.banner}>
       </View>
       <View style={styles.cardsContainer}>
-        <BalanceCard accountBalance={300.00} accountName="Savings" color="#4B701F" />
+        <BalanceCard accountBalance={50.00} accountName="Savings" color="#4B701F" />
         <TransactionCard themeColor="#4B701F" buttonLabel="Transfer Money" />
       </View>
       <View style={styles.userIcon}>

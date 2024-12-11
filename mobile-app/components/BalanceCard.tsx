@@ -36,7 +36,7 @@ export function BalanceCard({accountBalance, accountName, color}: BalanceCardPro
             {accountName}
           </Text>
           <Text style={styles.accountBalance}>
-            ${accountBalance}
+            ${accountBalance.toFixed(2)}
           </Text>
         </View>
         <TouchableOpacity style={[styles.accountIcon, { backgroundColor: color }]}>
