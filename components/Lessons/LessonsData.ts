@@ -57,10 +57,10 @@ const lessonsData: Lesson[] = [
       "Why are loans dangerous? Anytime someone is thinking about borrowing money with a loan, they need to remember that the money is not free. You can think of a loan as borrowing money from yourself in the future. Because when it is time to pay back the money you borrowed, it’s not yours anymore. Finally, if you’re not careful with interest, and it takes you a long time to pay back what you borrowed, you can end up paying back a lot more money than you originally borrowed.",
     ],
     example: [
-      "Let’s say there’s a game you want really badly, and it costs $25. You look in your wallet and you only have $5, darn! You talk to your parents and they agree to give you a loan for $20, so now you have enough to buy the game, that’s great! However, you can’t forget interest, your parents say that they are going to charge you 25% interest. So let’s do some quick math. If your parents give you one month to pay back the loan with interest: $20 * 25% = $5. That means that when it’s time to pay back the loan after one month, you will owe your parents $25. It is a lot of fun to have that game right now, but you always have to ask the question, is it better for me to be patient and wait? The answer isn’t always easy, so it’s always important to talk to an adult to figure out what the best choice is.",
+      "Let’s say there’s a game you want really badly, and it costs $25. You look in your wallet and you only have $5, darn! You talk to your parents and they agree to give you a loan for $20, so now you have enough to buy the game, that’s great! However, you can’t forget interest, your parents say that they are going to charge you 25% interest. So let’s do some quick math. If your parents give you one month to pay back the loan with interest: $20 x 25% = $5. That means that when it’s time to pay back the loan after one month, you will owe your parents $25. It is a lot of fun to have that game right now, but you always have to ask the question, is it better for me to be patient and wait? The answer isn’t always easy, so it’s always important to talk to an adult to figure out what the best choice is.",
     ],
     mathEquations: [
-      "$20 * 25% = $5",
+      "$20 x 25% = $5",
       "$20 + $5 = $25",
     ],
     quiz: [
@@ -151,8 +151,8 @@ const lessonsData: Lesson[] = [
       "Example 1: Saving for a new bike You want to buy a bike that costs $100, but you only get $10 a week for your allowance. If you save all your allowance for 10 weeks (10 weeks x $10 = $100), you'll have enough money to buy the bike!\n\nExample 2: Emergency savings Imagine your pet needs a sudden trip to the vet that costs $20. If you saved $5 each week for 4 weeks (4 weeks x $5 = $20), you’d have the money ready in case your pet needs something unexpected.",
     ],
     mathEquations: [
-      "10 weeks * $10 = $100",
-      "4 weeks * $5 = $20",
+      "10 weeks x $10 = $100",
+      "4 weeks x $5 = $20",
     ],
     quiz: [
       {
@@ -220,8 +220,8 @@ const lessonsData: Lesson[] = [
     example: [
       "Imagine you earn $1,000 in a year. The government might have a flat income tax rate of 10% for people with your income level. Here's how the calculation works:\n\n" +
       "1. Calculate the tax amount:\n" +
-      "   Tax amount = Income * Tax rate\n\n" +
-      "   Your tax amount = $1,000 * 10% = $100\n\n" +
+      "   Tax amount = Income x Tax rate\n\n" +
+      "   Your tax amount = $1,000 x 10% = $100\n\n" +
       "2. Calculate the net income (money you keep):\n" +
       "   Net income = Income - Tax amount\n\n" +
       "   Your net income = $1,000 - $100 = $900\n\n" +
@@ -229,7 +229,7 @@ const lessonsData: Lesson[] = [
       "Remember: This is a very simplified example. In reality, tax systems are more complex, with different tax brackets and deductions. The actual amount of tax you pay will depend on various factors like your income level, filing status, and any deductions or credits you may be eligible for.",
     ],
     mathEquations: [
-      "$1,000 × 10% = $100",
+      "$1,000 x 10% = $100",
       "$1,000 - $100 = $900",
     ],
     quiz: [
