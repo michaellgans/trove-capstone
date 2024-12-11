@@ -11,9 +11,9 @@ const SendMoneyToChildCard: React.FC = () => {
   const router = useRouter();
   const cardRef = useRef<HTMLDivElement>(null);
   const [transactionType, setTransactionType] = useState('Transfer');
-  const [selectedAccount, setSelectedAccount] = useState('Trove Checking Account 5555');
+  const [selectedAccount, setSelectedAccount] = useState('Trove Checking Account 6wl5');
   const [amount, setAmount] = useState('');
-  const [selectedChild, setSelectedChild] = useState('Chris');
+  const [selectedChild, setSelectedChild] = useState('Samantha');
   const [description, setDescription] = useState('');
   const [transactionStatus, setTransactionStatus] = useState<'success' | 'error' | null>(null);
   const [errors, setErrors] = useState<{ [key: string]: string }>({});
@@ -67,16 +67,13 @@ const SendMoneyToChildCard: React.FC = () => {
 
   const familyMembers = [
     { id: 1, name: 'All', avatar: '/images/all.svg' },
-    { id: 2, name: 'Chris', avatar: '/images/avatar.svg' },
-    { id: 3, name: 'Mei', avatar: '/images/avatar.svg' },
-    { id: 4, name: 'Svitlana', avatar: '/images/avatar.svg' },
-    { id: 5, name: 'Lee', avatar: '/images/avatar.svg' },
+    { id: 2, name: 'Samantha', avatar: '/images/avatar.svg' },
+    { id: 3, name: 'Rowan', avatar: '/images/avatar.svg' },
+    { id: 4, name: 'Teddy', avatar: '/images/avatar.svg' }
   ];
 
   const checkingAccounts = [
-    { id: 1, name: 'Trove Checking Account 5555', avatar: '/images/money.svg' },
-    { id: 2, name: 'Trove Checking Account 6666', avatar: '/images/money.svg' },
-    { id: 3, name: 'Trove Checking Account 7777', avatar: '/images/money.svg' },
+    { id: 1, name: 'Trove Checking Account 6wl5', avatar: '/images/money.svg' }
   ];
 
   const checkingAccountOptions = checkingAccounts.map((account) => ({
