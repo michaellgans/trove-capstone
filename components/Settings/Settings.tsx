@@ -360,6 +360,16 @@ const Settings: React.FC = () => {
                 >
                     Save Changes
                 </button>
+                {/* Cancel Button */}
+        <div className="mt-4 text-center">
+          <button
+            type="button"
+            onClick={() => router.push('/home')}
+            className="text-sm text-gray-500 hover:text-gray-600 transition ease-in-out duration-300"
+          >
+            Cancel
+          </button>
+        </div>
             </form>
         </div>
     );
