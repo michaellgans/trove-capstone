@@ -47,7 +47,7 @@ const styles = StyleSheet.create({
   },
   cardsContainer: {
     position: "absolute",
-    top: 275, 
+    top: 255, 
     justifyContent: "center",
     alignContent: "center",
     alignItems: "center",

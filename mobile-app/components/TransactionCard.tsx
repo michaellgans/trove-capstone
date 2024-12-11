@@ -6,6 +6,7 @@ import { UserPhotoSmall } from "./UserPhotoSmall";
 import { ArrowIcon } from "./icons/ArrowIcon";
 import { CustomButton } from "./Button";
 import { Input } from "./Input";
+import { FinancialInput } from "./FinancialInput";
 
 // Script Imports
 
@@ -28,7 +29,7 @@ export function TransactionCard() {
         </View>
         <UserPhotoSmall />
       </View>
-
+      <FinancialInput symbol="$" type="USD" />
       <CustomButton label="Send Money" color="#0255EE" />
     </View>
   );
@@ -45,7 +46,6 @@ const styles = StyleSheet.create({
     borderRadius: 40,
     elevation: 7,
     padding: 20,
-
   },
   icon: {
     paddingHorizontal: 8,
