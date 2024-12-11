@@ -8,7 +8,8 @@ export default function Index() {
   const [fontsLoaded] = useFonts({
     'Inter': require('../assets/fonts/Inter-VariableFont_opsz,wght.ttf'),
     'BaskervilleSC': require('../assets/fonts/BaskervvilleSC-Regular.ttf'),
-    'BaskervilleSmall': require('../assets/fonts/Baskervville-Regular.ttf')
+    'BaskervilleSmall': require('../assets/fonts/Baskervville-Regular.ttf'),
+    'DarkerG': require('../assets/fonts/DarkerGrotesque-VariableFont_wght.ttf'),
   })
 
   return (

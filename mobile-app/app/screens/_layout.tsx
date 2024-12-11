@@ -41,7 +41,6 @@ const styles = StyleSheet.create({
     paddingHorizontal: 20,
     justifyContent: "space-around",
     backgroundColor: "#FFFFFF",
-    elevation: 20,
   },
   sendIcon: {
     height: 75,

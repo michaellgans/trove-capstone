@@ -1,8 +1,6 @@
 // Lessons Screen
-import { View, Text, Image, StyleSheet } from "react-native";
+import { View, Image, StyleSheet } from "react-native";
 import { LinearGradient } from "expo-linear-gradient";
-import { UserPhoto } from "@/components/UserPhoto";
-import { BalanceCard } from "@/components/BalanceCard";
 import { Keywords } from "@/components/Keywords";
 
 export default function LessonsScreen() {
@@ -58,7 +56,11 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     alignContent: "center",
     alignItems: "center",
-    borderWidth: 1,
+    backgroundColor: "#FFFFFF",
+    borderRadius: 30,
+    paddingTop: 10,
+    paddingBottom: 20,
+    elevation: 5,
   },
   kashContainer: {
     zIndex: 2,

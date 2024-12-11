@@ -79,6 +79,7 @@ const styles = StyleSheet.create({
     paddingVertical: 15,
     margin: 10,
     marginVertical: 15,
+    elevation: 7,
   },
   infoContainer: {
     flexDirection: "column",

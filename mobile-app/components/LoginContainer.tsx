@@ -1,7 +1,7 @@
 // LoginContainer Component
 
 // Asset Imports
-import { Text, View, StyleSheet } from "react-native";
+import { Text, View, StyleSheet, TouchableOpacity } from "react-native";
 import { Title } from "./Title";
 import { CustomButton } from "./Button";
 import { Input } from "./Input";
@@ -26,9 +26,16 @@ export function LoginContainer() {
       <SecureInput title="Password" placeholder=""></SecureInput>
       <View>
         <CustomButton label="Login" color="#0255EE" onPress={handleLogin}/>
-        <Text style={styles.hint}>
-          Don't have an account?  Sign up now!
-        </Text>
+        <TouchableOpacity onPress={() => router.push("https://trove-capstone.vercel.app/")}>
+          <View style={styles.hintContainer}>
+            <Text style={styles.hint}>
+              Don't have an account?
+            </Text>
+            <Text style={styles.hintRed}>
+              Sign up now!  
+            </Text> 
+          </View>
+        </TouchableOpacity>
       </View>
     </View>
   );
@@ -44,13 +51,20 @@ const styles = StyleSheet.create({
     borderRadius: 60,
     paddingHorizontal: 10,
     paddingVertical: 20,
-    borderWidth: 1,
-    borderColor: '#6C6F6F',
-    width: '85%'
+    width: '85%',
+    elevation: 5,
+  },
+  hintContainer: {
+    justifyContent: 'center',
+    flexDirection: 'row',
   },
   hint: {
     color: '#6C6F6F',
-    textAlign: 'center'    
+    marginRight: 5,
+  },
+  hintRed: {
+    color: '#4E88F4',
+    fontWeight: 'bold',
   }
 });
 
