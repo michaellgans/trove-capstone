@@ -1,21 +1,14 @@
 // savingsScreen Component
 
 // Asset Imports
-import { View, Text, StyleSheet } from "react-native";
+import { View, StyleSheet } from "react-native";
 import { LinearGradient } from "expo-linear-gradient";
 import { UserPhoto } from "@/components/UserPhoto";
 import { BalanceCard } from "@/components/BalanceCard";
-
-// Script Imports
-
-// Types
-type savingsScreenProps = {
-    prop: type;
-    prop: type;
-};
+import { TransactionCard } from "@/components/SavingsTransaction";
 
 // Returns a savingsScreen Component
-export default function savingsScreen({}: savingsScreenProps) {
+export default function savingsScreen() {
   // Define Hook
   return (
     <LinearGradient
@@ -25,7 +18,8 @@ export default function savingsScreen({}: savingsScreenProps) {
       <View style={styles.banner}>
       </View>
       <View style={styles.cardsContainer}>
-        <BalanceCard accountBalance={100.00} accountName="Savings" color="#6D8B4B" />
+        <BalanceCard accountBalance={300.00} accountName="Savings" color="#4B701F" />
+        <TransactionCard themeColor="#4B701F" buttonLabel="Transfer Money" />
       </View>
       <View style={styles.userIcon}>
           <UserPhoto />
@@ -53,7 +47,7 @@ const styles = StyleSheet.create({
   },
   cardsContainer: {
     position: "absolute",
-    top: 275, 
+    top: 255, 
     justifyContent: "center",
     alignContent: "center",
     alignItems: "center",

@@ -1,11 +1,11 @@
 // checkingScreen Component
 
 // Asset Imports
-import { View, Text, StyleSheet } from "react-native";
+import { View, StyleSheet } from "react-native";
 import { LinearGradient } from "expo-linear-gradient";
 import { UserPhoto } from "@/components/UserPhoto";
 import { BalanceCard } from "@/components/BalanceCard";
-import { TransactionCard } from "@/components/TransactionCard";
+import { TransactionCard } from "@/components/CheckingTransaction";
 
 // Returns a checkingScreen Component
 export default function checkingScreen() {
@@ -19,7 +19,7 @@ export default function checkingScreen() {
       </View>
       <View style={styles.cardsContainer}>
         <BalanceCard accountBalance={100.00} accountName="Checking" color="#0255EE"/>
-        <TransactionCard></TransactionCard>
+        <TransactionCard themeColor="#0255EE" buttonLabel="Send Money" />
       </View>
       <View style={styles.userIcon}>
           <UserPhoto />

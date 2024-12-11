@@ -1,30 +1,25 @@
 // loansScreen Component
 
 // Asset Imports
-import { View, Text, StyleSheet } from "react-native";
+import { View, StyleSheet } from "react-native";
 import { LinearGradient } from "expo-linear-gradient";
 import { UserPhoto } from "@/components/UserPhoto";
 import { BalanceCard } from "@/components/BalanceCard";
-
-// Script Imports
-
-// Types
-type loansScreenProps = {
-    prop: type;
-    prop: type;
-};
+import { TransactionCard } from "@/components/LoansTransaction";
 
 // Returns a loansScreen Component
-export default function loansScreen({}: loansScreenProps) {
+export default function loansScreen() {
+  // Define Hook
   return (
     <LinearGradient
-      colors={["rgba(249, 87, 48, 0.4)", "#FFFFFF", "#FFFFFF", "#FFFFFF", "#FFFFFF"]}
+      colors={["rgba(249, 87, 48, 0.40)", "#FFFFFF", "#FFFFFF", "#FFFFFF", "#FFFFFF"]}
       style={styles.background}
     >
       <View style={styles.banner}>
       </View>
       <View style={styles.cardsContainer}>
-        <BalanceCard accountBalance={100.00} accountName="Loans" color="#CA1401" />
+        <BalanceCard accountBalance={20.00} accountName="Loans" color="#CA1401" />
+        <TransactionCard themeColor="#CA1401" buttonLabel="Send Loan" />
       </View>
       <View style={styles.userIcon}>
           <UserPhoto />
@@ -52,7 +47,7 @@ const styles = StyleSheet.create({
   },
   cardsContainer: {
     position: "absolute",
-    top: 275, 
+    top: 255, 
     justifyContent: "center",
     alignContent: "center",
     alignItems: "center",
@@ -65,3 +60,4 @@ const styles = StyleSheet.create({
     top: 40,
   },
 });
+  
