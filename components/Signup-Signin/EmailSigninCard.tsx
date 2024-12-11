@@ -77,7 +77,7 @@ const EmailSignInCard: React.FC = () => {
   return (
     <div
     ref={cardRef}
-    className="flex relative flex-col items-center bg-white p-10 sm:rounded-lg border border-gray-100 sm:shadow-lg max-w-md mx-auto mt-0 sm:mt-10">
+    className="flex relative my-0 sm:my-5 flex-col items-center bg-white p-10 sm:rounded-lg border border-gray-100 sm:shadow-lg max-w-md mx-auto mt-0 sm:mt-10">
       <LogoTitle />
       {/* Sign In Form */}
       <form onSubmit={handleSubmit} className="w-full" noValidate>
@@ -146,7 +146,7 @@ const EmailSignInCard: React.FC = () => {
               Remember me
             </label>
           </div>
-          <Link href="/forgot-password" passHref>
+          <Link href="/reset-password" passHref>
             <span className="hover:text-brightRed cursor-pointer text-gray-500">Forgot password?</span>
           </Link>
         </div>
