@@ -34,7 +34,6 @@ const ChildProfileCard: React.FC<Props> = ({
   useEffect(() => {
     const fetchChildAccountInfo = async () => {
       if (session?.user.id) {
-        console.log(child_id);
         const childAccount = await getChildAccountByChildId(child_id);
         setChildAccountInfo(childAccount[0]);
       }
