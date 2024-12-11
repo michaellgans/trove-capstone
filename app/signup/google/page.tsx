@@ -46,7 +46,7 @@ const GoogleSignupPage: React.FC = () => {
       username: '',
       password: '',
       confirmPassword: '',
-      startingBalance: '10',
+      startingBalance: '',
       currency: 'USD',
     },
   ]);
