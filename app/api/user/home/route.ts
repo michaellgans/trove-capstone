@@ -63,8 +63,12 @@ export async function GET(req: NextRequest) {
       where: { child_id: childUser.id },
     });
 
+    if (!childAccount) {
+      return NextResponse.json({ error: "User Account Not Found"}, { status: 404 });
+    }
+
     const loanInfo = await prisma.loan.findFirst({
-      where: { borrower_id: childUser.id },
+      where: { borrower_id: childAccount.id },
     });
 
     const parentUser = await prisma.parent_user.findUnique({
