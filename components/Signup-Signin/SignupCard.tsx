@@ -32,7 +32,7 @@ const SignUpCard: React.FC = () => {
   return (
     <div
     ref={cardRef}
-    className="flex flex-col items-center bg-white p-10 rounded-lg border border-1 border-gray-100 shadow-lg max-w-xs md:max-w-md mx-auto mt-10">
+    className="flex flex-col items-center bg-white p-10 rounded-lg border border-1 border-gray-100 shadow-lg max-w-sm md:max-w-md mx-auto mt-10">
       <LogoTitle />
 
       {/* Sign Up Buttons */}

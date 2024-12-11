@@ -32,7 +32,7 @@ const SignInCard: React.FC = () => {
   return (
     <div
     ref={cardRef}
-     className="flex relative flex-col items-center bg-white p-10 rounded-lg border border-1 border-gray-100 shadow-lg max-w-xs md:max-w-md mx-auto mt-10 z-40">
+     className="flex relative flex-col items-center bg-white p-10 rounded-lg border border-1 border-gray-100 shadow-lg max-w-sm md:max-w-md mx-auto mt-10 z-40">
       {/* Logo and Title */}
       <LogoTitle />
 
