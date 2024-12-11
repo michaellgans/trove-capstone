@@ -36,8 +36,7 @@ export function TransactionCard({themeColor, buttonLabel}: TransactionCardProps)
         <UserPhotoSmall themeColor={themeColor} source={require("../assets/images/avatarSmall2.png")} />
       </View>
       <FinancialInput symbol="$" type="USD" />
-      <Input title="Interest" placeholder="%" />
-      <Text>This loan will be due on: 12/20/24</Text>
+      {/* <Text>This loan will be due on: 12/20/24</Text> */}
       <CustomButton label={buttonLabel} color={themeColor} />
     </View>
   );
