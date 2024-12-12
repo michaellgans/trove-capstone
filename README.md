@@ -52,6 +52,8 @@ Trove was created by a group of students at Atlas School in the City of Tulsa as
 - Add Children Account Info
 - View Trove Family Tree and All Transaction History
 - View My Balance and Withholdings Balance Information
+- Trove Learning Center for Parents to Engage with Their Children
+- Quizzes On Lessons to Test Knowledge
 
 ## Roadmap
 
