@@ -69,11 +69,11 @@ Trove was created by a group of students at Atlas School in the City of Tulsa as
 
 ## Contributors
 
-- Michael Gans - [LinkedIn](https://www.linkedin.com/in/michaellgans/) [GitHub]()
-- Svitlana Pavlovska - [LinkedIn](https://www.linkedin.com/in/svitlanapavlovska/) [GitHub]()
-- Lee West - [LinkedIn](https://www.linkedin.com/in/lee-a-west/) [GitHub]()
-- Mei Sibley - [LinkedIn]() [GitHub](https://www.linkedin.com/in/mei-sibley/)
-- Christopher Stephens - [LinkedIn](https://www.linkedin.com/in/c-r-stephens/) [GitHub]()
+- Michael Gans - [LinkedIn](https://www.linkedin.com/in/michaellgans/) [GitHub](https://github.com/michaellgans)
+- Svitlana Pavlovska - [LinkedIn](https://www.linkedin.com/in/svitlanapavlovska/) [GitHub](https://github.com/SvitLanaPavl)
+- Lee West - [LinkedIn](https://www.linkedin.com/in/lee-a-west/) [GitHub](https://github.com/LeeWest89)
+- Mei Sibley - [LinkedIn](https://www.linkedin.com/in/mei-sibley/) [GitHub](https://github.com/meisibley)
+- Christopher Stephens - [LinkedIn](https://www.linkedin.com/in/c-r-stephens/) [GitHub](https://github.com/Jtownokie)
 
 ## License
 
