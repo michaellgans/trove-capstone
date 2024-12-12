@@ -8,8 +8,6 @@ import { CustomButton } from "./Button";
 import { FinancialInput } from "./FinancialInput";
 import { useState } from "react";
 
-// Script Imports
-
 // Types
 type TransactionCardProps = {
   themeColor: string;
