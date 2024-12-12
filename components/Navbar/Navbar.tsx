@@ -249,7 +249,6 @@ const Navbar: FC = () => {
 </svg>
 
           ),
-          // className: 'hover:cursor-default',
           action: () => alert('Balance clicked!'),
         },
         {
@@ -313,7 +312,6 @@ const Navbar: FC = () => {
 </svg>
 
           ),
-          // className: 'cursor-pointer',
           action: () => alert('Transfer Withholdings clicked!'),
         },
         {
@@ -336,7 +334,6 @@ const Navbar: FC = () => {
 </svg>
 
           ),
-          // className: 'cursor-pointer',
           action: () => alert('Transfer Withholdings clicked!'),
         },
       ],
@@ -500,10 +497,10 @@ const Navbar: FC = () => {
           {!isLoggedIn ? (
             <>
               <Link href="/login" passHref>
-                <span className="text-gray-800 hover:text-brightRed transition duration-300 ease-in-out cursor-default">Log in</span>
+                <span className="text-gray-800 hover:text-brightRed transition duration-300 ease-in-out cursor-pointer">Log in</span>
               </Link>
               <Link href="/signup" passHref>
-                <span className="bg-brightRed text-white px-4 py-2 rounded-md hover:brightness-110 cursor-default transition ease-in-out duration-300"> {/* border border-darkRed */}
+                <span className="bg-brightRed text-white px-4 py-2 rounded-md hover:brightness-110 cursor-pointer transition ease-in-out duration-300"> {/* border border-darkRed */}
                   Sign up
                 </span>
               </Link>
@@ -561,14 +558,14 @@ const Navbar: FC = () => {
           {/* About Trove */}
           <div className='border-b font-semibold flex flex-col w-full space-y-4 py-5 ps-5'>
           <Link onClick={() => setIsOpen(false)} href="/" passHref>
-            <span className="text-gray-800 hover:text-brightRed transition duration-300 ease-in-out cursor-default">
+            <span className="text-gray-800 hover:text-brightRed transition duration-300 ease-in-out cursor-pointer">
               About Trove
             </span>
           </Link>
     
           {/* Get the App */}
           <Link onClick={() => setIsOpen(false)} href="/get-the-app" passHref>
-            <span className="text-gray-800 hover:text-brightRed transition duration-300 ease-in-out cursor-default">
+            <span className="text-gray-800 hover:text-brightRed transition duration-300 ease-in-out cursor-pointer">
               Get the App
             </span>
           </Link>
@@ -578,13 +575,13 @@ const Navbar: FC = () => {
           <div className="flex flex-col space-x-5 space-y-5 py-5">
             <Link onClick={() => setIsOpen(false)} href="/login" passHref>
               <span>Already have an account?</span>
-              <span className="hover:brightness-110 font-bold text-brightRed transition duration-300 ease-in-out cursor-default ms-3">
+              <span className="hover:brightness-110 font-bold text-brightRed transition duration-300 ease-in-out cursor-pointer ms-3">
                 Log in
               </span>
             </Link>
             <Link onClick={() => setIsOpen(false)} href="/signup" passHref>
               <span>New user?</span>
-              <span className="bg-brightRed text-white px-4 ms-3 py-2 rounded-md hover:brightness-110 cursor-default transition ease-in-out duration-300">
+              <span className="bg-brightRed text-white px-4 ms-3 py-2 rounded-md hover:brightness-110 cursor-pointer transition ease-in-out duration-300">
                 Sign up
               </span>
             </Link>
