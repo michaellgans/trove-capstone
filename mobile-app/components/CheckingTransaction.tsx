@@ -1,13 +1,12 @@
 // TransactionCard Component
 
 // Asset Imports
-import { View, StyleSheet } from "react-native";
+import { View, StyleSheet, Modal, Text } from "react-native";
 import { UserPhotoSmall } from "./UserPhotoSmall";
 import { ArrowIcon } from "./icons/ArrowIcon";
 import { CustomButton } from "./Button";
 import { FinancialInput } from "./FinancialInput";
-
-// Script Imports
+import { useState } from "react";
 
 // Types
 type TransactionCardProps = {
@@ -18,6 +17,12 @@ type TransactionCardProps = {
 // Returns a TransactionCard Component
 export function TransactionCard({themeColor, buttonLabel}: TransactionCardProps) {
   // Define Hook
+  const [isModalVisible, setIsModalVisible] = useState(false);
+
+  const toggleModal = () => {
+    setIsModalVisible(!isModalVisible);
+  };
+
   return (
     <View
       style={styles.container}
@@ -35,7 +40,44 @@ export function TransactionCard({themeColor, buttonLabel}: TransactionCardProps)
         <UserPhotoSmall themeColor={themeColor} source={require("../assets/images/avatarSmall2.png")} />
       </View>
       <FinancialInput symbol="$" type="USD" />
-      <CustomButton label={buttonLabel} color={themeColor} />
+      <CustomButton label={buttonLabel} color={themeColor} onPress={toggleModal} />
+      <Modal
+        visible={isModalVisible}
+        transparent={true}
+        animationType="fade"
+        onRequestClose={toggleModal}>
+        <View 
+          style={{ 
+            flex: 1, 
+            justifyContent: 'center', 
+            alignItems: 'center', 
+            backgroundColor: 'rgba(0, 0, 0, 0.75)'
+          }}>
+          <View 
+            style={{ 
+              backgroundColor: 'white', 
+              padding: 20, 
+              borderRadius: 30
+            }}>
+            <Text 
+              style={{ 
+                fontSize: 30,
+                fontFamily: 'Inter',
+              }}>
+                Transaction Sent!
+            </Text>
+            <View
+            style={{
+              justifyContent: 'center',
+              alignItems: 'center',
+              padding: 10,
+            }}
+            >
+            </View>
+            <CustomButton label="Close" color="#0255EE" onPress={toggleModal} />
+          </View>
+        </View>
+      </Modal>
     </View>
   );
 }

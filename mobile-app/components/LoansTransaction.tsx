@@ -1,10 +1,11 @@
 import React from "react";
-import { View, Text, StyleSheet } from "react-native";
+import { View, Text, Modal, StyleSheet } from "react-native";
 import { UserPhotoSmall } from "./UserPhotoSmall";
 import { ArrowIcon } from "./icons/ArrowIcon";
 import { CustomButton } from "./Button";
 import { FinancialInput } from "./FinancialInput";
 import RNPickerSelect from "react-native-picker-select";
+import { useState } from "react";
 
 // Types
 type TransactionCardProps = {
@@ -19,6 +20,12 @@ export function TransactionCard({ themeColor, buttonLabel }: TransactionCardProp
 
   const handleValueChange = (value: string | null) => {
     setSelectedValue(value);
+  };
+
+  const [isModalVisible, setIsModalVisible] = useState(false);
+
+  const toggleModal = () => {
+    setIsModalVisible(!isModalVisible);
   };
 
   return (
@@ -57,7 +64,44 @@ export function TransactionCard({ themeColor, buttonLabel }: TransactionCardProp
         }}
       />
 
-      <CustomButton label={buttonLabel} color={themeColor} />
+      <CustomButton label={buttonLabel} color={themeColor} onPress={toggleModal} />
+      <Modal
+        visible={isModalVisible}
+        transparent={true}
+        animationType="fade"
+        onRequestClose={toggleModal}>
+        <View 
+          style={{ 
+            flex: 1, 
+            justifyContent: 'center', 
+            alignItems: 'center', 
+            backgroundColor: 'rgba(0, 0, 0, 0.75)'
+          }}>
+          <View 
+            style={{ 
+              backgroundColor: 'white', 
+              padding: 20, 
+              borderRadius: 30
+            }}>
+            <Text 
+              style={{ 
+                fontSize: 30,
+                fontFamily: 'Inter',
+              }}>
+                Transaction Sent!
+            </Text>
+            <View
+            style={{
+              justifyContent: 'center',
+              alignItems: 'center',
+              padding: 10,
+            }}
+            >
+            </View>
+            <CustomButton label="Close" color={themeColor} onPress={toggleModal} />
+          </View>
+        </View>
+      </Modal>
     </View>
   );
 }

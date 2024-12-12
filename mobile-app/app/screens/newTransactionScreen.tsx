@@ -1,5 +1,5 @@
 // New Transaction Screen
-import { View, Text, StyleSheet } from "react-native";
+import { View, StyleSheet } from "react-native";
 import { LinearGradient } from "expo-linear-gradient";
 import { UserPhoto } from "@/components/UserPhoto";
 import { TransactionCard } from "@/components/CheckingTransaction";
