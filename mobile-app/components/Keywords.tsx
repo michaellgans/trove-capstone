@@ -59,8 +59,9 @@ export function Keywords() {
         <ScrollView
           style={styles.scrollView}
         >
-          {keywords.map((item, key) => (
+          {keywords.map((item, index) => (
             <View
+              key={index}
               style={styles.keywordItem}
             >
               <Text

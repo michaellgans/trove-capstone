@@ -2,7 +2,7 @@
 import { View, Text, StyleSheet } from "react-native";
 import { LinearGradient } from "expo-linear-gradient";
 import { UserPhoto } from "@/components/UserPhoto";
-import { BalanceCard } from "@/components/BalanceCard";
+import { TransactionCard } from "@/components/CheckingTransaction";
 
 export default function NewTransactionScreen() {
   return (
@@ -13,7 +13,7 @@ export default function NewTransactionScreen() {
       <View style={styles.banner}>
       </View>
       <View style={styles.cardsContainer}>
-        <Text>New Transactions Coming Soon!</Text>
+        <TransactionCard themeColor="#0255EE" buttonLabel="Send Money" />
       </View>
       <View style={styles.userIcon}>
           <UserPhoto />
