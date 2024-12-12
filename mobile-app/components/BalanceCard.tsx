@@ -10,10 +10,11 @@ import { LoansIcon } from "./icons/LoansIcon";
 type BalanceCardProps = {
     accountName: string;
     accountBalance: number;
+    color: string;
 };
 
 // Returns a BalanceCard Component
-export function BalanceCard({accountBalance, accountName}: BalanceCardProps) {
+export function BalanceCard({accountBalance, accountName, color}: BalanceCardProps) {
     // Define Hook
     const handleAccountIcon = () => {
       switch (accountName) {
@@ -35,10 +36,10 @@ export function BalanceCard({accountBalance, accountName}: BalanceCardProps) {
             {accountName}
           </Text>
           <Text style={styles.accountBalance}>
-            ${accountBalance}
+            ${accountBalance.toFixed(2)}
           </Text>
         </View>
-        <TouchableOpacity style={styles.accountIcon}>
+        <TouchableOpacity style={[styles.accountIcon, { backgroundColor: color }]}>
           {handleAccountIcon()}
         </TouchableOpacity>
       </View>
@@ -78,6 +79,7 @@ const styles = StyleSheet.create({
     paddingVertical: 15,
     margin: 10,
     marginVertical: 15,
+    elevation: 7,
   },
   infoContainer: {
     flexDirection: "column",

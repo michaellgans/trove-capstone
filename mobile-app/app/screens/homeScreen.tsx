@@ -1,6 +1,5 @@
 // Home Screen
-import { View, Image, Text, StyleSheet, Button } from "react-native";
-import { useRouter } from "expo-router";
+import { View, StyleSheet } from "react-native";
 import { LinearGradient } from "expo-linear-gradient";
 import { UserPhoto } from "@/components/UserPhoto";
 import { BalanceCard } from "@/components/BalanceCard";
@@ -14,9 +13,9 @@ export default function HomeScreen() {
       <View style={styles.banner}>
       </View>
       <View style={styles.cardsContainer}>
-        <BalanceCard accountBalance={100.00} accountName="Checking" />
-        <BalanceCard accountBalance={100.00} accountName="Savings" />
-        <BalanceCard accountBalance={100.00} accountName="Loans" />
+        <BalanceCard accountBalance={50.00} accountName="Checking" color="#0255EE"/>
+        <BalanceCard accountBalance={50.00} accountName="Savings" color="#0255EE" />
+        <BalanceCard accountBalance={40.00} accountName="Loans" color="#0255EE"/>
       </View>
       <View style={styles.userIcon}>
           <UserPhoto />
@@ -44,7 +43,7 @@ const styles = StyleSheet.create({
   },
   cardsContainer: {
     position: "absolute",
-    top: 265, 
+    top: 275, 
     justifyContent: "center",
     alignContent: "center",
     alignItems: "center",

@@ -1,9 +1,15 @@
-// Settings Screen
-import { View, Text, StyleSheet } from "react-native";
+// checkingScreen Component
+
+// Asset Imports
+import { View, StyleSheet } from "react-native";
 import { LinearGradient } from "expo-linear-gradient";
 import { UserPhoto } from "@/components/UserPhoto";
+import { BalanceCard } from "@/components/BalanceCard";
+import { TransactionCard } from "@/components/CheckingTransaction";
 
-export default function SettingsScreen() {
+// Returns a checkingScreen Component
+export default function checkingScreen() {
+  // Define Hook
   return (
     <LinearGradient
       colors={["rgba(2, 85, 238, 0.30)", "#FFFFFF", "#FFFFFF", "#FFFFFF", "#FFFFFF"]}
@@ -12,7 +18,8 @@ export default function SettingsScreen() {
       <View style={styles.banner}>
       </View>
       <View style={styles.cardsContainer}>
-        <Text style={styles.text}>Settings Coming Soon!</Text>
+        <BalanceCard accountBalance={50.00} accountName="Checking" color="#0255EE"/>
+        <TransactionCard themeColor="#0255EE" buttonLabel="Send Money" />
       </View>
       <View style={styles.userIcon}>
           <UserPhoto />
@@ -40,16 +47,10 @@ const styles = StyleSheet.create({
   },
   cardsContainer: {
     position: "absolute",
-    top: 275, 
+    top: 255, 
     justifyContent: "center",
     alignContent: "center",
     alignItems: "center",
-  },
-  text: {
-    fontSize: 40,
-    color: "#FFFFFF",
-    fontFamily: "Inter",
-    textAlign: "center",
   },
   userIcon: {
     justifyContent: "center",
@@ -59,3 +60,4 @@ const styles = StyleSheet.create({
     top: 40,
   },
 });
+

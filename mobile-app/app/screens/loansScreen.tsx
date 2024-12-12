@@ -1,18 +1,25 @@
-// Settings Screen
-import { View, Text, StyleSheet } from "react-native";
+// loansScreen Component
+
+// Asset Imports
+import { View, StyleSheet } from "react-native";
 import { LinearGradient } from "expo-linear-gradient";
 import { UserPhoto } from "@/components/UserPhoto";
+import { BalanceCard } from "@/components/BalanceCard";
+import { TransactionCard } from "@/components/LoansTransaction";
 
-export default function SettingsScreen() {
+// Returns a loansScreen Component
+export default function loansScreen() {
+  // Define Hook
   return (
     <LinearGradient
-      colors={["rgba(2, 85, 238, 0.30)", "#FFFFFF", "#FFFFFF", "#FFFFFF", "#FFFFFF"]}
+      colors={["rgba(249, 87, 48, 0.40)", "#FFFFFF", "#FFFFFF", "#FFFFFF", "#FFFFFF"]}
       style={styles.background}
     >
       <View style={styles.banner}>
       </View>
       <View style={styles.cardsContainer}>
-        <Text style={styles.text}>Settings Coming Soon!</Text>
+        <BalanceCard accountBalance={40.00} accountName="Loans" color="#CA1401" />
+        <TransactionCard themeColor="#CA1401" buttonLabel="Send Loan" />
       </View>
       <View style={styles.userIcon}>
           <UserPhoto />
@@ -32,7 +39,7 @@ const styles = StyleSheet.create({
   banner: {
     height: "80%",
     width: "100%",
-    backgroundColor: "#4E88F4",
+    backgroundColor: "#F76745",
     borderTopLeftRadius: 50,
     borderTopRightRadius: 50,
     position: "absolute",
@@ -40,16 +47,10 @@ const styles = StyleSheet.create({
   },
   cardsContainer: {
     position: "absolute",
-    top: 275, 
+    top: 235, 
     justifyContent: "center",
     alignContent: "center",
     alignItems: "center",
-  },
-  text: {
-    fontSize: 40,
-    color: "#FFFFFF",
-    fontFamily: "Inter",
-    textAlign: "center",
   },
   userIcon: {
     justifyContent: "center",
@@ -59,3 +60,4 @@ const styles = StyleSheet.create({
     top: 40,
   },
 });
+  

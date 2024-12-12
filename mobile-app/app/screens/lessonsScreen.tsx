@@ -1,24 +1,70 @@
 // Lessons Screen
-import { View, Text, StyleSheet } from "react-native";
+import { View, Image, StyleSheet } from "react-native";
+import { LinearGradient } from "expo-linear-gradient";
+import { Keywords } from "@/components/Keywords";
 
 export default function LessonsScreen() {
   return (
-    <View style={styles.container}>
-      <Text style={styles.text}>Welcome to the Lessons Screen!</Text>
-    </View>
+    <LinearGradient
+      colors={["#FFFFFF", "#FFFFFF", "#FFFFFF", "#FFFFFF", "rgba(249, 200, 47, 0.30)" ]}
+      style={styles.background}
+    >
+      {/* Banner */}
+      <View
+        style={styles.banner}>
+        <Image
+            source={require('@/assets/images/lessonsBanner.png')}
+            style={styles.bannerImage}
+        />
+      </View>
+      <View
+        style={styles.kashContainer}>
+        <Image 
+          source={require('@/assets/images/kashFlyingLessons.png')}
+        />
+      </View>
+      <View style={styles.cardsContainer}>
+        <Keywords />
+      </View>
+    </LinearGradient>
   );
 }
-
+  
 const styles = StyleSheet.create({
-  container: {
+  background: {
     flex: 1,
+    flexDirection: "column-reverse",
     justifyContent: "center",
+    alignContent: "center",
+    alignItems: "center",
+  },
+  banner: {
+    position: 'absolute',
+    top: 0,
+    left: 0,
+    right: 0,
+    height: 298,
+    zIndex: 1,
+  },
+  bannerImage: {
+    width: '100%',
+    height: '100%',
+  },
+  cardsContainer: {
+    position: "absolute",
+    top: 400, 
+    justifyContent: "center",
+    alignContent: "center",
     alignItems: "center",
     backgroundColor: "#FFFFFF",
+    borderRadius: 30,
+    paddingTop: 10,
+    paddingBottom: 20,
+    elevation: 5,
   },
-  text: {
-    fontSize: 24,
-    fontWeight: "bold",
+  kashContainer: {
+    zIndex: 2,
+    position: "absolute",
+    top: 55,
   },
 });
-
