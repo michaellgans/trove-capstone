@@ -13,7 +13,7 @@ export default function NotificationsScreen() {
       <View style={styles.banner}>
       </View>
       <View style={styles.cardsContainer}>
-        <Text>Notifications Coming Soon!</Text>
+        <Text style={styles.text}>Notifications Coming Soon!</Text>
       </View>
       <View style={styles.userIcon}>
           <UserPhoto />
@@ -45,6 +45,12 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     alignContent: "center",
     alignItems: "center",
+  },
+  text: {
+    fontSize: 40,
+    color: "#FFFFFF",
+    fontFamily: "Inter",
+    textAlign: "center",
   },
   userIcon: {
     justifyContent: "center",

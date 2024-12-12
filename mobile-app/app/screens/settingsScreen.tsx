@@ -2,7 +2,6 @@
 import { View, Text, StyleSheet } from "react-native";
 import { LinearGradient } from "expo-linear-gradient";
 import { UserPhoto } from "@/components/UserPhoto";
-import { BalanceCard } from "@/components/BalanceCard";
 
 export default function SettingsScreen() {
   return (
@@ -13,7 +12,7 @@ export default function SettingsScreen() {
       <View style={styles.banner}>
       </View>
       <View style={styles.cardsContainer}>
-        <Text>Settings Coming Soon!</Text>
+        <Text style={styles.text}>Settings Coming Soon!</Text>
       </View>
       <View style={styles.userIcon}>
           <UserPhoto />
@@ -45,6 +44,12 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     alignContent: "center",
     alignItems: "center",
+  },
+  text: {
+    fontSize: 40,
+    color: "#FFFFFF",
+    fontFamily: "Inter",
+    textAlign: "center",
   },
   userIcon: {
     justifyContent: "center",
